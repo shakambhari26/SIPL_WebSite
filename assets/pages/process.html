@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="stylesheet" href="../css/process-hero.css">
   <link rel="stylesheet" href="../css/process-inline.css">
+<link rel="preload" as="image" href="../image/hero/our-process.avif" fetchpriority="high">
 </head>
 <body>
 <script src="/assets/js/loading-bar.js"></script>
@@ -174,8 +175,8 @@
   <div class="op-hero-bg" aria-hidden="true">
     <div class="op-hero-visual">
       <picture>
-        <source type="image/webp" srcset="../image/hero/our-process.webp">
-        <img height="1536" width="2752" class="op-hero-visual-img" src="../image/hero/our-process.jpg" alt="" loading="eager" decoding="async">
+        <source type="image/avif" srcset="../image/hero/our-process.avif"><source type="image/webp" srcset="../image/hero/our-process.webp">
+        <img fetchpriority="high" height="1536" width="2752" class="op-hero-visual-img" src="../image/hero/our-process.jpg" alt="" loading="eager" decoding="async">
       </picture>
     </div>
     <div class="op-hero-scrim"></div>
@@ -618,7 +619,7 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
         <video class="stage-video" muted loop playsinline preload="none"
-          poster="../image/optimized-images/images/process/s1-mining-excavators-poster.jpg"
+          poster="../image/optimized-images/images/process/s1-mining-excavators-poster.webp"
           data-src="../video/process/s1-mining-excavators.mp4" aria-label="Excavators and dump trucks mining coal at Shakambhari's own mines"></video>
         <div class="visual-caption">OWN COAL MINES</div>
       </div>
@@ -642,7 +643,7 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel">
         <video class="stage-video" muted loop playsinline preload="none"
-          poster="../image/optimized-images/images/process/s2-pellet-pouring-poster.jpg"
+          poster="../image/optimized-images/images/process/s2-pellet-pouring-poster.webp"
           data-src="../video/process/s2-pellet-pouring.mp4" aria-label="Iron ore pellets pouring at the pelletization plant"></video>
         <div class="visual-caption">PELLET PLANT</div>
       </div>
@@ -667,10 +668,10 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel video-sequence">
         <video class="seq-video active" muted playsinline preload="none" data-caption="ROTARY KILN"
-          poster="../image/optimized-images/images/process/s3-rotary-kiln-poster.jpg"
+          poster="../image/optimized-images/images/process/s3-rotary-kiln-poster.webp"
           data-src="../video/process/s3-rotary-kiln.mp4" aria-label="Industrial rotary kiln rotating during direct reduction"></video>
         <video class="seq-video" muted playsinline preload="none" data-caption="KILN INTERIOR"
-          poster="../image/optimized-images/images/process/s3b-rotary-kiln-interior-poster.jpg"
+          poster="../image/optimized-images/images/process/s3b-rotary-kiln-interior-poster.webp"
           data-src="../video/process/s3b-rotary-kiln-interior.mp4" aria-label="Interior view of the rotary kiln glowing during reduction"></video>
         <div class="visual-caption">ROTARY KILN</div>
       </div>
@@ -701,10 +702,10 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel video-sequence">
         <video class="seq-video active" muted playsinline preload="none" data-caption="INDUCTION FURNACE"
-          poster="../image/optimized-images/images/process/s4-induction-furnace-poster.jpg"
+          poster="../image/optimized-images/images/process/s4-induction-furnace-poster.webp"
           data-src="../video/process/s4-induction-furnace.mp4" aria-label="Steel making inside the induction furnace"></video>
         <video class="seq-video" muted playsinline preload="none" data-caption="SCRAP &amp; PIG IRON YARD"
-          poster="../image/optimized-images/images/process/s4b-raw-materials-yard-poster.jpg"
+          poster="../image/optimized-images/images/process/s4b-raw-materials-yard-poster.webp"
           data-src="../video/process/s4b-raw-materials-yard.mp4" aria-label="Scrap, pig iron and sponge iron staged in the raw materials yard"></video>
         <div class="visual-caption">INDUCTION FURNACE</div>
       </div>
@@ -728,10 +729,10 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel video-sequence">
         <video class="seq-video active" muted playsinline preload="none" data-caption="CASTING MACHINE"
-          poster="../image/optimized-images/images/process/s5-continuous-casting-pour-poster.jpg"
+          poster="../image/optimized-images/images/process/s5-continuous-casting-pour-poster.webp"
           data-src="../video/process/s5-continuous-casting-pour.mp4" aria-label="Molten steel being poured during continuous casting"></video>
         <video class="seq-video" muted playsinline preload="none" data-caption="BILLET EMERGING"
-          poster="../image/optimized-images/images/process/s5b-billet-emerging-caster-poster.jpg"
+          poster="../image/optimized-images/images/process/s5b-billet-emerging-caster-poster.webp"
           data-src="../video/process/s5b-billet-emerging-caster.mp4" aria-label="A glowing billet emerging from the continuous caster onto the runout rollers"></video>
         <div class="visual-caption">CASTING MACHINE</div>
       </div>
@@ -755,10 +756,10 @@
     <div class="stage-visual reveal-right">
       <div class="visual-panel video-sequence">
         <video class="seq-video active" muted playsinline preload="none" data-caption="BILLET UNDER PRESSURE"
-          poster="../image/optimized-images/images/process/s6b-billet-rolling-poster.jpg"
+          poster="../image/optimized-images/images/process/s6b-billet-rolling-poster.webp"
           data-src="../video/process/s6b-billet-rolling.mp4" aria-label="A red-hot billet driven through the rolling mill under pressure"></video>
         <video class="seq-video" muted playsinline preload="none" data-caption="STRUCTURAL STEEL, WELDING"
-          poster="../image/optimized-images/images/process/s6c-structural-steel-welding-poster.jpg"
+          poster="../image/optimized-images/images/process/s6c-structural-steel-welding-poster.webp"
           data-src="../video/process/s6c-structural-steel-welding.mp4" aria-label="Workers welding structural steel framing on a high-rise construction site"></video>
         <div class="visual-caption">BILLET UNDER PRESSURE</div>
       </div>
@@ -786,7 +787,7 @@
       <div class="prod-badge">Core Product</div>
     </div>
     <div class="prod-card reveal">
-      <img height="768" width="1376" src="../image/optimized-images/images/process/product-narrow-strips-slitting.jpg" alt="Rotary slitting line cutting a wide steel coil into narrow strips" class="prod-card-photo" loading="lazy" decoding="async">
+      <picture><source type="image/avif" srcset="../image/optimized-images/images/process/product-narrow-strips-slitting.avif"><source type="image/webp" srcset="../image/optimized-images/images/process/product-narrow-strips-slitting.webp"><img height="768" width="1376" src="../image/optimized-images/images/process/product-narrow-strips-slitting.jpg" alt="Rotary slitting line cutting a wide steel coil into narrow strips" class="prod-card-photo" loading="lazy" decoding="async"></picture>
       <h4>Narrow Strips (Hot Rolled)</h4>
       <p>Flat hot-rolled strips feeding pipe manufacturing directly or sold to external pipe mills, the raw material other builders build with.</p>
       <div class="prod-badge">Semi-Finished</div>

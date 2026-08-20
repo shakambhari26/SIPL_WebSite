@@ -167,7 +167,11 @@
     document.addEventListener('click', (e) => {
       if (active && !active.contains(e.target) && !tooltip.contains(e.target)) hide();
     });
-    window.addEventListener('resize', () => { if (active) position(active); });
+    let resizeRaf = null;
+    window.addEventListener('resize', () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => { if (active) position(active); });
+    });
   })();
 
   // ════════════════════ CAREER GROWTH JOURNEY — CLICK-TO-SELECT PANEL + SCROLL PROGRESS ════════════════════

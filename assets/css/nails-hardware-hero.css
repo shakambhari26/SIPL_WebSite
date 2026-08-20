@@ -238,6 +238,10 @@
 .nh-trust-text {
   font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .05em;
   text-transform: uppercase; line-height: 1.3; color: var(--nh-silver);
+  /* prevent .nh-hero's mobile text-align:center from centering this line
+     and the bolder strong line separately, which drifts them out of
+     alignment with each other since they differ in natural width */
+  text-align: left;
 }
 .nh-trust-text strong { display: block; color: var(--nh-white); font-size: .72rem; }
 
@@ -328,4 +332,13 @@
   .nh-particles { display: none; }
   .nh-bg, .nh-visual-frame, .nh-content { transition: none !important; }
   .nh-feature:hover, .nh-feature:hover .nh-feature-icon { transform: none !important; }
+}
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .nh-sweep { animation: none !important; mix-blend-mode: normal; }
 }

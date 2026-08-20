@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="stylesheet" href="../css/awards-hero.css">
   <link rel="stylesheet" href="../css/awards-inline.css">
+<link rel="preload" as="image" href="../image/hero/awards.avif" fetchpriority="high">
 </head>
 <body>
 <script src="/assets/js/loading-bar.js"></script>
@@ -125,8 +126,8 @@
   <div class="awh-bg" aria-hidden="true">
     <div class="awh-visual">
       <picture>
-        <source type="image/webp" srcset="../image/hero/awards.webp">
-        <img height="1228" width="2200" class="awh-visual-img" src="../image/hero/awards.jpg" alt="" loading="eager" decoding="async">
+        <source type="image/avif" srcset="../image/hero/awards.avif"><source type="image/webp" srcset="../image/hero/awards.webp">
+        <img fetchpriority="high" height="1228" width="2200" class="awh-visual-img" src="../image/hero/awards.jpg" alt="" loading="eager" decoding="async">
       </picture>
       <div class="awh-sweep"></div>
     </div>

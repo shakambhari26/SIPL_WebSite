@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../css/vision-hero.css">
 <link rel="stylesheet" href="../css/vision-content.css">
   <link rel="stylesheet" href="../css/vision-inline.css">
+<link rel="preload" as="image" href="../image/hero/mission-vision-values.avif" fetchpriority="high">
 </head>
 <body>
 <script src="/assets/js/loading-bar.js"></script>
@@ -125,8 +126,8 @@
   <div class="mvv-hero-bg" aria-hidden="true">
     <div class="mvv-hero-visual">
       <picture>
-        <source type="image/webp" srcset="../image/hero/mission-vision-values.webp">
-        <img height="1467" width="2200" class="mvv-hero-visual-img" src="../image/hero/mission-vision-values.jpg" alt="" loading="eager" decoding="async">
+        <source type="image/avif" srcset="../image/hero/mission-vision-values.avif"><source type="image/webp" srcset="../image/hero/mission-vision-values.webp">
+        <img fetchpriority="high" height="1467" width="2200" class="mvv-hero-visual-img" src="../image/hero/mission-vision-values.jpg" alt="" loading="eager" decoding="async">
       </picture>
     </div>
     <div class="mvv-hero-scrim"></div>
@@ -239,7 +240,7 @@
       <div class="mvv-split-visual mvv-dot-tr">
         <div class="mvv-dot-grid" aria-hidden="true"></div>
         <div class="mvv-image-frame">
-          <img height="1632" width="2608" class="mvv-image-frame-scale mvv-mission-photo" src="../image/images/our_mission.jpg" alt="Our Mission at Shakambhari Group" loading="lazy" decoding="async">
+          <picture><source type="image/avif" srcset="../image/images/our_mission.avif"><source type="image/webp" srcset="../image/images/our_mission.webp"><img height="1632" width="2608" class="mvv-image-frame-scale mvv-mission-photo" src="../image/images/our_mission.jpg" alt="Our Mission at Shakambhari Group" loading="lazy" decoding="async"></picture>
           <div class="mvv-photo-glow"></div>
         </div>
         <div class="mvv-corner-block" aria-hidden="true"></div>
@@ -266,7 +267,7 @@
       <div class="mvv-split-visual mvv-dot-tl reveal-left">
         <div class="mvv-dot-grid" aria-hidden="true"></div>
         <div class="mvv-image-frame">
-          <img height="1568" width="2718" class="mvv-image-frame-scale mvv-vision-photo" src="../image/images/our_vision.jpg" alt="Our Vision at Shakambhari Group" loading="lazy" decoding="async">
+          <picture><source type="image/avif" srcset="../image/images/our_vision.avif"><source type="image/webp" srcset="../image/images/our_vision.webp"><img height="1568" width="2718" class="mvv-image-frame-scale mvv-vision-photo" src="../image/images/our_vision.jpg" alt="Our Vision at Shakambhari Group" loading="lazy" decoding="async"></picture>
           <div class="mvv-vision-photo-scrim" aria-hidden="true"></div>
           <div class="mvv-photo-glow"></div>
         </div>

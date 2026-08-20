@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../css/styles.css">
 <link rel="stylesheet" href="../css/journey-hero.css">
   <link rel="stylesheet" href="../css/journey-inline.css">
+<link rel="preload" as="image" href="../image/hero/our-journey.avif" fetchpriority="high">
 </head>
 <body>
 <script src="/assets/js/loading-bar.js"></script>
@@ -122,8 +123,8 @@
   <div class="oj-hero-bg" aria-hidden="true">
     <div class="oj-hero-visual">
       <picture>
-        <source type="image/webp" srcset="../image/hero/our-journey.webp">
-        <img height="1340" width="2400" class="oj-hero-visual-img" src="../image/hero/our-journey.jpg" alt="" loading="eager" decoding="async">
+        <source type="image/avif" srcset="../image/hero/our-journey.avif"><source type="image/webp" srcset="../image/hero/our-journey.webp">
+        <img fetchpriority="high" height="1340" width="2400" class="oj-hero-visual-img" src="../image/hero/our-journey.jpg" alt="" loading="eager" decoding="async">
       </picture>
     </div>
     <div class="oj-hero-scrim"></div>
@@ -289,7 +290,7 @@
       <div class="jt-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-9-9 8.59-8.59A2 2 0 0 1 13 4h6a2 2 0 0 1 2 2v6a2 2 0 0 1-.41 1.41Z"/><circle cx="16.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg></div>
       <div class="jt-card panel reveal-left">
         <div class="jt-media journey-il-7">
-          <img class="journey-il-8" height="447" width="447" src="../image/images/Elegant_Steel_Logo.jpeg" alt="Elegant Steel logo" loading="lazy" decoding="async">
+          <picture><source type="image/avif" srcset="../image/images/Elegant_Steel_Logo.avif"><source type="image/webp" srcset="../image/images/Elegant_Steel_Logo.webp"><img class="journey-il-8" height="447" width="447" src="../image/images/Elegant_Steel_Logo.jpeg" alt="Elegant Steel logo" loading="lazy" decoding="async"></picture>
         </div>
         <div class="jt-year">2019</div>
         <h4>Elegant Joins the Group</h4>

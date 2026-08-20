@@ -255,7 +255,11 @@ html[data-theme="dark"] .cld-tooltip-list { color: rgba(238, 234, 225, .75); }
 
 @media (max-width: 760px) {
   .cld-roadmap { flex-direction: column; align-items: flex-start; }
-  .cld-milestone { max-width: 100%; flex-direction: row; text-align: left; gap: 1rem; }
+  /* flex-basis:150px (set above for the row layout's width) would otherwise
+     be reinterpreted as a min-height once .cld-roadmap stacks to column,
+     forcing every milestone to a 150px-tall box and opening a large gap
+     below its actual (much shorter) content. */
+  .cld-milestone { flex: 1 1 auto; max-width: 100%; flex-direction: row; text-align: left; gap: 1rem; }
   .cld-node { flex-shrink: 0; }
 }
 

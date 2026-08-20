@@ -516,3 +516,12 @@
 @media (prefers-reduced-motion: reduce) {
   .ch-card, .ch-card-icon, .ch-card-arrow { transition: none !important; }
 }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .ch-grid { animation: none !important; }
+}

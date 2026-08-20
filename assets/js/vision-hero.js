@@ -78,7 +78,11 @@
     // high-poll-rate mouse that fired hundreds of times a second.
     let heroRect = hero.getBoundingClientRect();
     const updateHeroRect = () => { heroRect = hero.getBoundingClientRect(); };
-    window.addEventListener('resize', updateHeroRect);
+    let resizeRaf = null;
+    window.addEventListener('resize', () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(updateHeroRect);
+    });
     hero.addEventListener('pointerenter', updateHeroRect);
 
     let raf = null;

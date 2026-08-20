@@ -74,21 +74,37 @@
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--ah-orange-hot);
-  box-shadow: 0 0 0 0 rgba(255, 138, 46, .6);
   display: none;
 }
+/* expanding ring is a separate pseudo-element (transform/opacity only)
+   instead of an animated box-shadow spread, so the ping effect is
+   compositor-friendly; animation-delay:inherit keeps it in lockstep with
+   the dot's own per-instance stagger below */
+.ah-map-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 138, 46, .55);
+  animation-delay: inherit;
+}
 @media (min-width: 960px) {
-  .ah-map-pulse { display: block; animation: ahMapPulse 3.6s ease-out infinite; }
+  .ah-map-pulse { display: block; animation: ahMapPulseDot 3.6s ease-out infinite; }
+  .ah-map-pulse::after { animation: ahMapPulseRing 3.6s ease-out infinite; }
   .ah-map-pulse.mp1 { top: 15%; left: 25.5%; animation-delay: 0s; }
   .ah-map-pulse.mp2 { top: 15.5%; left: 33%; animation-delay: .8s; }
   .ah-map-pulse.mp3 { top: 13%; left: 46.5%; animation-delay: 1.6s; }
   .ah-map-pulse.mp4 { top: 22%; left: 41%; animation-delay: 2.4s; }
   .ah-map-pulse.mp5 { top: 24.5%; left: 57%; animation-delay: 3.2s; }
 }
-@keyframes ahMapPulse {
-  0% { opacity: .25; transform: scale(.85); box-shadow: 0 0 0 0 rgba(255, 138, 46, .55); }
-  50% { opacity: .8; transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 138, 46, 0); }
-  100% { opacity: .25; transform: scale(.85); box-shadow: 0 0 0 0 rgba(255, 138, 46, 0); }
+@keyframes ahMapPulseDot {
+  0% { opacity: .25; transform: scale(.85); }
+  50% { opacity: .8; transform: scale(1.1); }
+  100% { opacity: .25; transform: scale(.85); }
+}
+@keyframes ahMapPulseRing {
+  0% { opacity: .55; transform: scale(.3); }
+  100% { opacity: 0; transform: scale(1); }
 }
 
 /* ══ LAYOUT — left 44% / right 56% ══ */
@@ -384,4 +400,13 @@ html[data-theme="dark"] .ah-particle { box-shadow: 0 0 9px 2px var(--hue, rgba(2
 @keyframes ahDriftDark {
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-3%, 2%, 0); }
+}
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .ah-sweep { animation: none !important; mix-blend-mode: normal; }
 }

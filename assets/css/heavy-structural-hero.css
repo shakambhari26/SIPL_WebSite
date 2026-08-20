@@ -359,3 +359,12 @@
   .hst-sweep, .hst-particle, .hst-glow-a { animation: none !important; }
   .hst-bg, .hst-visual-frame, .hst-curve { transition: none !important; }
 }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .hst-sweep { animation: none !important; mix-blend-mode: normal; }
+}

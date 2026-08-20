@@ -1048,6 +1048,15 @@
         padding: 2.75rem 1.75rem;
       }
 
+      /* flex-basis (360px/380px) targets width in the desktop row layout;
+         reset it here so it doesn't get reinterpreted as a min-height once
+         flex-direction flips to column, which was stretching each block to
+         a fixed height and blowing a gap open between copy and form. */
+      .newsletter-copy,
+      .newsletter-form {
+        flex: 1 1 auto;
+      }
+
       .newsletter-copy {
         text-align: center;
       }
