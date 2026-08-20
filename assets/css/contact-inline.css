@@ -1,0 +1,147 @@
+.contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+@media(max-width:700px){ .contact-grid{ grid-template-columns:1fr; } }
+.contact-card{ position:relative; padding:2.3rem 2rem; text-decoration:none; display:block; color:inherit; overflow:hidden; }
+.contact-card::before{
+  content:''; position:absolute; top:-45%; right:-25%; width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,106,31,.16), transparent 70%);
+  opacity:0; transition:opacity .4s ease; pointer-events:none;
+}
+.contact-card:hover::before{ opacity:1; }
+.contact-card .icon-wrap{ position:relative; width:54px; height:54px; border-radius:1rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.2rem; transition:transform .35s ease, border-color .35s ease; }
+.contact-card svg{ width:26px; height:26px; }
+.contact-card h4{ font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; font-family:var(--font-mono); color:var(--accent-ink); margin-bottom:.5rem; }
+.contact-card p{ font-size:1rem; color:var(--ink); font-weight:600; line-height:1.5; }
+
+.contact-card-combo{ display:flex; flex-direction:column; gap:.6rem; }
+.contact-row{ position:relative; display:flex; align-items:center; flex:1; gap:1.1rem; text-decoration:none; color:inherit; padding:.7rem .8rem; margin:0 -.8rem; border-radius:.9rem; transition:background .3s ease; }
+.contact-row:hover{ background:rgba(255,106,31,.08); }
+.contact-row .icon-wrap{ margin-bottom:0; flex-shrink:0; }
+.contact-row:hover .icon-wrap{ transform:scale(1.08) rotate(-4deg); border-color:var(--accent); }
+.contact-row .row-body{ flex:1; padding-right:1.6rem; }
+.contact-row .arrow{ position:absolute; right:.8rem; top:50%; transform:translateY(-50%) translateX(-6px); opacity:0; color:var(--accent-ink); font-weight:700; font-size:1.1rem; transition:opacity .3s ease, transform .3s ease; }
+.contact-row:hover .arrow{ opacity:1; transform:translateY(-50%) translateX(0); }
+.contact-divider{ height:1px; background:linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent); }
+.contact-card:not(.contact-card-combo):hover .icon-wrap{ transform:scale(1.08) rotate(-4deg); border-color:var(--accent); }
+.map-link{ display:inline-flex; align-items:center; gap:.4rem; margin-top:1rem; font-family:var(--font-mono); font-size:.7rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; text-decoration:none; }
+.map-link:hover{ text-decoration:underline; }
+
+.division-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+@media(max-width:900px){ .division-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:640px){ .division-grid{ grid-template-columns:1fr; } }
+.division-contact-lines{ display:flex; flex-direction:column; gap:.55rem; margin-top:.2rem; }
+.division-contact-line{ display:flex; align-items:flex-start; gap:.55rem; font-size:.88rem; line-height:1.5; color:var(--ink-soft); text-decoration:none; }
+a.division-contact-line:hover{ color:var(--accent-ink); }
+.division-contact-line svg{ width:15px; height:15px; flex-shrink:0; margin-top:.2rem; color:var(--accent-ink); }
+
+.link-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.6rem; max-width:820px; margin:0 auto; }
+@media(max-width:800px){ .link-grid{ grid-template-columns:1fr; } }
+.link-card{ padding:2.5rem 2.2rem; text-decoration:none; display:flex; flex-direction:column; align-items:flex-start; color:inherit; }
+.link-card .icon-wrap{ width:58px; height:58px; border-radius:1.1rem; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); margin-bottom:1.4rem; transition:transform .35s ease, border-color .35s ease; }
+.link-card:hover .icon-wrap{ transform:scale(1.08) rotate(-4deg); border-color:var(--accent); }
+.link-card .icon-wrap svg{ width:26px; height:26px; }
+.link-card .tag{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.link-card h4{ font-size:1.2rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; }
+.link-card p{ font-size:.9rem; color:var(--ink-soft); line-height:1.6; margin-bottom:1.6rem; flex:1; }
+.link-card .btn{ align-self:flex-start; }
+
+/* ══ THREE WAYS TO REACH US ══ */
+.reach-section{ max-width:1400px; }
+.reach-card{
+  position:relative; overflow:hidden;
+  background:
+    radial-gradient(ellipse 800px 520px at 85% 10%, rgba(80,120,230,.34), transparent 60%),
+    radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1.4px) 0 0/26px 26px,
+    linear-gradient(155deg, #0B1339 0%, #131C46 55%, #0D1440 100%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:1.75rem;
+  padding:3.5rem 3.75rem;
+  color:#fff;
+  box-shadow:0 30px 70px rgba(5,8,25,.5), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.reach-badge-icon{
+  position:absolute; top:2.2rem; right:2.9rem; width:60px; height:60px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.12), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.16);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 30px rgba(255,106,31,.2);
+}
+.reach-badge-icon svg{ width:24px; height:24px; }
+.reach-card .kicker{ color:var(--accent-hot); }
+.reach-intro h2{ color:#fff; font-size:clamp(1.9rem,3.6vw,2.65rem); margin-bottom:1rem; max-width:22ch; }
+.reach-intro p{ color:rgba(255,255,255,.68); font-size:1.02rem; line-height:1.65; max-width:46ch; }
+
+.reach-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:3rem; align-items:start; margin-top:2.5rem; }
+@media(max-width:960px){ .reach-grid{ grid-template-columns:1fr; } .reach-card{ padding:2.5rem 1.5rem; } }
+/* below ~600px the h2's wrapped line runs under the absolutely-positioned badge circle */
+@media(max-width:600px){ .reach-badge-icon{ display:none; } }
+@media(max-width:480px){ .reach-card{ padding:2rem 1.15rem; } .reach-panel{ padding:1.75rem 1.25rem; } }
+
+.reach-left{ display:flex; flex-direction:column; gap:1.75rem; }
+.reach-options{ display:flex; flex-direction:column; gap:.9rem; }
+.reach-option{
+  background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:1rem;
+  padding:1.1rem 1.3rem; text-align:left; cursor:pointer; color:inherit; font:inherit;
+  display:flex; align-items:flex-start; gap:1rem;
+  transition:background .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.reach-option:hover{ border-color:rgba(255,106,31,.45); transform:translateY(-2px); }
+.reach-option.active{
+  background:linear-gradient(135deg,var(--accent-hot),var(--accent));
+  border-color:transparent; box-shadow:0 12px 30px rgba(255,106,31,.35);
+}
+.reach-option-icon{
+  width:42px; height:42px; border-radius:.85rem; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#fff;
+  transition:background .25s ease, border-color .25s ease;
+}
+.reach-option-icon svg{ width:20px; height:20px; }
+.reach-option.active .reach-option-icon{ background:rgba(255,255,255,.22); border-color:rgba(255,255,255,.4); }
+.reach-option-body{ display:flex; flex-direction:column; gap:.3rem; }
+.reach-option-label{ font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.reach-option.active .reach-option-label{ color:rgba(255,255,255,.85); }
+.reach-option-title{ font-size:1.05rem; font-weight:700; color:#fff; }
+.reach-option-desc{ font-size:.85rem; color:rgba(255,255,255,.5); }
+.reach-option.active .reach-option-desc{ color:rgba(255,255,255,.88); }
+
+.reach-panel{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:1.5rem;
+  padding:2.75rem 2.5rem; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.reach-panel-content{ display:none; flex-direction:column; }
+.reach-panel-content.active{ display:flex; }
+.reach-panel-head{ display:flex; align-items:center; gap:1rem; margin-bottom:.9rem; }
+.reach-panel-icon{
+  width:46px; height:46px; border-radius:1rem; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--accent-hot),var(--accent)); box-shadow:0 8px 20px rgba(255,106,31,.35);
+}
+.reach-panel-icon svg{ width:22px; height:22px; color:#fff; }
+.reach-panel-content h3{ font-size:1.4rem; font-weight:700; color:#fff; }
+.reach-panel-content > p{ font-size:.95rem; color:rgba(255,255,255,.68); line-height:1.6; margin-bottom:1.6rem; }
+.reach-field{ margin-bottom:1rem; }
+.reach-field input, .reach-field textarea{
+  width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+  color:#fff; padding:.9rem 1.3rem; border-radius:2rem; font-size:.92rem; font-family:inherit;
+  outline:none; transition:border-color .2s ease, background .2s ease;
+}
+.reach-field textarea{ border-radius:1rem; resize:vertical; }
+.reach-field input::placeholder, .reach-field textarea::placeholder{ color:rgba(255,255,255,.45); }
+.reach-field input:focus, .reach-field textarea:focus{ border-color:var(--accent-hot); background:rgba(255,255,255,.12); }
+.reach-submit{ width:100%; justify-content:center; margin-top:.25rem; border:none; }
+.reach-note{ font-size:.8rem; color:rgba(255,255,255,.5); margin-top:.9rem; }
+.reach-status{ font-size:.85rem; margin-top:.9rem; line-height:1.5; }
+.reach-status.error{ color:#FFB199; }
+.reach-status.success{ color:#8CE0A0; }
+
+/* Extracted inline styles */
+.contact-il-1 { --dur:3.4s; }
+.contact-il-2 { --dur:4s; }
+.contact-il-3 { --dur:4.6s; }
+.contact-il-4 { --dur:3.8s; }
+.contact-il-5 { font-size:.9rem; }
+.contact-il-6 { font-size:.92rem; line-height:1.6; }
+.contact-il-7 { text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem; }
+.contact-il-8 { display:none; }
+.contact-il-9 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,2.8vw,2.2rem); color:var(--accent-ink); }
+.contact-il-10 { padding-bottom:2rem; }
+.contact-il-11 { text-align:center; padding-top:1rem; }
+.contact-il-12 { max-width:26ch; }

@@ -1,0 +1,313 @@
+/* ════════════════════════════════════════════════════════════════════
+   CLIENTELE — Premium Client Trust Ecosystem behavior
+   Isolated component. Drives the section entrance (badge → heading →
+   subtitle → metrics → cards), the filter chips, card hover lift +
+   whole-grid parallax, the detail panel, the magnetic CTA and the
+   occasional floating particle. Falls back to a static, unanimated
+   reveal if GSAP failed to load or the user prefers reduced motion.
+   ════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  const section = document.getElementById('clientele');
+  if (!section) return;
+
+  const badge = section.querySelector('.cli-badge');
+  const heading = section.querySelector('.cli-head h2');
+  const divider = section.querySelector('.cli-divider');
+  const subtitle = section.querySelector('.cli-head p');
+  const metrics = section.querySelector('.cli-metrics');
+  const metricNodes = metrics ? metrics.querySelectorAll('.counter') : [];
+  const filters = section.querySelector('.cli-filters');
+  const grid = section.querySelector('.cli-grid');
+  const cards = grid ? Array.from(grid.querySelectorAll('.cli-card')) : [];
+  const ctaRow = section.querySelector('.cli-cta-row');
+  const particlesLayer = section.querySelector('.cli-particles');
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gsapReady = typeof window.gsap !== 'undefined';
+  const EASE = 'power4.out';
+
+  function triggerCounters() {
+    metricNodes.forEach((el) => {
+      if (el._counted) return;
+      el._counted = true;
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const decimals = parseInt(el.dataset.decimal || '0', 10);
+      if (reduceMotion || !gsapReady) { el.textContent = prefix + target.toFixed(decimals) + suffix; return; }
+      const obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: 1.4, ease: 'expo.out',
+        onUpdate: () => { el.textContent = prefix + obj.v.toFixed(decimals) + suffix; },
+      });
+    });
+  }
+
+  function spawnParticles() {
+    if (!particlesLayer || reduceMotion) return;
+    for (let i = 0; i < 9; i++) {
+      const p = document.createElement('span');
+      p.className = 'cli-particle';
+      p.style.setProperty('--px', (Math.random() * 100) + '%');
+      p.style.setProperty('--ps', (2 + Math.random() * 2) + 'px');
+      p.style.setProperty('--pd', (7 + Math.random() * 8) + 's');
+      p.style.setProperty('--pdelay', (-Math.random() * 30) + 's');
+      p.style.setProperty('--pdx', ((Math.random() - .5) * 40) + 'px');
+      particlesLayer.appendChild(p);
+    }
+  }
+
+  function playEntrance() {
+    spawnParticles();
+
+    if (!gsapReady || reduceMotion) {
+      triggerCounters();
+      cards.forEach((c) => { c.style.opacity = 1; });
+      return;
+    }
+
+    gsap.set(cards, { opacity: 0, y: 40, scale: .95, filter: 'blur(8px)' });
+
+    const tl = gsap.timeline({ defaults: { ease: EASE } });
+    if (badge) tl.fromTo(badge, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: .6 }, 0);
+    if (heading) tl.fromTo(heading, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .8 }, .12);
+    if (divider) tl.fromTo(divider, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .6 }, .32);
+    if (subtitle) tl.fromTo(subtitle, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .7 }, .4);
+    if (metrics) tl.fromTo(metrics, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .7, onStart: triggerCounters }, .58);
+    if (filters) tl.fromTo(filters, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, .75);
+    if (cards.length) tl.to(cards, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: .8, stagger: { each: .02, from: 'start' } }, .85);
+    if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6 }, '-=.3');
+  }
+
+  if (gsapReady && !reduceMotion) gsap.set(cards, { opacity: 0 });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          io.unobserve(section);
+          playEntrance();
+        }
+      });
+    }, { threshold: .1 });
+    io.observe(section);
+  } else {
+    playEntrance();
+  }
+
+  // ── filter chips ──
+  if (filters && cards.length) {
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cli-filter-btn');
+      if (!btn) return;
+      filters.querySelectorAll('.cli-filter-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      cards.forEach((card) => {
+        const cats = (card.dataset.category || '').split(' ');
+        const show = filter === 'all' || cats.includes(filter);
+        if (!gsapReady || reduceMotion) {
+          card.classList.toggle('is-hidden', !show);
+          return;
+        }
+        if (show) {
+          card.classList.remove('is-hidden');
+          gsap.fromTo(card, { opacity: 0, y: 14, scale: .95 }, { opacity: 1, y: 0, scale: 1, duration: .45, ease: EASE });
+        } else {
+          gsap.to(card, {
+            opacity: 0, y: 14, scale: .95, duration: .3, ease: 'power2.in',
+            onComplete: () => card.classList.add('is-hidden'),
+          });
+        }
+      });
+    });
+  }
+
+  // ── detail panel ──
+  const overlay = document.getElementById('cliPanelOverlay');
+  const panelLogo = document.getElementById('cliPanelLogo');
+  const panelName = document.getElementById('cliPanelName');
+  const panelTags = document.getElementById('cliPanelTags');
+  const panelDesc = document.getElementById('cliPanelDesc');
+  let lastFocused = null;
+
+  const SECTOR_COPY = {
+    government: 'A public infrastructure body Shakambhari Group is proud to supply reinforcement and structural steel to, meeting government quality and compliance standards.',
+    psu: 'A public sector undertaking Shakambhari Group partners with, supplying steel that meets the rigorous quality benchmarks of national enterprise.',
+    defence: 'A defence and strategic organisation supplied under the same quality discipline Shakambhari Group applies across every critical project.',
+    infrastructure: 'An infrastructure leader building the roads, bridges and public works that Shakambhari steel helps reinforce.',
+    power: 'A power sector organisation relying on Shakambhari steel for the structural integrity of energy infrastructure.',
+    construction: 'A leading EPC and construction partner building nationally significant projects with Shakambhari steel.',
+  };
+
+  // cache each card's inner refs once instead of re-querying the DOM every
+  // time the panel opens (item 7: never query the DOM repeatedly)
+  const cardMeta = new Map();
+  cards.forEach((card) => {
+    cardMeta.set(card, {
+      img: card.querySelector('.cli-card-logo img'),
+      name: card.querySelector('.cli-card-name'),
+      tagEls: card.querySelectorAll('.cli-card-tag'),
+    });
+  });
+
+  function openPanel(card) {
+    const meta = cardMeta.get(card) || {};
+    const img = meta.img;
+    const name = meta.name;
+    const tagEls = meta.tagEls || [];
+    if (panelLogo) panelLogo.innerHTML = img ? `<img src="${img.currentSrc || img.src}" alt="${img.alt}">` : '';
+    if (panelName) panelName.textContent = name ? name.textContent.trim() : '';
+    if (panelTags) {
+      panelTags.innerHTML = '';
+      tagEls.forEach((t) => {
+        const span = document.createElement('span');
+        span.className = 'cli-card-tag';
+        span.textContent = t.textContent;
+        panelTags.appendChild(span);
+      });
+    }
+    const primaryCat = (card.dataset.category || '').split(' ')[0];
+    if (panelDesc) panelDesc.textContent = SECTOR_COPY[primaryCat] || 'A trusted Shakambhari Group partner in nation-building infrastructure.';
+
+    lastFocused = document.activeElement;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    overlay.querySelector('.cli-panel-close').focus();
+  }
+
+  function closePanel() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.closest('.cli-panel-close')) closePanel();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closePanel();
+    });
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => openPanel(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(card); }
+    });
+  });
+
+  if (reduceMotion || !gsapReady) return;
+
+  // ── card hover lift ──
+  // Only ever tweens transform (y, scale) on the single card passed in —
+  // never the grid, never other cards, never innerHTML. overwrite:'auto' is
+  // scoped to that one GSAP target, so a fast mouse sweep across several
+  // cards cancels only each card's own in-flight tween, not its neighbors'.
+  function lift(card, on) {
+    gsap.to(card, { y: on ? -12 : 0, scale: on ? 1.03 : 1, duration: .45, ease: 'power3.out', overwrite: 'auto' });
+  }
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', () => lift(card, true));
+    card.addEventListener('mouseleave', () => lift(card, false));
+    card.addEventListener('focus', () => lift(card, true));
+    card.addEventListener('blur', () => lift(card, false));
+  });
+
+  // ── whole-grid tilt parallax ──
+  // Rotating .cli-grid repaints every card inside it unless the browser can
+  // treat the rotation as a pure GPU recomposite. That requires (a) the grid
+  // to already be its own compositor layer (see `will-change: transform` on
+  // .cli-grid in the CSS) and (b) never reading layout or writing style more
+  // than once per animation frame. Previously getBoundingClientRect() ran on
+  // every native mousemove (which can fire far more often than the screen
+  // refreshes) and forced a synchronous layout read each time; it's now
+  // cached on mouseenter, and the rotation update itself is coalesced into a
+  // single requestAnimationFrame callback per frame.
+  if (grid && window.matchMedia('(hover: hover)').matches) {
+    const quickRotX = gsap.quickTo(grid, 'rotationX', { duration: .6, ease: 'power3.out' });
+    const quickRotY = gsap.quickTo(grid, 'rotationY', { duration: .6, ease: 'power3.out' });
+    grid.style.transformStyle = 'preserve-3d';
+
+    let gridRect = null;
+    let pendingNX = 0;
+    let pendingNY = 0;
+    let tiltRaf = null;
+
+    function applyTilt() {
+      tiltRaf = null;
+      quickRotY(pendingNX * 1.8);
+      quickRotX(-pendingNY * 1.8);
+    }
+
+    grid.addEventListener('mouseenter', () => { gridRect = grid.getBoundingClientRect(); });
+    grid.addEventListener('mousemove', (e) => {
+      if (!gridRect) gridRect = grid.getBoundingClientRect();
+      pendingNX = (e.clientX - gridRect.left) / gridRect.width - .5;
+      pendingNY = (e.clientY - gridRect.top) / gridRect.height - .5;
+      if (tiltRaf === null) tiltRaf = requestAnimationFrame(applyTilt);
+    });
+    grid.addEventListener('mouseleave', () => {
+      gridRect = null;
+      if (tiltRaf !== null) { cancelAnimationFrame(tiltRaf); tiltRaf = null; }
+      quickRotX(0);
+      quickRotY(0);
+    });
+  }
+
+  // ── magnetic CTA + shine already handled by CSS ──
+  if (ctaRow && window.matchMedia('(hover: hover)').matches) {
+    const btn = ctaRow.querySelector('.cli-cta');
+    if (btn) {
+      const quickX = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3.out' });
+      const quickY = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3.out' });
+      btn.addEventListener('mouseenter', () => quickY(-3));
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        quickX((e.clientX - rect.left - rect.width / 2) * .3);
+        quickY(-3 + (e.clientY - rect.top - rect.height / 2) * .35);
+      });
+      btn.addEventListener('mouseleave', () => { quickX(0); quickY(0); });
+    }
+  }
+})();
+
+/* ── "VIEW ALL CLIENTS" toggle: reveals the no-logo organization list in
+   place, no navigation. Height is animated purely in CSS (grid-template-rows
+   0fr -> 1fr on .cli-more-wrap); this script only flips state, updates the
+   accessible name/count and staggers each item's own fade-in delay. ── */
+(function () {
+  'use strict';
+
+  const toggle = document.getElementById('cliMoreToggle');
+  const wrap = document.getElementById('cliMoreWrap');
+  const countEl = document.getElementById('cliMoreCount');
+  const labelEl = toggle ? toggle.querySelector('.cli-more-toggle-label') : null;
+  if (!toggle || !wrap || !labelEl) return;
+
+  const items = Array.from(wrap.querySelectorAll('.cli-more-item'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const defaultLabel = labelEl.textContent;
+
+  if (countEl && items.length) countEl.textContent = `+ ${items.length} More Organizations`;
+
+  let expanded = false;
+
+  toggle.addEventListener('click', () => {
+    expanded = !expanded;
+
+    toggle.setAttribute('aria-expanded', String(expanded));
+    toggle.classList.toggle('is-expanded', expanded);
+    wrap.classList.toggle('is-expanded', expanded);
+    wrap.setAttribute('aria-hidden', String(!expanded));
+    labelEl.textContent = expanded ? 'Show Less' : defaultLabel;
+
+    items.forEach((item, i) => {
+      item.style.transitionDelay = expanded && !reduceMotion ? `${i * 25}ms` : '0ms';
+    });
+  });
+})();

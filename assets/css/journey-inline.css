@@ -1,0 +1,75 @@
+/* ══ TIMELINE ══ */
+.jt-timeline{ position:relative; max-width:1080px; margin:0 auto; }
+.jt-spine{
+  position:absolute; left:50%; top:8px; bottom:8px; width:3px; margin-left:-1.5px;
+  background:linear-gradient(180deg, var(--accent) 0%, var(--brand-blue) 50%, var(--accent) 100%);
+  border-radius:3px; opacity:.4;
+}
+.jt-item{
+  position:relative; display:grid; grid-template-columns:1fr 1fr; column-gap:3.5rem;
+  margin-bottom:3.2rem; align-items:center;
+}
+.jt-item:last-child{ margin-bottom:0; }
+.jt-card{ grid-column:1; padding:1.7rem 1.8rem; }
+.jt-item.jt-right .jt-card{ grid-column:2; }
+.jt-marker{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2;
+  width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--surface); border:2.5px solid var(--jt-color);
+  box-shadow:0 0 0 6px var(--surface), 0 6px 20px rgba(20,22,28,.15);
+}
+.jt-marker svg{ width:22px; height:22px; color:var(--jt-color); }
+.jt-media{ width:100%; height:190px; border-radius:1rem; overflow:hidden; margin-bottom:1.2rem; border:1px solid var(--border); }
+.jt-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.jt-media.jt-icon-media{
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--jt-color) 16%, var(--surface-2)), var(--surface));
+}
+.jt-media.jt-icon-media svg{ width:56px; height:56px; color:var(--jt-color); opacity:.85; }
+.jt-year{ font-family:var(--font-mono); font-weight:800; font-size:1.4rem; color:var(--jt-color); letter-spacing:.01em; margin-bottom:.4rem; }
+.jt-card h4{ font-size:1.14rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; }
+.jt-card p{ font-size:.92rem; color:var(--ink-soft); line-height:1.6; }
+@media(max-width:860px){
+  .jt-spine{ left:26px; }
+  .jt-item, .jt-item.jt-right{ grid-template-columns:1fr; padding-left:64px; }
+  .jt-card, .jt-item.jt-right .jt-card{ grid-column:1; }
+  .jt-marker{ left:26px; top:0; transform:translate(-50%,0); }
+}
+
+/* ══ PRESENT & FUTURE ══ */
+.quality-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; }
+@media(max-width:700px){ .quality-grid{ grid-template-columns:1fr; } }
+.quality-card{ padding:1.8rem 1.7rem; }
+.quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* Extracted inline styles */
+.journey-il-1 { --jt-color:var(--accent) }
+.journey-il-2 { --jt-color:var(--brand-blue) }
+.journey-il-3 { --jt-color:var(--brand-blue) }
+.journey-il-4 { --jt-color:var(--accent) }
+.journey-il-5 { --jt-color:var(--brand-blue) }
+.journey-il-6 { --jt-color:var(--accent) }
+.journey-il-7 { background:#D62128; }
+.journey-il-8 { object-fit:contain; }
+.journey-il-9 { --jt-color:var(--brand-blue) }
+.journey-il-10 { --jt-color:var(--accent) }
+.journey-il-11 { background:#fff; display:flex; align-items:center; justify-content:center; padding:1rem; }
+.journey-il-12 { display:block; height:100%; max-width:100%; }
+.journey-il-13 { height:100%; width:auto; max-width:100%; object-fit:contain; }
+.journey-il-14 { --jt-color:var(--brand-blue) }
+.journey-il-15 { max-width:26ch; }

@@ -1,0 +1,101 @@
+/* ══ OUR APPROACH (icon cards) ══ */
+.approach-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+@media(max-width:980px){ .approach-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .approach-grid{ grid-template-columns:1fr; } }
+.approach-card{ padding:1.8rem 1.6rem; }
+.approach-card-icon{
+  width:50px; height:50px; border-radius:.9rem; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(255,106,31,.16), rgba(255,194,75,.1));
+  border:1px solid rgba(255,106,31,.28);
+  margin-bottom:1.1rem; transition:transform .35s cubic-bezier(.16,.84,.44,1);
+}
+.approach-card:hover .approach-card-icon{ transform:scale(1.08) rotate(-4deg); }
+.approach-card-icon svg{ width:26px; height:26px; }
+.approach-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.55rem; color:var(--ink); }
+.approach-card p{ font-size:.9rem; color:var(--ink-soft); line-height:1.6; }
+
+/* ══ ENVIRONMENT ══ */
+.quality-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; }
+@media(max-width:700px){ .quality-grid{ grid-template-columns:1fr; } }
+.quality-card{ padding:1.8rem 1.7rem; }
+.quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ══ GOVERNANCE + IN PRACTICE (icon+text list) ══ */
+.csr-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+@media(max-width:700px){ .csr-grid{ grid-template-columns:1fr; } }
+.csr-item{ display:flex; gap:.9rem; align-items:flex-start; padding:1.2rem 1.3rem; transition:transform .3s ease; }
+.csr-item:hover{ transform:translateX(4px); }
+.csr-item svg{ width:26px; height:26px; flex-shrink:0; margin-top:.15rem; }
+.csr-item span{ font-size:.9rem; color:var(--ink-soft); line-height:1.5; }
+
+/* ══ EMPLOYEE SAFETY (numbered cards) ══ */
+.safety-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+@media(max-width:980px){ .safety-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .safety-grid{ grid-template-columns:1fr; } }
+.safety-card{ padding:1.6rem 1.5rem; }
+.safety-card .num{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-bottom:.5rem; }
+.safety-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ══ CERTIFICATES & COMPLIANCE ══ */
+.cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
+@media(max-width:900px){ .cert-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .cert-grid{ grid-template-columns:1fr; } }
+.cert-card{
+  display:flex; flex-direction:column; padding:1.6rem 1.5rem; text-decoration:none;
+  position:relative; overflow:hidden; cursor:pointer;
+}
+.cert-card::before{
+  content:''; position:absolute; inset:0; border-radius:1.1rem; padding:1.5px;
+  background:linear-gradient(135deg, var(--accent-hot), var(--accent), transparent);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:0; transition:opacity .35s ease; pointer-events:none;
+}
+.cert-card:hover::before{ opacity:1; }
+.cert-card-icon{
+  width:52px; height:52px; border-radius:.9rem; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(255,106,31,.16), rgba(255,194,75,.1));
+  border:1px solid rgba(255,106,31,.28);
+  margin-bottom:1.1rem; transition:transform .35s cubic-bezier(.16,.84,.44,1);
+}
+.cert-card:hover .cert-card-icon{ transform:scale(1.08); }
+.cert-card-icon svg{ width:26px; height:26px; }
+.cert-card h4{ font-size:.98rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.5rem; color:var(--ink); line-height:1.35; }
+.cert-card .cert-issuer{ font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.cert-card .cert-meta{ font-size:.82rem; color:var(--ink-soft); line-height:1.55; margin-bottom:1.1rem; }
+.cert-card .cert-link{
+  margin-top:auto; font-family:var(--font-mono); font-size:.74rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--accent-ink); display:inline-flex; align-items:center; gap:.4rem;
+}
+.cert-card .cert-link svg{ width:14px; height:14px; transition:transform .3s ease; }
+.cert-card:hover .cert-link svg{ transform:translate(3px,-3px); }
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* Extracted inline styles */
+.sustainability-il-1 { --x:48%; --y:16%; --dur:4.1s; --delay:0s; }
+.sustainability-il-2 { --x:48%; --y:46%; --dur:3.6s; --delay:.6s; }
+.sustainability-il-3 { --x:42%; --y:52%; --dur:4.4s; --delay:1.3s; }
+.sustainability-il-4 { --x:51.5%; --y:58%; --dur:3.8s; --delay:.3s; }
+.sustainability-il-5 { --x:58.5%; --y:55%; --dur:4.2s; --delay:1.7s; }
+.sustainability-il-6 { --x:87%; --y:42%; --dur:3.9s; --delay:1s; }
+.sustainability-il-7 { --x:87.5%; --y:15.5%; --dur:4.6s; --delay:.9s; }
+.sustainability-il-8 { text-align:center; max-width:62ch; margin:2rem auto 0; color:var(--ink-soft); font-size:.92rem; }
+.sustainability-il-9 { color:var(--accent-ink); font-weight:600; }
+.sustainability-il-10 { max-width:26ch; }

@@ -1,0 +1,104 @@
+.awards-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+@media(max-width:700px){ .awards-list{ grid-template-columns:1fr; } }
+.award-item{ display:flex; gap:.9rem; align-items:flex-start; padding:1.1rem 1.3rem; border:1px solid var(--border); border-radius:.75rem; background:var(--surface); }
+.award-item svg{ width:22px; height:22px; flex-shrink:0; margin-top:.1rem; }
+.award-item span{ font-size:.9rem; color:var(--ink-soft); line-height:1.5; }
+
+/* ══ CERTIFICATES & AWARDS GALLERY ══ */
+.awards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:1200px; margin:0 auto; }
+@media(max-width:900px){ .awards-grid{ grid-template-columns:repeat(2,1fr); gap:1.2rem; } }
+@media(max-width:580px){ .awards-grid{ grid-template-columns:1fr; gap:1rem; } }
+.awards-grid .award-card:nth-child(3n+1){ transition-delay:.05s; }
+.awards-grid .award-card:nth-child(3n+2){ transition-delay:.15s; }
+.awards-grid .award-card:nth-child(3n){ transition-delay:.25s; }
+@media(max-width:900px){
+  .awards-grid .award-card:nth-child(3n+1),
+  .awards-grid .award-card:nth-child(3n+2),
+  .awards-grid .award-card:nth-child(3n){ transition-delay:0s; }
+  .awards-grid .award-card:nth-child(2n+1){ transition-delay:.05s; }
+  .awards-grid .award-card:nth-child(2n){ transition-delay:.15s; }
+}
+
+.award-card{
+  background:linear-gradient(145deg, rgba(255,255,255,.98), rgba(245,247,250,.95));
+  border:1.5px solid rgba(255,194,75,.4); border-radius:16px; padding:1.1rem;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  display:flex; flex-direction:column; align-items:center;
+  transition:all .35s cubic-bezier(.16,.84,.44,1); cursor:pointer; position:relative; overflow:hidden;
+}
+.award-card::before{
+  content:''; position:absolute; inset:0; border-radius:16px; padding:1.5px;
+  background:linear-gradient(135deg, #FFC24B, var(--accent), transparent);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.4; transition:opacity .3s ease;
+}
+.award-card:hover{ transform:translateY(-6px); box-shadow:0 16px 40px rgba(255,106,31,.22); border-color:var(--accent); }
+.award-card:hover::before{ opacity:1; }
+.award-card.no-scan{ cursor:default; }
+.award-card.no-scan:hover{ transform:none; box-shadow:0 8px 25px rgba(0,0,0,.08); border-color:rgba(255,194,75,.4); }
+.award-card.no-scan:hover::before{ opacity:.4; }
+.award-img-wrap{
+  width:100%; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+  background:#FFFFFF; border-radius:10px; padding:.75rem; border:1px solid rgba(0,0,0,.06);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.04); overflow:hidden;
+}
+/* <picture>, not <img decoding="async">, is the flex child here; its own box can resolve
+   wider than the rendered image, so center it directly to keep the
+   certificate from drifting off-center. */
+.award-img-wrap picture{ display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+.award-img-wrap img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; transition:transform .35s ease; }
+.award-card:hover .award-img-wrap img{ transform:scale(1.06); }
+.award-caption{ margin-top:.9rem; text-align:center; width:100%; }
+.award-title{ font-size:.88rem; font-weight:800; color:#111111; line-height:1.3; margin-bottom:.25rem; }
+.award-issuer{ font-size:.73rem; color:var(--accent-ink); font-weight:700; text-transform:uppercase; letter-spacing:.06em; font-family:var(--font-mono); }
+
+html[data-theme="dark"] .award-card{
+  background:linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+html[data-theme="dark"] .award-card.no-scan:hover{ box-shadow:0 8px 25px rgba(0,0,0,.3); }
+html[data-theme="dark"] .award-title{ color:var(--ink); }
+
+/* CERTIFICATE LIGHTBOX MODAL */
+.cert-modal-overlay{
+  position:fixed; inset:0; background:rgba(10,12,18,.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  z-index:9999; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease;
+}
+.cert-modal-overlay.active{ opacity:1; visibility:visible; }
+.cert-modal-content{
+  max-width:900px; max-height:90vh; background:#0F1218; border:1.5px solid rgba(255,194,75,.5); border-radius:16px;
+  padding:1.5rem; position:relative; box-shadow:0 25px 60px rgba(0,0,0,.8);
+  display:flex; flex-direction:column; align-items:center;
+  /* min-width:0 stops the flex item's auto min-size defaulting to the
+     loaded certificate's intrinsic width (up to 1800px), which would
+     otherwise push this wider than narrow viewports */
+  min-width:0;
+}
+.cert-modal-img{ max-width:100%; max-height:75vh; object-fit:contain; border-radius:8px; }
+.cert-modal-title{ color:#FFFFFF; font-size:1.05rem; font-weight:800; margin-top:1rem; text-align:center; }
+.cert-modal-close{
+  position:absolute; top:-15px; right:-15px; width:40px; height:40px; background:var(--accent); color:#FFFFFF;
+  border:2px solid #FFFFFF; border-radius:50%; font-size:1.2rem; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* Extracted inline styles */
+.awards-il-1 { width:56px;height:56px; }
+.awards-il-2 { max-width:26ch; }

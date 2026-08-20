@@ -1,0 +1,194 @@
+.value-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
+@media(max-width:860px){ .value-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .value-grid{ grid-template-columns:1fr; } }
+.value-card{ padding:1.6rem 1.5rem; }
+.value-card .num{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink); letter-spacing:.1em; margin-bottom:.5rem; }
+.value-card p{ font-size:.94rem; color:var(--ink-soft); }
+
+/* ══ QC CHECKPOINT DEEP-DIVE SECTIONS (futuristic, one per step) ══ */
+.qc-checkpoints{ display:flex; flex-direction:column; gap:1.6rem; }
+.qc-checkpoint{
+  position:relative; border-radius:1.6rem; overflow:hidden;
+  background:radial-gradient(ellipse 70% 60% at 8% 0%, rgba(255,106,31,.34), transparent 62%), radial-gradient(ellipse 55% 50% at 100% 100%, rgba(255,106,31,.15), transparent 60%), var(--qc-base);
+  border:1px solid var(--qc-border);
+  padding:2.8rem 1.75rem 2.6rem;
+  scroll-margin-top:calc(var(--nav-h) + 1rem);
+}
+/* alternating card background: white / dark royal blue */
+.qc-checkpoint:nth-of-type(odd){
+  --qc-base:#FFFFFF; --qc-ink:#14161C; --qc-ink-dim:#53565E; --qc-border:#E4E2DA;
+}
+.qc-checkpoint:nth-of-type(even){
+  --qc-base:#0A2472; --qc-ink:#F3F1EA; --qc-ink-dim:#B9C4DE; --qc-border:rgba(255,255,255,.14);
+}
+.qc-checkpoint::after{
+  content:''; position:absolute; top:0; left:0; right:0; height:4px; z-index:2;
+}
+.qc-checkpoint[data-cat="lab"]::after{ background:linear-gradient(90deg, transparent, #C9962A, transparent); }
+.qc-checkpoint[data-cat="monitor"]::after{ background:linear-gradient(90deg, transparent, #3E9FD8, transparent); }
+.qc-checkpoint[data-cat="control"]::after{ background:linear-gradient(90deg, transparent, #8B97A8, transparent); }
+.qc-checkpoint[data-cat="dispatch"]::after{ background:linear-gradient(90deg, transparent, #FF6A1F, transparent); }
+.qc-checkpoint::before{
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.05;
+  background-image:
+    repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px),
+    repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 34px);
+}
+.qc-checkpoint-top{ position:relative; z-index:1; display:flex; align-items:flex-start; gap:1.4rem; margin-bottom:2rem; max-width:78ch; }
+.qc-checkpoint-num{ font-family:var(--font-mono); font-size:2.6rem; font-weight:800; color:#fff; opacity:.14; line-height:1; flex-shrink:0; }
+.qc-checkpoint[data-cat="lab"] .qc-checkpoint-num{ color:#C9962A; opacity:.35; }
+.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-num{ color:#3E9FD8; opacity:.35; }
+.qc-checkpoint[data-cat="control"] .qc-checkpoint-num{ color:#8B97A8; opacity:.35; }
+.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-num{ color:#FF6A1F; opacity:.35; }
+.qc-checkpoint-heading{ flex:1; }
+.qc-checkpoint-badge{
+  display:inline-block; font-family:var(--font-mono); font-size:.66rem; font-weight:700; letter-spacing:.09em;
+  padding:.3rem .65rem; border-radius:.4rem; color:#fff; margin-bottom:.7rem;
+}
+.qc-checkpoint[data-cat="lab"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#C9962A,#9C6E22); box-shadow:0 4px 14px rgba(201,150,42,.35); }
+.qc-checkpoint[data-cat="monitor"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#3E9FD8,#0A59A8); box-shadow:0 4px 14px rgba(62,159,216,.35); }
+.qc-checkpoint[data-cat="control"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#8B97A8,#4A5058); box-shadow:0 4px 14px rgba(139,151,168,.3); }
+.qc-checkpoint[data-cat="dispatch"] .qc-checkpoint-badge{ background:linear-gradient(135deg,#FF6A1F,#C1440E); box-shadow:0 4px 14px rgba(255,106,31,.35); }
+.qc-checkpoint h3{ color:var(--qc-ink); font-size:clamp(1.4rem,2.4vw,1.9rem); margin-bottom:.7rem; text-transform:none; font-family:var(--font-display); }
+.qc-checkpoint-intro{ color:var(--qc-ink-dim); font-size:.98rem; line-height:1.65; }
+
+.qc-checkpoint-body{ position:relative; z-index:1; display:grid; grid-template-columns:minmax(240px,340px) 1fr; gap:2rem; align-items:start; }
+/* the 2-column layout's right column tops out around ~600-750px (left
+   column + gap eat the rest of the .section's 1180px cap) — too narrow
+   for a 5-substep .qc-mini-flow row to lay out without wrapping mid-
+   sequence and leaving a connector arrow dangling at the line break.
+   Collapsing to 1 column earlier gives the flow the full content width,
+   which fits 4 of 5 substeps cleanly before any wrap. */
+@media(max-width:1040px){ .qc-checkpoint-body{ grid-template-columns:1fr; } }
+
+/* ══ QC HERO MEDIA — compact click-through photo gallery: small main frame,
+   thumbnail strip, prev/next arrows. No autoplay, click-driven only. ══ */
+.qc-hero-photos{ display:flex; flex-direction:column; gap:.55rem; }
+.qc-hero-main{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:1rem; overflow:hidden;
+  border:1.5px solid #262A34; background:#0E0F13;
+}
+.qc-hero-main img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .45s ease;
+}
+.qc-hero-main img.active{ opacity:1; }
+.qc-hero-main::after{
+  content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(0deg, rgba(0,0,0,.4) 0%, transparent 32%);
+}
+.qc-hero-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(10,11,14,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.22); color:#fff; padding:0; cursor:pointer;
+  transition:background .2s ease, border-color .2s ease;
+}
+.qc-hero-arrow:hover{ background:rgba(255,106,31,.85); border-color:transparent; }
+.qc-hero-arrow.prev{ left:.55rem; }
+.qc-hero-arrow.next{ right:.55rem; }
+.qc-hero-arrow svg{ width:15px; height:15px; }
+/* overflow-x:auto is a safety net, not the normal path: with 3-4 thumbs
+   (most checkpoints) flex:1 has room to stretch them to fill the row as
+   before. Only checkpoint 06's 5-thumb row can hit the min-width floor
+   on narrow phones — there it scrolls instead of shrinking thumbs below
+   the ~32px touch-target height (min-width:58px @ 16:9 ≈ 32.6px tall). */
+.qc-hero-thumbs{ display:flex; gap:.45rem; overflow-x:auto; }
+.qc-hero-thumb{
+  flex:1 1 0; min-width:58px; aspect-ratio:16/9; border-radius:.55rem; overflow:hidden; cursor:pointer; padding:0;
+  border:2px solid transparent; background:none; opacity:.5;
+  transition:opacity .25s ease, border-color .25s ease;
+}
+.qc-hero-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.qc-hero-thumb:hover{ opacity:.85; }
+.qc-hero-thumb.active{ opacity:1; border-color:var(--accent,#FF6A1F); }
+
+.qc-mini-flow{ display:flex; flex-wrap:wrap; align-items:stretch; gap:.6rem; align-content:flex-start; }
+.qc-substep{
+  flex:1 1 175px; min-width:165px; position:relative;
+  background:linear-gradient(155deg, #16181F, #101216);
+  border:1.5px solid #262A34; border-radius:1rem;
+  padding:1.2rem 1.2rem 1.3rem; cursor:pointer; outline:none;
+  transition:border-color .3s ease, box-shadow .3s ease, transform .25s cubic-bezier(.16,.84,.44,1);
+}
+.qc-checkpoint:nth-of-type(odd) .qc-substep{ border-color:#FF6A1F; background:linear-gradient(155deg, #0A2472, #061A4D); }
+.qc-checkpoint:nth-of-type(even) .qc-substep{ border-color:#0A2472; background:linear-gradient(155deg, #FF6A1F, #C1440E); }
+.qc-substep:hover, .qc-substep:focus-visible{ transform:translateY(-3px); }
+.qc-checkpoint[data-cat="lab"] .qc-substep.open, .qc-checkpoint[data-cat="lab"] .qc-substep:hover{ border-color:#C9962A; box-shadow:0 8px 26px rgba(201,150,42,.22); }
+.qc-checkpoint[data-cat="monitor"] .qc-substep.open, .qc-checkpoint[data-cat="monitor"] .qc-substep:hover{ border-color:#3E9FD8; box-shadow:0 8px 26px rgba(62,159,216,.22); }
+.qc-checkpoint[data-cat="control"] .qc-substep.open, .qc-checkpoint[data-cat="control"] .qc-substep:hover{ border-color:#7C8797; box-shadow:0 8px 26px rgba(124,135,151,.22); }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep.open, .qc-checkpoint[data-cat="dispatch"] .qc-substep:hover{ border-color:#FF6A1F; box-shadow:0 8px 26px rgba(255,106,31,.22); }
+
+.qc-substep-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; }
+.qc-substep-icon{
+  width:40px; height:40px; flex-shrink:0; border-radius:.7rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.qc-substep-icon svg{ width:21px; height:21px; }
+.qc-checkpoint[data-cat="lab"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(255,106,31,.28), rgba(255,106,31,.1)); color:#FF9A5C; }
+.qc-checkpoint[data-cat="monitor"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(10,36,114,.4), rgba(10,36,114,.15)); color:#7C93E6; }
+.qc-checkpoint[data-cat="control"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(10,36,114,.4), rgba(10,36,114,.15)); color:#7C93E6; }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(10,36,114,.4), rgba(10,36,114,.15)); color:#7C93E6; }
+.qc-checkpoint:nth-of-type(odd) .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(255,106,31,.28), rgba(255,106,31,.1)); color:#FF9A5C; }
+.qc-checkpoint:nth-of-type(even) .qc-substep-icon{ background:radial-gradient(circle at 30% 25%, rgba(10,36,114,.4), rgba(10,36,114,.15)); color:#7C93E6; }
+.qc-substep-plus{
+  width:22px; height:22px; border-radius:50%; border:1.5px solid #3A3E46; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; color:#9C9A90;
+  transition:transform .3s ease, border-color .3s ease, color .3s ease;
+}
+.qc-checkpoint:nth-of-type(odd) .qc-substep-plus{ border-color:#FF6A1F; color:#FF6A1F; }
+.qc-checkpoint:nth-of-type(even) .qc-substep-plus{ border-color:#0A2472; color:#0A2472; }
+.qc-substep.open .qc-substep-plus{ transform:rotate(45deg); }
+.qc-checkpoint[data-cat="lab"] .qc-substep.open .qc-substep-plus{ border-color:#C9962A; color:#C9962A; }
+.qc-checkpoint[data-cat="monitor"] .qc-substep.open .qc-substep-plus{ border-color:#3E9FD8; color:#3E9FD8; }
+.qc-checkpoint[data-cat="control"] .qc-substep.open .qc-substep-plus{ border-color:#7C8797; color:#7C8797; }
+.qc-checkpoint[data-cat="dispatch"] .qc-substep.open .qc-substep-plus{ border-color:#FF6A1F; color:#FF6A1F; }
+
+.qc-substep-label{ font-family:var(--font-mono); font-size:.76rem; font-weight:700; letter-spacing:.02em; color:#EEEAE1; margin-top:.75rem; line-height:1.35; }
+.qc-substep-detail{
+  max-height:0; overflow:hidden; opacity:0;
+  transition:max-height .35s cubic-bezier(.16,.84,.44,1), opacity .28s ease, margin-top .35s ease;
+  font-size:.82rem; line-height:1.55; color:rgba(238,234,225,.8);
+}
+.qc-substep.open .qc-substep-detail{ max-height:220px; opacity:1; margin-top:.65rem; }
+
+.qc-mini-arrow{
+  display:flex; align-items:center; justify-content:center; flex:0 0 22px; color:#3A3E46; align-self:center;
+}
+.qc-checkpoint:nth-of-type(odd) .qc-mini-arrow{ color:#0A2472; }
+.qc-checkpoint:nth-of-type(even) .qc-mini-arrow{ color:#FF6A1F; }
+.qc-mini-arrow svg{ width:18px; height:18px; }
+@media(max-width:860px){ .qc-mini-arrow{ transform:rotate(90deg); flex-basis:14px; } }
+
+.qc-checkpoint-nav{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin:0 0 1.6rem; }
+.qc-checkpoint-nav a{
+  width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700; text-decoration:none;
+  border:1.5px solid var(--border); color:var(--ink-soft); background:var(--surface);
+  transition:border-color .25s ease, color .25s ease, transform .25s ease;
+}
+.qc-checkpoint-nav a:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+
+.quality-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; }
+@media(max-width:860px){ .quality-grid{ grid-template-columns:1fr; } }
+.quality-card{ padding:1.8rem 1.7rem; }
+.quality-card h4{ font-size:1rem; font-weight:700; text-transform:none; font-family:var(--font-body); margin-bottom:.6rem; color:var(--accent-ink); }
+.quality-card p{ font-size:.92rem; color:var(--ink-soft); }
+
+
+/* ══ CTA BAND ══ */
+.cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
+.cta-inner{
+  border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
+  background:
+    radial-gradient(ellipse at 50% 115%, rgba(255,106,31,.4), transparent 55%),
+    radial-gradient(ellipse at 50% 130%, rgba(255,194,75,.25), transparent 45%),
+    #0A0B0E;
+}
+.cta-inner h2{ color:#EEEAE1; font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:1rem; }
+.cta-inner p{ color:#9C9A90; max-width:52ch; margin:0 auto 2rem; font-size:1.05rem; }
+.cta-inner{ --ink:#EEEAE1; --border:#262A34; --surface:#14161C; }
+.cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* Extracted inline styles */
+.quality-il-1 { max-width:26ch; }

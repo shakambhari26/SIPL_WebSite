@@ -1,0 +1,680 @@
+/* ════════════════════════════════════════════════════════════════════
+   HERO — Premium Industrial Landing Split
+   Isolated, additive layer on top of the existing .hero (kept exactly as
+   defined inline in index.html: dark scoped tokens, grid shell, cursor-
+   spotlight). This file adds the real furnace-floor photo (weighted to
+   the right so it blends into the dark canvas rather than reading as a
+   rectangle), the two-column content/visual split, the category badge,
+   trust-logo strip, floating metric card and bottom achievement bar.
+
+   No animation library, no Canvas/WebGL: every motion here is a CSS
+   transition/keyframe, driven by a handful of classes toggled from plain
+   vanilla JS in hero-cinematic.js.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* consumed by the existing .hero::before blueprint grid so scroll can fade
+   it out without JS ever needing to touch a pseudo-element directly */
+.hero::before {
+  opacity: var(--blueprint-fade, 1);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── real furnace-floor photo, weighted toward the right so the left
+   column stays legible and the image dissolves into --bg on every edge
+   instead of reading as a pasted-in rectangle ── */
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-photo picture,
+.hero-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 14%;
+}
+
+.hero-photo img {
+  filter: saturate(1.08) contrast(1.03);
+}
+
+.hero-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgba(10, 11, 14, .78) 14%, rgba(10, 11, 14, .55) 34%, rgba(10, 11, 14, .48) 58%, rgba(10, 11, 14, .72) 84%, var(--bg) 100%),
+    linear-gradient(90deg, var(--bg), transparent 12%, transparent 88%, var(--bg)),
+    radial-gradient(ellipse 55% 52% at 50% 48%, rgba(10, 11, 14, .42), transparent 72%);
+}
+
+@media (min-width: 960px) {
+  .hero-photo img {
+    object-position: 62% 16%;
+  }
+
+  /* left column stays a clean dark canvas; the photo takes over from
+     roughly the midline rightward, fading in rather than cutting hard */
+  .hero-photo-scrim {
+    background:
+      linear-gradient(100deg, var(--bg) 0%, rgba(10, 11, 14, .95) 18%, rgba(10, 11, 14, .8) 34%, rgba(10, 11, 14, .38) 48%, transparent 62%),
+      linear-gradient(180deg, var(--bg) 0%, transparent 12%, transparent 82%, var(--bg) 100%),
+      linear-gradient(90deg, transparent 88%, var(--bg) 100%),
+      radial-gradient(ellipse 42% 60% at 20% 45%, rgba(10, 11, 14, .3), transparent 75%);
+  }
+}
+
+/* ── slow rotating glow ring behind the industrial visual (desktop only) ── */
+.hero-ring {
+  position: absolute;
+  display: none;
+  top: 6%;
+  right: 2%;
+  width: min(46vw, 640px);
+  aspect-ratio: 1;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .8;
+  animation: heroRingSpin 150s linear infinite;
+}
+
+.hero-ring svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-ring-arc {
+  fill: none;
+  stroke: url(#heroRingGrad);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(255, 170, 65, .55));
+}
+
+@keyframes heroRingSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero-ring {
+    display: block;
+  }
+}
+
+/* ── ambient light rays from the furnace glow ── */
+.hero-rays {
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  width: 140%;
+  height: 90%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    conic-gradient(from 250deg at 50% 100%,
+      transparent 0deg,
+      rgba(255, 194, 75, .05) 8deg,
+      transparent 16deg,
+      transparent 40deg,
+      rgba(255, 106, 31, .045) 50deg,
+      transparent 60deg,
+      transparent 100deg,
+      rgba(255, 194, 75, .04) 108deg,
+      transparent 118deg);
+  mix-blend-mode: screen;
+}
+
+/* ── ambient glow orbs, small embers dotted across the upper/mid hero ── */
+.hero-orbs {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: .55;
+}
+
+.hero-orb.o1 {
+  left: 14%;
+  top: 26%;
+  width: 6px;
+  height: 6px;
+  background: #FFC24B;
+  box-shadow: 0 0 18px 4px rgba(255, 194, 75, .55);
+}
+
+.hero-orb.o2 {
+  right: 16%;
+  top: 34%;
+  width: 4px;
+  height: 4px;
+  background: #FF6A1F;
+  box-shadow: 0 0 14px 3px rgba(255, 106, 31, .5);
+}
+
+.hero-orb.o3 {
+  left: 32%;
+  top: 60%;
+  width: 5px;
+  height: 5px;
+  background: #FFC24B;
+  box-shadow: 0 0 16px 3px rgba(255, 194, 75, .45);
+}
+
+.hero-orb.o4 {
+  right: 28%;
+  top: 20%;
+  width: 3px;
+  height: 3px;
+  background: #FF6A1F;
+  box-shadow: 0 0 12px 2px rgba(255, 106, 31, .45);
+}
+
+/* ── soft ground fog ── */
+.hero-fog {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 22%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(238, 234, 225, .05), transparent);
+  filter: blur(2px);
+}
+
+/* ── subtle scanlines, industrial-monitor texture ── */
+.hero-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .035;
+  background-image: repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px);
+}
+
+/* ── floating glowing particles: plain DOM spans, generated once by JS,
+   animated purely by this one shared CSS keyframe (transform + opacity
+   only, so it stays cheap at any particle count) ── */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-particle {
+  position: absolute;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, #FFC24B);
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 194, 75, .6));
+  opacity: 0;
+  animation: heroParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes heroParticleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: .7;
+  }
+
+  85% {
+    opacity: .35;
+  }
+
+  100% {
+    transform: translateY(-115vh) translateX(var(--drift, 20px));
+    opacity: 0;
+  }
+}
+
+/* ══ TWO-COLUMN CONTENT / VISUAL SPLIT ══ */
+
+.hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1400px;
+  min-width: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero p.lede {
+  color: #fff;
+}
+
+@media (min-width: 960px) {
+  .hero-inner {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    align-items: center;
+    gap: 2.5rem;
+    text-align: left;
+  }
+
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero p.lede {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .hero-kicker,
+  .hero-cta-row,
+  .hero-brands-row {
+    justify-content: flex-start;
+  }
+}
+
+/* ══ CATEGORY BADGE ══ */
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .6rem;
+  padding: .55rem 1.2rem;
+  border: 1px solid rgba(255, 106, 31, .3);
+  border-radius: 2rem;
+  background: rgba(255, 106, 31, .06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 24px rgba(255, 106, 31, .08);
+}
+
+.hero-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--accent-hot);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .6);
+}
+
+.hero-cat-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  stroke: var(--accent-hot);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-cat-icon.filled {
+  fill: var(--accent-hot);
+  stroke: none;
+}
+
+.hero-cat-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-hot);
+  box-shadow: 0 0 6px 1px var(--accent-hot);
+  opacity: .7;
+  flex-shrink: 0;
+}
+
+/* per-line headline reveal: .hero-line is a static clipping mask,
+   .hero-line-inner is what the entrance transition actually animates */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .12em;
+}
+
+.hero-line-inner {
+  display: block;
+}
+
+.hero h1 .grad {
+  animation: emberShift 6s ease-in-out infinite, heroGradGlow 4s ease-in-out infinite;
+}
+
+@keyframes heroGradGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 106, 31, .25));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 18px rgba(255, 106, 31, .5));
+  }
+}
+
+/* ── CTA row: magnetic hover (vanilla JS) + ripple + arrow slide ── */
+.hero-cta-row .btn {
+  position: relative;
+}
+
+.hero-btn-primary {
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(255, 106, 31, .35), 0 0 32px rgba(255, 106, 31, .18);
+}
+
+.hero-btn-arrow {
+  display: inline-block;
+  transition: transform .35s cubic-bezier(.16, .84, .44, 1);
+}
+
+.hero-btn-primary:hover .hero-btn-arrow {
+  transform: translateX(5px);
+}
+
+.hero-btn-secondary {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .04) !important;
+  border: 1.5px solid rgba(255, 255, 255, .18) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.hero-btn-secondary:hover {
+  border-color: rgba(255, 106, 31, .55) !important;
+  box-shadow: 0 0 24px rgba(255, 106, 31, .18);
+  background: rgba(255, 106, 31, .07) !important;
+}
+
+.hero-btn-secondary .hero-btn-arrow {
+  transform: translateX(0) rotate(-45deg);
+}
+
+.hero-btn-secondary:hover .hero-btn-arrow {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+.hero-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .5);
+  transform: scale(0);
+  opacity: .55;
+  pointer-events: none;
+  animation: heroRippleAnim .6s ease-out forwards;
+}
+
+@keyframes heroRippleAnim {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ══ OUR BRANDS MINI SHOWCASE ══
+   One glass-framed strip anchored under the hero CTAs, matching the
+   .hero-btn-secondary glass recipe (rgba white fill + rgba white
+   border + backdrop-blur, orange on hover). The three source logos
+   have wildly different native aspect ratios (Elegant Steel is a
+   solid square, Thermocon/India Foils are wide letterboxed
+   rectangles), so each gets a full-width, fixed-height slot inside
+   one shared frame rather than a fixed square — that keeps every
+   logo readably sized instead of swimming in mismatched whitespace. */
+.hero-brands {
+  margin-top: 2.2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+}
+
+.hero-brands-row {
+  display: flex;
+  align-items: stretch;
+  gap: .4rem;
+  width: 100%;
+  padding: .5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .05);
+  border: 1.5px solid rgba(255, 255, 255, .18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .4);
+}
+
+.hero-brand-card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .3rem;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), background .3s ease;
+}
+
+.hero-brand-card:hover,
+.hero-brand-card:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 106, 31, .1);
+}
+
+.hero-brand-card:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 2px;
+}
+
+.hero-brand-logo-wrap {
+  width: 100%;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 9px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
+}
+
+@media (min-width: 640px) {
+  .hero-brand-logo-wrap {
+    height: 64px;
+    border-radius: 12px;
+    padding: 9px 12px;
+  }
+}
+
+.hero-brand-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.hero-brand-card:hover .hero-brand-logo,
+.hero-brand-card:focus-visible .hero-brand-logo {
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-brand-card,
+  .hero-brand-logo {
+    transition: none !important;
+  }
+}
+
+/* ══ TRUSTED-BY LOGO STRIP ══ */
+/* ── redesigned scroll indicator: mouse icon + moving line + arrow ── */
+.scroll-cue-icon {
+  position: relative;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, .3);
+  border-radius: 12px;
+  transition: border-color .3s ease;
+}
+
+.scroll-cue:hover .scroll-cue-icon {
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 12px rgba(255, 194, 75, .3);
+}
+
+.scroll-cue-line {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent-hot);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px 1px rgba(255, 194, 75, .6);
+  animation: scrollCueDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollCueDrop {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: .4;
+  }
+
+  100% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+}
+
+.scroll-cue-arrow {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: .7;
+}
+
+/* ══ ENTRANCE (vanilla JS toggles .hero-loaded on .hero; every element
+   below defines its own resting/transitioned state and delay) ══ */
+.hero-kicker,
+.hero-line-inner,
+.lede,
+.hero-cta-row,
+.hero-brands {
+  opacity: 0;
+  transition: opacity .8s cubic-bezier(.16, .84, .44, 1), transform .8s cubic-bezier(.16, .84, .44, 1), filter .8s ease;
+}
+
+.hero-kicker {
+  transform: translateY(-14px);
+}
+
+.hero-line-inner {
+  transform: translateY(34px);
+  filter: blur(8px);
+}
+
+.lede {
+  transform: translateY(20px);
+}
+
+.hero-cta-row {
+  transform: translateY(16px);
+}
+
+.hero-brands {
+  transform: translateY(16px);
+}
+
+.hero-loaded .hero-kicker {
+  opacity: 1;
+  transform: none;
+  transition-delay: .1s;
+}
+
+.hero-loaded .hero-line-inner {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+.hero-loaded .hero-line:nth-child(1) .hero-line-inner {
+  transition-delay: .25s;
+}
+
+.hero-loaded .hero-line:nth-child(2) .hero-line-inner {
+  transition-delay: .38s;
+}
+
+.hero-loaded .lede {
+  opacity: 1;
+  transform: none;
+  transition-delay: .55s;
+}
+
+.hero-loaded .hero-cta-row {
+  opacity: 1;
+  transform: none;
+  transition-delay: .68s;
+}
+
+.hero-loaded .hero-brands {
+  opacity: 1;
+  transform: none;
+  transition-delay: .82s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero h1 .grad,
+  .scroll-cue-line,
+  .hero-ring,
+  .hero-particle {
+    animation: none !important;
+  }
+
+  .hero-kicker,
+  .hero-line-inner,
+  .lede,
+  .hero-cta-row,
+  .hero-brands {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

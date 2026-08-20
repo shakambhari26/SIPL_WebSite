@@ -1,0 +1,31 @@
+/* ══ SPEC CARDS ══ */
+.spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
+@media(max-width:800px){ .spec-grid{ grid-template-columns:1fr; } }
+.spec-card{ padding:1.9rem 1.8rem; overflow:hidden; }
+.spec-card .spec-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.8rem; }
+.spec-card h4{ font-size:1.08rem; font-weight:700; text-transform:none; font-family:var(--font-body); }
+.spec-card .icon-wrap{ width:46px; height:46px; border-radius:.8rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
+.spec-card .icon-wrap svg{ width:26px; height:26px; }
+.spec-card-photo{ width:calc(100% + 3.6rem); margin:-1.9rem -1.8rem 1.2rem; height:170px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
+.spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
+.spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
+.spec-card-link{ display:inline-block; margin-top:1rem; font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--accent-ink); }
+.spec-card-link:hover{ color:var(--accent); text-decoration:underline; }
+
+.section-divider-label{ text-align:center; margin:0 auto 3rem; }
+
+/* ══ PRODUCT CATEGORY CARDS ══ */
+.category-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
+@media(max-width:960px){ .category-grid{ grid-template-columns:1fr; max-width:520px; margin:0 auto; } }
+.category-card{ padding:0; overflow:hidden; display:flex; flex-direction:column; }
+.category-card-photo{ width:100%; height:220px; object-fit:cover; display:block; }
+.category-card-body{ padding:1.9rem 1.9rem 2.1rem; flex:1; display:flex; flex-direction:column; }
+.category-card-eyebrow{ font-family:var(--font-mono); font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:.6rem; }
+.category-card-body h3{ font-size:1.35rem; font-weight:800; text-transform:none; font-family:var(--font-display); margin-bottom:.9rem; }
+.category-card-body p{ color:var(--ink-soft); font-size:.92rem; line-height:1.68; margin-bottom:1.6rem; flex:1; }
+.category-card-body .btn{ align-self:flex-start; }
+
+/* Extracted inline styles */
+.products-il-1 { text-align:center; }
+.products-il-2 { max-width:26ch; }
