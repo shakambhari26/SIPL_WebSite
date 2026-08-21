@@ -410,3 +410,8 @@ html[data-theme="dark"] .ah-particle { box-shadow: 0 0 9px 2px var(--hue, rgba(2
 @media (max-width: 760px) {
   .ah-sweep { animation: none !important; mix-blend-mode: normal; }
 }
+
+/* ══ LOW-POWER MODE: same sweep simplification as the mobile breakpoint
+   above, keyed off device capability (.low-power-mode) instead of
+   viewport width ══ */
+.low-power-mode .ah-sweep { animation: none !important; mix-blend-mode: normal; }

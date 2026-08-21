@@ -17,10 +17,20 @@
    top are never transitioned.
    ════════════════════════════════════════════════════════════════════ */
 
-/* ── ambient section background (same recipe as Group / Trusted By / Awards) ── */
+/* ── ambient section background (same recipe as Group / Trusted By / Awards).
+   top/bottom are deliberately asymmetric: the top edge faces Our Process,
+   which sits inside its own `.section` wrapper with real padding between
+   the two panels, so it can bleed a full -32px (stepped down responsively
+   below). The bottom edge faces Trusted By directly with no divider or
+   padding between the two section boxes — the same "self-contained
+   sections butted together" gap as .tby-mesh/.awx-bg — so it stays a
+   small flat -8px at every breakpoint instead. ── */
 .mp-mesh {
   position: absolute;
-  inset: -4% -2%;
+  top: -32px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;
@@ -33,7 +43,10 @@
 
 .mp-blueprint {
   position: absolute;
-  inset: -4% -2%;
+  top: -32px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   background-image:
@@ -59,7 +72,10 @@
 
 .mp-dots {
   position: absolute;
-  inset: -4% -2%;
+  top: -32px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   background-image: radial-gradient(rgba(15, 23, 42, .06) 1px, transparent 1px);
@@ -83,7 +99,10 @@
 
 .mp-noise {
   position: absolute;
-  inset: -4% -2%;
+  top: -32px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   opacity: .02;
@@ -152,13 +171,22 @@
   gap: 0.5rem;
 }
 
-.map-tab-btn:hover,
 .map-tab-btn.active {
   background: linear-gradient(135deg, var(--accent-hot), var(--accent));
   color: #FFF;
   border-color: transparent;
   box-shadow: 0 8px 22px rgba(255, 106, 31, .35);
   transform: translateY(-2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-tab-btn:hover {
+    background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+    color: #FFF;
+    border-color: transparent;
+    box-shadow: 0 8px 22px rgba(255, 106, 31, .35);
+    transform: translateY(-2px);
+  }
 }
 
 /* ── outer card ──
@@ -231,6 +259,7 @@
   flex-wrap: wrap;
   gap: .5rem;
 }
+
 
 /* ── map viewport card ── */
 .world-map-container,
@@ -354,9 +383,11 @@
   transition: fill 0.25s ease, stroke-opacity 0.25s ease;
 }
 
-.country-shape:hover {
-  fill: #FFE3C4;
-  stroke-opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+  .country-shape:hover {
+    fill: #FFE3C4;
+    stroke-opacity: 0.9;
+  }
 }
 
 .country-shape.india-hi {
@@ -366,8 +397,10 @@
   stroke-opacity: 0.95;
 }
 
-.country-shape.india-hi:hover {
-  fill: url(#worldGradIndia);
+@media (hover: hover) and (pointer: fine) {
+  .country-shape.india-hi:hover {
+    fill: url(#worldGradIndia);
+  }
 }
 
 .state-shape {
@@ -380,10 +413,12 @@
   transition: fill 0.3s ease, stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease, opacity 0.35s ease, filter 0.35s ease;
 }
 
-.state-shape:hover {
-  fill: #FFE3C4;
-  stroke: var(--accent-hot);
-  stroke-opacity: 0.95;
+@media (hover: hover) and (pointer: fine) {
+  .state-shape:hover {
+    fill: #FFE3C4;
+    stroke: var(--accent-hot);
+    stroke-opacity: 0.95;
+  }
 }
 
 /* selection state machine: while any state is hovered/focused/clicked,
@@ -470,11 +505,16 @@
   backface-visibility: hidden;
 }
 
-.map-pin:hover,
 .map-pin.active,
 .map-pin.preview,
 .map-pin:focus-visible {
   z-index: 999 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-pin:hover {
+    z-index: 999 !important;
+  }
 }
 
 .map-pin:focus-visible {
@@ -486,12 +526,18 @@
 /* CSS fallback for the hover/active/preview scale-up — JS drives the same
    effect on .pin-beacon via GSAP with a springier ease when available;
    GSAP's inline style simply takes precedence over this rule when present. */
-.map-pin:hover .pin-beacon,
 .map-pin.active .pin-beacon,
 .map-pin.preview .pin-beacon,
 .map-pin:focus-visible .pin-beacon {
   transform: scale(1.25);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-pin:hover .pin-beacon {
+    transform: scale(1.25);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 }
 
 /* search: fade out non-matching markers instead of removing them, so the
@@ -654,7 +700,6 @@
   transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.map-pin:hover .pin-tag,
 .map-pin.active .pin-tag,
 .map-pin.preview .pin-tag,
 .map-pin:focus-visible .pin-tag {
@@ -663,6 +708,16 @@
   color: #FFF;
   border-color: transparent;
   box-shadow: 0 0 12px rgba(255, 106, 31, 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-pin:hover .pin-tag {
+    opacity: 1;
+    background: var(--accent);
+    color: #FFF;
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(255, 106, 31, 0.5);
+  }
 }
 
 /* premium floating tooltip — white glass, orange accent border */
@@ -729,13 +784,20 @@
   transform: translateY(-8px);
 }
 
-.map-pin:hover .pin-popover,
 .map-pin.active .pin-popover,
 .map-pin.preview .pin-popover,
 .map-pin:focus-visible .pin-popover {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-pin:hover .pin-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .map-pin:hover .pin-popover.popover-left,
@@ -906,6 +968,20 @@
 /* narrow phones: the two-pill tab switcher and the 2:1 world map both
    need dedicated handling below ~480px rather than just scaling down */
 @media (max-width: 480px) {
+  /* .section's padding shrinks again at this breakpoint (styles.css) —
+     see the matching -16px step at 760px above for why this tracks it.
+     bottom stays untouched: unlike the top edge (which faces the Our
+     Process section's own .section padding), the bottom edge faces the
+     Trusted By section directly with no divider/padding buffer between
+     them, so it stays pinned at the small flat value set on the base
+     rule regardless of breakpoint (see the base .mp-mesh comment). */
+  .mp-mesh,
+  .mp-blueprint,
+  .mp-dots,
+  .mp-noise {
+    top: -12px;
+  }
+
   .market-full-wrapper {
     padding: 1.25rem 0.85rem;
   }
@@ -1054,5 +1130,93 @@ html[data-theme="dark"] .pop-badge-type {
    of the user's reduced-motion preference, since most low-end-phone users
    won't have that OS setting enabled ══ */
 @media (max-width: 760px) {
+  /* .section's own padding (styles.css) shrinks at this same breakpoint,
+     so the fixed top bleed on these ambient layers has to shrink in step
+     or it eats into the process-carousel panel right above. bottom is
+     untouched here — see the 480px block's comment for why. */
+  .mp-mesh,
+  .mp-blueprint,
+  .mp-dots,
+  .mp-noise {
+    top: -16px;
+  }
+
   .mp-blueprint { animation: none !important; }
+
+  /* Every pin on the World tab runs 3 independent infinite animations
+     (halo-spin + pulse/ripple wave + breathe) — with ~19 pins that's
+     ~60+ continuously-animating elements the compositor has to keep
+     awake even when nothing is being tapped. Collapse it to a single
+     static beacon on phones; the orange dot + tag/popover-on-tap still
+     communicate "this is an export destination" without the motion. */
+  .pin-beacon::before,
+  .pin-beacon::after,
+  .pin-pulse,
+  .pin-ripple {
+    display: none;
+  }
+
+  .pin-core,
+  .map-pin.active .pin-core {
+    animation: none;
+  }
+
+  .map-pin.is-hq .pin-core {
+    box-shadow: 0 0 14px rgba(255, 194, 75, .85), 0 2px 6px rgba(20, 22, 28, .25);
+  }
+
+  /* native SVG animateMotion on each trade-route particle keeps running
+     even while off-screen; six of them chasing dashed paths behind the
+     pins is pure decoration at this size */
+  .mp-route-particles {
+    display: none !important;
+  }
+
+  .india-svg,
+  .world-svg {
+    filter: none;
+  }
+
+  .pin-popover {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .map-tab-btn {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+/* ══ LOW-POWER MODE: same pin/particle simplification as the mobile
+   breakpoint above, but keyed off .low-power-mode (styles.css) instead
+   of viewport width — a desktop/tablet visitor on weak hardware, or
+   anyone who's flipped the footer Lite Mode toggle, gets the same ~60-
+   fewer-animating-elements win regardless of screen size. Backdrop-
+   filter removal and the top/bottom bleed padding fix above are already
+   handled sitewide/by the matching viewport breakpoint respectively, so
+   they're not repeated here. ══ */
+.low-power-mode .pin-beacon::before,
+.low-power-mode .pin-beacon::after,
+.low-power-mode .pin-pulse,
+.low-power-mode .pin-ripple {
+  display: none;
+}
+
+.low-power-mode .pin-core,
+.low-power-mode .map-pin.active .pin-core {
+  animation: none;
+}
+
+.low-power-mode .map-pin.is-hq .pin-core {
+  box-shadow: 0 0 14px rgba(255, 194, 75, .85), 0 2px 6px rgba(20, 22, 28, .25);
+}
+
+.low-power-mode .mp-route-particles {
+  display: none !important;
+}
+
+.low-power-mode .india-svg,
+.low-power-mode .world-svg {
+  filter: none;
 }

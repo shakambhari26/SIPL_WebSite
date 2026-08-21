@@ -452,10 +452,18 @@
   transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
 }
 
-.quick-location-item:hover {
+@media (hover: hover) and (pointer: fine) {
+  .quick-location-item:hover {
+    background: rgba(255, 255, 255, .85);
+    border-color: rgba(255, 106, 31, .35);
+    box-shadow: 0 6px 16px rgba(255, 106, 31, .12);
+    color: var(--ink);
+  }
+}
+
+.quick-location-item:active {
   background: rgba(255, 255, 255, .85);
   border-color: rgba(255, 106, 31, .35);
-  box-shadow: 0 6px 16px rgba(255, 106, 31, .12);
   color: var(--ink);
 }
 
@@ -485,9 +493,14 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1);
 }
 
-.quick-location-item:hover .ql-indicator,
 .quick-location-item.active .ql-indicator {
   transform: translateY(-50%) scaleY(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quick-location-item:hover .ql-indicator {
+    transform: translateY(-50%) scaleY(1);
+  }
 }
 
 .ql-icon {
@@ -518,10 +531,16 @@
   transition: color .25s ease, border-color .25s ease;
 }
 
-.quick-location-item:hover .ql-code,
 .quick-location-item.active .ql-code {
   color: var(--accent-ink);
   border-color: rgba(255, 106, 31, .4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quick-location-item:hover .ql-code {
+    color: var(--accent-ink);
+    border-color: rgba(255, 106, 31, .4);
+  }
 }
 
 /* ── accessibility ── */
@@ -542,6 +561,12 @@
   .mpp {
     max-width: none;
     padding: 1.4rem 1.25rem;
+    /* the console's own 20px blur plus the ambient/texture/noise layers
+       stacked on top of it repaint on every scroll frame on phones —
+       matches the same blur-radius-cut the site nav already does at
+       this width (styles.css .site-nav.scrolled) */
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
   }
 
   .mpp-state {

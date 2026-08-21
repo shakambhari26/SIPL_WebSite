@@ -512,3 +512,8 @@
 @media (max-width: 760px) {
   .csrh-grid { animation: none !important; }
 }
+
+/* ══ LOW-POWER MODE: same grid-drift simplification as the mobile
+   breakpoint above, keyed off device capability (.low-power-mode)
+   instead of viewport width ══ */
+.low-power-mode .csrh-grid { animation: none !important; }

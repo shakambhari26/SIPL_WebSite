@@ -682,14 +682,27 @@
       z-index: 3;
     }
 
-    .pillar-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 106, 31, .4);
-      box-shadow: 0 18px 40px rgba(20, 22, 28, .12), 0 0 30px rgba(255, 106, 31, .12);
+    @media (hover: hover) and (pointer: fine) {
+      .pillar-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 106, 31, .4);
+        box-shadow: 0 18px 40px rgba(20, 22, 28, .12), 0 0 30px rgba(255, 106, 31, .12);
+      }
+
+      .pillar-card:hover::after {
+        transform: scaleX(1);
+      }
     }
 
-    .pillar-card:hover::after {
-      transform: scaleX(1);
+    @media (hover: none), (pointer: coarse) {
+      .pillar-card:active {
+        transform: scale(.98);
+        border-color: rgba(255, 106, 31, .4);
+      }
+
+      .pillar-card:active::after {
+        transform: scaleX(1);
+      }
     }
 
     html[data-theme="dark"] .pillar-card {
@@ -717,9 +730,11 @@
       transition: transform .55s cubic-bezier(.16, .84, .44, 1);
     }
 
-    .pillar-card:hover .pillar-img-wrap img,
-    .pillar-card:hover .pillar-img-wrap video {
-      transform: scale(1.08);
+    @media (hover: hover) and (pointer: fine) {
+      .pillar-card:hover .pillar-img-wrap img,
+      .pillar-card:hover .pillar-img-wrap video {
+        transform: scale(1.08);
+      }
     }
 
     .pillar-img-wrap::after {
@@ -785,6 +800,13 @@
       margin-bottom: .5rem;
       color: var(--ink);
       letter-spacing: .01em;
+      line-height: 1.3;
+      min-height: calc(1.3em * 2);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
     }
 
     .pillar-card p {
@@ -792,7 +814,13 @@
       color: var(--ink-soft);
       margin-bottom: 1rem;
       line-height: 1.55;
-      flex: 1;
+      height: calc(1.55em * 3);
+      flex: none;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
     }
 
     .pillar-card .go {
@@ -807,9 +835,18 @@
       transition: gap .2s ease, color .2s ease;
     }
 
-    .pillar-card:hover .go {
-      gap: .55rem;
-      color: var(--accent);
+    @media (hover: hover) and (pointer: fine) {
+      .pillar-card:hover .go {
+        gap: .55rem;
+        color: var(--accent);
+      }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .pillar-card:active .go {
+        gap: .55rem;
+        color: var(--accent);
+      }
     }
 
     /* The Group showcase styles now live in group-showcase.css (.grp*) */
@@ -1084,13 +1121,10 @@
 .index-il-6 { margin-bottom:1rem; }
 .index-il-7 { border-color:#3A4A63; color:#EEEAE1; background:rgba(255,255,255,.04); }
 .index-il-8 { transition-delay:.3s }
-.index-il-9 { text-align:center; margin-top:2.5rem; }
 .index-il-10 { font-size:clamp(2.1rem,5vw,3.3rem); max-width:20ch; margin:0 auto .9rem; }
 .index-il-11 { font-size:1.15rem; max-width:62ch; margin:0 auto; }
-.index-il-12 { text-align:center; margin-top:2.5rem; }
 .index-il-13 { font-size:clamp(2.1rem,5vw,3.3rem); max-width:18ch; margin:0 auto .9rem; }
 .index-il-14 { font-size:1.15rem; max-width:62ch; margin:0 auto; }
-.index-il-15 { text-align:center; margin-top:2.5rem; }
 .index-il-16 { text-align:center; max-width:680px; margin:0.8rem auto 0; color:var(--ink-soft); font-size:0.95rem; }
 .index-il-17 { display:none; }
 .index-il-18 { font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,2.8vw,2.2rem); color:var(--accent-ink); }

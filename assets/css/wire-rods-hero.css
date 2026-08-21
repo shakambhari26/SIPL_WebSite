@@ -334,3 +334,8 @@
 @media (max-width: 760px) {
   .wr-sweep { animation: none !important; mix-blend-mode: normal; }
 }
+
+/* ══ LOW-POWER MODE: same sweep simplification as the mobile breakpoint
+   above, keyed off device capability (.low-power-mode) instead of
+   viewport width ══ */
+.low-power-mode .wr-sweep { animation: none !important; mix-blend-mode: normal; }

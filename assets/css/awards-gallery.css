@@ -12,7 +12,11 @@
 .awx {
   position: relative;
   max-width: 1400px;
-  margin: 0 auto;
+  /* top margin: even with the divider between .tby and .awx, the two
+     boxes are only ~1px apart (their own padding is baked inside each
+     box already, not spent between them) — a little real space so the
+     -8px/-8px panel bleed has room to sit inside instead of still touching. */
+  margin: 2rem auto 0;
   padding: 5rem 1.75rem 6rem;
 }
 
@@ -20,10 +24,18 @@
    all clipped to one rounded panel — same "floating card" recipe as the
    "Why Join Us" / "Our Process" carousels' .cbc-bg / .pcc-bg, so this
    gallery reads as one continuous carousel system with the rest of the
-   site instead of a flat, edge-to-edge tint. ── */
+   site instead of a flat, edge-to-edge tint. top is a flat -8px rather
+   than the usual -32px: .awx sits directly against Trusted By above with
+   no divider or `.section` padding buffer between the two section boxes,
+   so there's almost no room for a bigger bleed before it overlaps that
+   panel (see .mp-mesh's comment in market-presence-map.css for the fuller
+   explanation of this "self-contained sections butted together" case). ── */
 .awx-bg {
   position: absolute;
-  inset: -4% -2%;
+  top: -8px;
+  right: -2%;
+  bottom: -4%;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;

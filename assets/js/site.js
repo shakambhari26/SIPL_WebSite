@@ -1,10 +1,66 @@
-// Shared site behavior: glass nav scroll state, mobile menu, dark mode, reveal-on-scroll.
+// Shared site behavior: glass nav scroll state, mobile menu, dark mode, reveal-on-scroll, low-power mode.
 (function(){
   const nav = document.querySelector('.site-nav');
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   const themeToggle = document.querySelector('.theme-toggle');
   const canHover = window.matchMedia('(hover: hover)').matches;
+
+  // ── LOW-POWER MODE: frame-rate upgrade + manual "Lite Mode" toggle ──
+  // Static signals (CPU cores, RAM, reduced-motion, Data Saver) already
+  // ran synchronously in loading-bar.js, before this file even loaded, so
+  // .low-power-mode may already be on <html>. window.__spLowPower records
+  // which path set it: 'override' means the visitor explicitly chose a
+  // mode via the footer toggle below (skip auto-detection entirely),
+  // 'auto' means only the static checks ran. When it's 'auto' and still
+  // false, sample real frame rate for a second — this can *upgrade* a
+  // device that passed every static check but is still janky in practice
+  // (thermal throttling, background load, a weak iGPU on decent-looking
+  // specs); it never downgrades what's already flagged.
+  (function(){
+    const htmlEl = document.documentElement;
+    let state = window.__spLowPower || { source:'auto', value: htmlEl.classList.contains('low-power-mode') };
+    const btn = document.createElement('button');
+
+    function syncToggle(){
+      const on = htmlEl.classList.contains('low-power-mode');
+      btn.setAttribute('aria-pressed', String(on));
+      const label = on ? 'Lite Mode is on — click to turn off' : 'Turn on Lite Mode for smoother scrolling on older devices';
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+    }
+
+    if(state.source === 'auto' && !state.value){
+      let frames = 0, startTs = null;
+      requestAnimationFrame(function sampleFps(ts){
+        if(startTs === null) startTs = ts;
+        frames++;
+        const elapsed = ts - startTs;
+        if(elapsed < 1000){ requestAnimationFrame(sampleFps); return; }
+        if((frames / (elapsed / 1000)) < 45){
+          htmlEl.classList.add('low-power-mode');
+          state.value = true;
+          syncToggle();
+        }
+      });
+    }
+
+    const footerSocial = document.querySelector('.footer-social');
+    if(footerSocial){
+      btn.type = 'button';
+      btn.className = 'lite-mode-toggle';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>';
+      syncToggle();
+      btn.addEventListener('click', ()=>{
+        const next = !htmlEl.classList.contains('low-power-mode');
+        htmlEl.classList.toggle('low-power-mode', next);
+        try{ localStorage.setItem('lite-mode', next ? 'on' : 'off'); }catch(e){}
+        window.__spLowPower = state = { source:'override', value: next };
+        syncToggle();
+      });
+      footerSocial.appendChild(btn);
+    }
+  })();
 
   if(themeToggle){
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -189,7 +245,7 @@
   // rAF exactly like the .panel spotlight above. Visibility (not existence)
   // toggles with theme/viewport so switching themes or resizing never has
   // to recreate the element — it just fades via the CSS opacity transition.
-  if(canHover && !reduceMotion && window.innerWidth > 860){
+  if(canHover && !reduceMotion && window.innerWidth > 860 && !document.documentElement.classList.contains('low-power-mode')){
     const glow = document.createElement('div');
     glow.className = 'dm-cursor-glow';
     document.body.appendChild(glow);

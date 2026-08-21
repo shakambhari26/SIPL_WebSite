@@ -20,21 +20,42 @@
   position: relative;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 5rem 1.75rem 6rem;
+  /* bottom trimmed from 6rem: with .grp-bg's bleed now fixed-px instead
+     of scaling off this section's own (very tall) height, the old 6rem
+     was leftover overhang no longer needed and just read as dead space
+     below the "Know More" button. */
+  padding: 5rem 1.75rem 3rem;
 }
 
 /* ── ambient background: mesh + blueprint + dot grid + glow + noise + shapes,
    all clipped to one rounded panel — same "floating card" recipe as the
    Quality / Our Process / Beyond Steel / Awards carousels' .qcc-bg / .pcc-bg
    / .bs3d-bg / .awx-bg, so this showcase reads as one continuous carousel
-   system with the rest of the site instead of a flat, edge-to-edge tint. ── */
+   system with the rest of the site instead of a flat, edge-to-edge tint.
+   Fixed-px bleed, not %: .grp is one of the tallest sections on the page,
+   so a percentage bottom inset (the old -4%) bled far enough past its own
+   edge to overlap the Our Process section's heading right below it. ── */
 .grp-bg {
   position: absolute;
-  inset: -4% -2%;
+  top: -32px;
+  right: -2%;
+  bottom: -32px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;
   overflow: hidden;
+}
+
+/* .section's own padding (styles.css) shrinks at these breakpoints, so
+   the bleed above has to shrink in step or it eats into the Quality
+   carousel's panel above / Our Process section's heading below (see
+   .qcc-bg / .pcc-bg for the same fix applied elsewhere on this page). */
+@media (max-width: 760px) {
+  .grp-bg { top: -16px; bottom: -16px; }
+}
+@media (max-width: 480px) {
+  .grp-bg { top: -12px; bottom: -12px; }
 }
 
 .grp-mesh {
@@ -326,7 +347,13 @@
   transition: opacity .3s ease, transform .3s cubic-bezier(.16, .84, .44, 1);
 }
 
-.grp-hotspot:hover .grp-hotspot-tip,
+@media (hover: hover) and (pointer: fine) {
+  .grp-hotspot:hover .grp-hotspot-tip {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
 .grp-hotspot:focus-visible .grp-hotspot-tip {
   opacity: 1;
   transform: translate(-50%, 0);
@@ -423,7 +450,14 @@
   transition: transform .35s cubic-bezier(.16, .84, .44, 1), gap .3s ease, color .3s ease;
 }
 
-.grp-explore:hover,
+@media (hover: hover) and (pointer: fine) {
+  .grp-explore:hover {
+    gap: .65rem;
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+}
+
 .grp-explore:focus-visible {
   gap: .65rem;
   color: var(--accent);
@@ -475,20 +509,22 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1);
 }
 
-.grp-arrow:hover {
-  background: var(--accent);
-  color: #FFF;
-  border-color: var(--accent);
-  box-shadow: 0 14px 32px rgba(255, 106, 31, .35);
-  transform: scale(1.08);
-}
+@media (hover: hover) and (pointer: fine) {
+  .grp-arrow:hover {
+    background: var(--accent);
+    color: #FFF;
+    border-color: var(--accent);
+    box-shadow: 0 14px 32px rgba(255, 106, 31, .35);
+    transform: scale(1.08);
+  }
 
-.grp-arrow.prev:hover svg {
-  transform: translateX(-2px);
-}
+  .grp-arrow.prev:hover svg {
+    transform: translateX(-2px);
+  }
 
-.grp-arrow.next:hover svg {
-  transform: translateX(2px);
+  .grp-arrow.next:hover svg {
+    transform: translateX(2px);
+  }
 }
 
 .grp-arrow:active {
@@ -522,8 +558,10 @@
   transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
 }
 
-.grp-dot:hover {
-  background: var(--accent-hot);
+@media (hover: hover) and (pointer: fine) {
+  .grp-dot:hover {
+    background: var(--accent-hot);
+  }
 }
 
 .grp-dot.active {
@@ -583,8 +621,10 @@
   transition: transform .35s cubic-bezier(.16, .84, .44, 1);
 }
 
-.grp-cta:hover .grp-cta-arrow {
-  transform: translateX(5px);
+@media (hover: hover) and (pointer: fine) {
+  .grp-cta:hover .grp-cta-arrow {
+    transform: translateX(5px);
+  }
 }
 
 /* ── unit-jump timeline: one stop per unit, jumps the carousel straight
@@ -639,9 +679,11 @@
   transition: border-color .3s ease, background .3s ease, transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease;
 }
 
-.grp-tl-item:hover .grp-tl-dot {
-  border-color: var(--accent-hot);
-  transform: scale(1.15);
+@media (hover: hover) and (pointer: fine) {
+  .grp-tl-item:hover .grp-tl-dot {
+    border-color: var(--accent-hot);
+    transform: scale(1.15);
+  }
 }
 
 .grp-tl-item.active .grp-tl-dot {
@@ -693,7 +735,12 @@
   transition: width .3s cubic-bezier(.16, .84, .44, 1);
 }
 
-.grp-tl-item:hover .grp-tl-label::after,
+@media (hover: hover) and (pointer: fine) {
+  .grp-tl-item:hover .grp-tl-label::after {
+    width: 18px;
+  }
+}
+
 .grp-tl-item:focus-visible .grp-tl-label::after {
   width: 18px;
 }
@@ -733,8 +780,57 @@
     margin-left: calc(min(84vw, 300px) / -2);
   }
 
+  /* narrower horizontal padding gives the controls row more room to
+     work with before anything needs to shrink */
+  .grp {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
   .grp-controls {
-    gap: 1.1rem;
+    gap: .6rem;
+  }
+
+  /* at 48px + 8 pagination dots, the control bar was wider than an
+     18:9 phone screen — centered flex overflow pushed the prev/next
+     arrows almost entirely past the left/right edges instead of
+     wrapping. Shrink the arrows, shrink the dots, and give the dot
+     row itself a scroll fallback so the arrows are never the ones
+     that get pushed off-screen, no matter how many stops this
+     showcase ends up with. */
+  .grp-arrow {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+
+  .grp-arrow svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .grp-dots {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 2px;
+  }
+
+  .grp-dots::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grp-dot {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    padding: 9px;
+  }
+
+  .grp-dot.active {
+    width: 40px;
   }
 
   .grp-timeline {
@@ -772,6 +868,9 @@
   .grp-tl-label {
     font-size: .64rem;
   }
+
+  .grp-shape { display: none; }
+  .grp-arrow { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

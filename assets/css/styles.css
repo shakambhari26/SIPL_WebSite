@@ -66,6 +66,45 @@ body{
   mix-blend-mode:overlay;
 }
 @keyframes sheenMove{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(8%,6%); } }
+/* .sheen is a fixed, viewport-sized mix-blend-mode layer that recomposites
+   with everything scrolling beneath it — on every page, forever. Cheap on
+   a desktop GPU, a real scroll-jank source on low-end phones, so freeze it
+   below tablet width regardless of reduced-motion preference (same call as
+   market-presence-map.css's .mp-blueprint). */
+@media (max-width: 760px) {
+  .sheen { animation: none; }
+}
+
+/* ══ LOW-POWER MODE ══
+   Toggled on <html> by detectLowPerformance() — a synchronous device
+   check in loading-bar.js (CPU cores, RAM, prefers-reduced-motion, Data
+   Saver), upgraded by a real frame-rate sample in site.js — or by a
+   visitor's own "Lite Mode" choice (footer toggle, site.js; persisted
+   to localStorage as `lite-mode`). Strips the costs that are sitewide
+   rather than tied to one page's markup:
+     - backdrop-filter: every frosted-glass panel across the ~20 hero/
+       carousel stylesheets forces a GPU blur recompute on every scroll
+       frame behind it. Killing the property (not the panel) is enough —
+       it just falls back to its solid/gradient background underneath,
+       still readable.
+     - decorative particle spans: every hero injects a batch of
+       infinitely-animating glow dots via *-particle(s) classes (see
+       page-header-particles.js and the per-hero equivalents) purely for
+       ambience; hiding them removes dozens of live compositor layers.
+     - .sheen / .dm-cursor-glow: same fix as the media query above and
+       the visibility check in site.js respectively, just not gated to
+       viewport width here since a detected/toggled low-power visitor
+       can be on any screen size. */
+.low-power-mode *,
+.low-power-mode *::before,
+.low-power-mode *::after{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.low-power-mode [class*="particle"]{ display:none !important; }
+.low-power-mode .sheen{ animation:none; }
+.low-power-mode .dm-cursor-glow{ display:none !important; }
+
 body::before{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:2000; opacity:.03; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -337,7 +376,9 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
   border:1.5px solid var(--border); border-radius:.4rem; color:var(--ink);
   background:var(--surface); transition:all .25s ease; display:inline-block;
 }
-.chip:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+}
 .chip.hot{ border-color:var(--accent); color:var(--accent-ink); background:#FFF4EC; }
 .chip.cool{ border-color:var(--brand-blue); color:var(--brand-blue-ink); background:rgba(10,89,168,.08); }
 html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
@@ -365,12 +406,14 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
   transition:transform .8s cubic-bezier(.16,.84,.44,1);
 }
 .panel > *{ position:relative; z-index:1; }
-.panel:hover{
-  transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-8px);
-  border-color:var(--accent); box-shadow:0 24px 50px rgba(20,22,28,.12), 0 0 44px rgba(255,106,31,.12);
+@media (hover: hover) and (pointer: fine) {
+  .panel:hover{
+    transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-8px);
+    border-color:var(--accent); box-shadow:0 24px 50px rgba(20,22,28,.12), 0 0 44px rgba(255,106,31,.12);
+  }
+  .panel:hover::before{ opacity:1; }
+  .panel:hover::after{ transform:translateX(220%) rotate(10deg); }
 }
-.panel:hover::before{ opacity:1; }
-.panel:hover::after{ transform:translateX(220%) rotate(10deg); }
 @media (prefers-reduced-motion: reduce){
   .panel{ transition:none; }
   .panel::after{ transition:none; }
@@ -408,9 +451,13 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
   transition:transform .25s ease, box-shadow .25s ease;
 }
 .btn-primary{ color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent)); box-shadow:0 8px 22px rgba(255,106,31,.35); }
-.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(255,106,31,.45); }
 .btn-ghost{ color:var(--ink); border:1.5px solid var(--border); background:var(--surface); }
-.btn-ghost:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-3px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(255,106,31,.45); }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-3px); }
+}
+.btn-primary:active{ transform:translateY(-1px); box-shadow:0 14px 30px rgba(255,106,31,.45); }
+.btn-ghost:active{ border-color:var(--accent); color:var(--accent-ink); }
 
 /* ══ CTA BAND (default — pages may still override locally) ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
@@ -596,6 +643,17 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 .footer-social{ display:flex; gap:.9rem; }
 .footer-social a{ display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; border:1px solid var(--border); color:var(--ink); text-decoration:none; transition:all .25s ease; }
 .footer-social a:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+/* injected by site.js — same 34px circular treatment as the social icons above */
+.lite-mode-toggle{
+  display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%;
+  border:1px solid var(--border); background:none; color:var(--ink); cursor:pointer; transition:all .25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .lite-mode-toggle:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
+}
+.lite-mode-toggle[aria-pressed="true"]{
+  border-color:transparent; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
+}
 
 /* ══ HOME PAGE: dark royal blue headings, starting at "One Core. Five
    Strengths." and continuing through every section after it. Scoped via
