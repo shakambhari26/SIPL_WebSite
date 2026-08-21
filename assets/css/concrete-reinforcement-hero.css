@@ -12,7 +12,8 @@
    background) already bakes in its own dark-navy-to-sunrise gradient,
    left to right, so it bleeds edge-to-edge on desktop behind a single
    continuous scrim, weighted right so the left text column reads clean;
-   on mobile it becomes a contained card that flows in after the panel.
+   on mobile it stays a full-bleed background behind the stacked text,
+   matching the homepage / ferro-alloys / steel hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .cr-hero {
@@ -410,7 +411,7 @@
 
   .cr-panel { margin-top: 1.2rem; }
   .cr-panel-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .5rem; }
-  .cr-panel-row .cr-panel-btn { width: 100%; white-space: normal; line-height: 1.25; }
+  .cr-panel-row .cr-panel-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
 
   .cr-visual-frame img { object-position: 64% 26%; }
 

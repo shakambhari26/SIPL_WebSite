@@ -7,8 +7,8 @@
    real photo (images/product-hero-visual.jpg — rebar, steel/aluminium
    coils, ferro-alloy bowl and a construction frame at sunset) bleeds
    edge-to-edge on desktop, weighted right so the left text column
-   reads clean; on mobile it becomes a contained card that flows in
-   after the three product categories.
+   reads clean; on mobile it stays a full-bleed background behind the
+   stacked text, matching the homepage / ferro-alloys / aluminium hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .product-hero {
@@ -293,8 +293,8 @@
    see .hero-photo/.hero-photo-scrim on the homepage). The uploaded
    reference composition (rebar, coils, ferro-alloy bowl, construction
    frame, sunset) is one real photo, not stitched cutouts: on desktop
-   it bleeds edge-to-edge behind the text column; on mobile it becomes
-   a contained card that flows in after the categories. ══ */
+   it bleeds edge-to-edge behind the text column; on mobile it stays a
+   full-bleed background behind the stacked text and categories. ══ */
 .ph-visual {
   position: relative;
   overflow: hidden;
@@ -396,14 +396,10 @@
   transition: transform .4s ease-out;
 }
 
-/* ══ TABLET / MOBILE SHARED: .ph-visual sits outside .ph-inner in the
-   markup (after it, before the curve), so once it drops out of absolute
-   full-bleed mode below it simply flows in normal document order —
-   after all text content and the three categories — with no order/
-   flex tricks required. ══ */
+/* ══ TABLET / MOBILE: text and categories stack centered over the same
+   full-bleed photo, no separate boxed card — matches the homepage /
+   ferro-alloys / aluminium hero ══ */
 @media (max-width: 959px) {
-  /* text and categories stack centered over the same full-bleed photo,
-     no separate boxed card — matches the homepage / leadership hero */
   .product-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem; min-height: auto; text-align: center; }
   .ph-content { max-width: none; }
 
@@ -421,24 +417,10 @@
   .ph-cat { align-items: center; text-align: center; }
   .ph-cat h3 { font-size: .78rem; }
   .ph-cat p { font-size: .76rem; }
-
-  /* .ph-visual is position:absolute/inset:0 at desktop (full-bleed photo
-     behind the text column, see the two .ph-visual rules above) — without
-     this reset it stays absolute here too, stretching to cover whatever
-     height the stacked text+categories produce instead of becoming the
-     contained card described in the comment at the top of this file. */
-  .ph-visual {
-    position: relative;
-    inset: auto;
-    z-index: auto;
-    aspect-ratio: 4 / 3;
-    margin-top: 2.5rem;
-    border-radius: 1.2rem;
-  }
 }
 
 /* ══ MOBILE: intentional vertical order (kicker → heading → desc → CTA
-   → categories → visual), all achieved through normal flow ══ */
+   → categories), stacked over the full-bleed background photo ══ */
 @media (max-width: 640px) {
   .product-hero { padding: calc(var(--nav-h) + 1.6rem) 1.15rem 3.25rem; }
 

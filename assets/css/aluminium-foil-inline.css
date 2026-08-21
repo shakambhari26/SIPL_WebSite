@@ -6,7 +6,7 @@
 .spec-card h4{ font-size:1.08rem; font-weight:700; text-transform:none; font-family:var(--font-body); }
 .spec-card .icon-wrap{ width:46px; height:46px; border-radius:.8rem; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface)); border:1px solid var(--border); }
 .spec-card .icon-wrap svg{ width:26px; height:26px; }
-.spec-card-photo{ width:calc(100% + 3.6rem); margin:-1.9rem -1.8rem 1.2rem; height:190px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
+.spec-card-photo{ width:calc(100% + 3.6rem); max-width:none; margin:-1.9rem -1.8rem 1.2rem; height:190px; object-fit:cover; border-radius:1.1rem 1.1rem 0 0; display:block; }
 .spec-card p{ font-size:.92rem; color:var(--ink-soft); margin-bottom:1rem; }
 .spec-tags{ display:flex; flex-wrap:wrap; gap:.5rem; }
 .spec-tag{ font-family:var(--font-mono); font-size:.7rem; font-weight:600; padding:.35rem .7rem; border-radius:.35rem; background:var(--surface-2); color:var(--ink-soft); }
@@ -161,7 +161,7 @@ html[data-theme="dark"] .contact-info-footer svg{ color:#8CE0A0; }
 .field{ display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.3rem; }
 .field label{ font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); }
 .field input[type=text], .field input[type=email], .field input[type=tel], .field select, .field textarea{
-  font-family:var(--font-body); font-size:.94rem; color:var(--ink);
+  font-family:var(--font-body); font-size:var(--field-font-size); color:var(--ink);
   padding:.75rem .9rem; border:1.5px solid var(--border); border-radius:.6rem;
   background:var(--surface); transition:border-color .2s ease, box-shadow .2s ease; width:100%;
 }

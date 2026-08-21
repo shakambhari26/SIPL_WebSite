@@ -1,46 +1,4 @@
 /* ════════════════════════════════════════════════════════════════════
-   LOW-POWER MODE — early synchronous device check. Runs from this same
-   "first script after <body>" slot (see loading-bar's own comment
-   below) specifically so the `.low-power-mode` class lands on <html>
-   before the rest of <body> is parsed/painted — any CSS keyed off it
-   (styles.css, market-presence-map.css, etc.) then applies with no
-   flash of the heavy version first.
-
-   A user's explicit Lite Mode choice (toggle lives in the footer, see
-   site.js) always wins and skips auto-detection entirely. Otherwise
-   this only looks at static, synchronous signals (CPU cores, RAM,
-   prefers-reduced-motion, Data Saver). site.js separately runs an
-   actual frame-rate sample once the page is interactive — that can
-   still *upgrade* a device that passes every check here but turns out
-   janky in practice (thermal throttling, background load, weak iGPU),
-   but it never downgrades one this already flagged, so there's no
-   conflict between the two.
-   ════════════════════════════════════════════════════════════════════ */
-(function () {
-  'use strict';
-
-  var root = document.documentElement;
-  var override;
-  try { override = localStorage.getItem('lite-mode'); } catch (e) { override = null; }
-
-  if (override === 'on') {
-    root.classList.add('low-power-mode');
-    window.__spLowPower = { source: 'override', value: true };
-  } else if (override === 'off') {
-    window.__spLowPower = { source: 'override', value: false };
-  } else {
-    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    var lowEnd =
-      (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4) ||
-      (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4) ||
-      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
-      !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')));
-    if (lowEnd) root.classList.add('low-power-mode');
-    window.__spLowPower = { source: 'auto', value: lowEnd };
-  }
-})();
-
-/* ════════════════════════════════════════════════════════════════════
    SITE LOADING BAR — thin fixed bar across the top of the viewport,
    visible only while the page is actively loading. Self-contained
    (inline styles, no stylesheet dependency) so it paints instantly,
@@ -48,7 +6,10 @@
    signals (resource completions via PerformanceObserver, then
    DOMContentLoaded, then window 'load') rather than a fixed fake
    timer, so a slow page visibly lingers and a fast one snaps through.
-   Include as the FIRST script tag right after <body> on every page.
+   Include as the second script tag right after <body> on every page,
+   right after low-power-detect.js (see that file for the device-check
+   this one used to also carry — split out so this bar's own markup/
+   measurement logic isn't part of the blocking pre-paint script).
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';

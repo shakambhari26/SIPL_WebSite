@@ -15,6 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shakambhari Group | Integrated Steel &amp; TMT Bar Manufacturer</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/responsive-foundation.css">
   <link rel="stylesheet" href="assets/css/beyond-steel-slider.css">
   <link rel="stylesheet" href="assets/css/market-presence-panel.css">
   <link rel="stylesheet" href="assets/css/market-presence-map.css">
@@ -69,6 +70,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<script src="/assets/js/low-power-detect.js"></script>
 <script src="/assets/js/loading-bar.js"></script>
   <div class="sheen"></div>
 
@@ -465,14 +467,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- PILLARS -->
     <section class="section pillars-section-wrap">
-      <div class="section-head reveal">
-        <div class="kicker center">BEYOND STEEL</div>
-        <h2>One Core. Five Strengths.</h2>
-        <p>Steel is where Shakambhari started. What followed, ferro alloys, captive power, aluminium, and organic
-          farming, is the same discipline applied to every corner of industry.</p>
-      </div>
       <!-- ══ BEYOND STEEL: PREMIUM 3D CARD SLIDER (isolated component,
-           see beyond-steel-slider.css / beyond-steel-slider.js) ══ -->
+           see beyond-steel-slider.css / beyond-steel-slider.js). Section
+           head lives inside .bs3d (not as a separate sibling) so the
+           heading text sits on the same ambient background panel as the
+           card view instead of floating apart from it. ══ -->
       <div class="bs3d reveal" id="bs3d">
         <div class="bs3d-bg" aria-hidden="true">
           <div class="bs3d-mesh"></div>
@@ -483,6 +482,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="bs3d-shape s3"></div>
         </div>
         <div class="bs3d-floor-shadow" aria-hidden="true"></div>
+        <div class="section-head reveal">
+          <div class="kicker center">BEYOND STEEL</div>
+          <h2>One Core. Five Strengths.</h2>
+          <p>Steel is where Shakambhari started. What followed, ferro alloys, captive power, aluminium, and organic
+            farming, is the same discipline applied to every corner of industry.</p>
+        </div>
         <div class="bs3d-viewport">
           <div class="bs3d-stage" id="bs3dStage" tabindex="0" role="region" aria-roledescription="carousel"
             aria-label="Beyond Steel, our five business pillars. Use the arrow keys to browse.">
@@ -612,16 +617,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          carousel + background recipe as the "OUR PROCESS" teaser below
          (process-carousel.css/.js, prefix .pcc) so both read as one
          carousel system across the page, only the card content differs,
-         pulled from quality.html's eight QC checkpoints. -->
+         pulled from quality.html's eight QC checkpoints. Section head
+         lives inside .qcc (not as a separate sibling) so the heading text
+         sits on the same ambient background panel as the card view. -->
     <section class="section">
-      <div class="section-head reveal">
-        <div class="kicker center">QUALITY</div>
-        <h2 class="index-il-10">Quality Without
-          Compromise</h2>
-        <p class="index-il-11">Eight checkpoints, zero shortcuts, from the
-          moment raw material arrives to the moment a lot clears dispatch, every batch is verified before it moves
-          on.</p>
-      </div>
       <div class="qcc" id="qccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel"
         aria-label="Quality checkpoints, eight stages">
         <div class="qcc-bg" aria-hidden="true">
@@ -633,6 +632,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="qcc-shape s3"></div>
         </div>
 
+        <div class="section-head reveal">
+          <div class="kicker center">QUALITY</div>
+          <h2 class="index-il-10">Quality Without
+            Compromise</h2>
+          <p class="index-il-11">Eight checkpoints, zero shortcuts, from the
+            moment raw material arrives to the moment a lot clears dispatch, every batch is verified before it moves
+            on.</p>
+        </div>
         <div class="qcc-viewport">
           <div class="qcc-track-wrap" role="region" aria-roledescription="carousel"
             aria-label="Quality checkpoint slides" tabindex="0">
@@ -1052,16 +1059,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- PROCESS TEASER -->
+    <!-- PROCESS TEASER. Section head lives inside .pcc (not as a separate
+         sibling) so the heading text sits on the same ambient background
+         panel as the card view, matching the Beyond Steel / Quality
+         carousels above. -->
     <section class="section">
-      <div class="section-head reveal">
-        <div class="kicker center">OUR PROCESS</div>
-        <h2 class="index-il-13">From Raw Earth to
-          Reinforced Tomorrow</h2>
-        <p class="index-il-14">One continuous chain: our own mines,
-          our own reduction, our own furnace, our own hands, nearly nothing bought as a finished input we could make
-          ourselves.</p>
-      </div>
       <div class="pcc" id="pccCarousel" data-autoplay-delay="4500" aria-roledescription="carousel" aria-label="Our process">
         <div class="pcc-bg" aria-hidden="true">
           <div class="pcc-mesh"></div>
@@ -1072,6 +1074,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="pcc-shape s3"></div>
         </div>
 
+        <div class="section-head reveal">
+          <div class="kicker center">OUR PROCESS</div>
+          <h2 class="index-il-13">From Raw Earth to
+            Reinforced Tomorrow</h2>
+          <p class="index-il-14">One continuous chain: our own mines,
+            our own reduction, our own furnace, our own hands, nearly nothing bought as a finished input we could make
+            ourselves.</p>
+        </div>
         <div class="pcc-viewport">
           <div class="pcc-track-wrap" role="region" aria-roledescription="carousel" aria-label="Process stage slides" tabindex="0">
             <div class="pcc-track" id="pccTrack">
@@ -4557,8 +4567,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (e.key === 'Escape') closeCertModal();
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/supabase-client.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/js/supabase-client.js" defer></script>
   <!-- GSAP powers the Beyond Steel slider, Market Presence panel, Trusted By
        showcase and Awards gallery; each falls back to plain CSS transitions
        if this CDN request ever fails. -->

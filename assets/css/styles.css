@@ -94,7 +94,17 @@ body{
      - .sheen / .dm-cursor-glow: same fix as the media query above and
        the visibility check in site.js respectively, just not gated to
        viewport width here since a detected/toggled low-power visitor
-       can be on any screen size. */
+       can be on any screen size.
+     - background-attachment:fixed on body: mobile browsers can't hand
+       a fixed background to the compositor, so it repaints the whole
+       background on every scroll frame — the classic mobile scroll-
+       jank cause. Falling back to normal scroll attachment costs
+       nothing visually (same image, just scrolls with the page).
+     - .wa-float-pulse / dmAmbientDrift: two more sitewide infinite
+       loops (the floating WhatsApp button's pulse ring, present on
+       every page; dark mode's ambient background glow drift) with no
+       state/cleanup depending on them, unlike e.g. .hero-ripple's
+       one-shot animation — safe to fully stop rather than freeze. */
 .low-power-mode *,
 .low-power-mode *::before,
 .low-power-mode *::after{
@@ -104,6 +114,9 @@ body{
 .low-power-mode [class*="particle"]{ display:none !important; }
 .low-power-mode .sheen{ animation:none; }
 .low-power-mode .dm-cursor-glow{ display:none !important; }
+html.low-power-mode body{ background-attachment:scroll !important; }
+html.low-power-mode .wa-float-pulse{ animation:none !important; }
+html.low-power-mode[data-theme="dark"] body::after{ animation:none !important; }
 
 body::before{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:2000; opacity:.03; mix-blend-mode:overlay;

@@ -6,8 +6,8 @@
    rolls, an unrolled reflective sheet, rolling-mill machinery and a
    digital world map with orange trade-route arcs) bleeds edge-to-edge
    on desktop behind a single scrim, weighted right so the left text
-   column reads clean; on mobile it becomes a contained card that flows
-   in after the CTA panel.
+   column reads clean; on mobile it stays a full-bleed background behind
+   the stacked text, matching the homepage / ferro-alloys / steel hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .ah-hero {
@@ -367,8 +367,13 @@
 
   .ah-panel { margin-top: 1.5rem; }
   .ah-panel-row-1 { flex-direction: column; }
-  .ah-panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
-  .ah-panel-row-2 .ah-panel-btn { width: 100%; }
+  /* minmax(0,1fr): plain 1fr tracks won't shrink below a nowrap button's
+     content width (e.g. "Book a Meeting"), so at ~320-360px the track —
+     and with it the whole panel — gets pushed wider than the hero, which
+     clips against .ah-hero's overflow:hidden. Letting the label wrap
+     keeps the button inside its track instead. */
+  .ah-panel-row-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .5rem; }
+  .ah-panel-row-2 .ah-panel-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
 
   .ah-visual-frame img { object-position: 74% 28%; }
 }
