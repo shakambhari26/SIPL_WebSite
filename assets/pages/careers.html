@@ -7,7 +7,7 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+})(window,document,'script','dataLayer','GTM-MGFFHZXQ');</script>
 <!-- End Google Tag Manager -->
 
 <meta charset="UTF-8">
@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGFFHZXQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
@@ -1285,9 +1285,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="../js/careers-hero.js"></script>
 <script src="../js/careers-content.js"></script>
 <script src="../js/career-benefits-carousel.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-client.js"></script>
 <script>
 // Careers application form: pill-style choice UI, conditional shift question,
-// and submission to an n8n webhook (multipart/form-data, so the resume file rides along).
+// and submission to a backend endpoint (multipart/form-data, so the resume file rides along).
 (function(){
   const form = document.getElementById('careerApplyForm');
   if(!form) return;
@@ -1339,9 +1341,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(e.key === 'Escape' && applyOverlay && applyOverlay.classList.contains('active')) closeApplyModal();
   });
 
-  // TODO: replace with the Production URL of your n8n Webhook node
+  // TODO: replace with the production URL of your application-intake endpoint
   // (Method: POST, accepts multipart/form-data so the resume upload comes through as a binary field).
-  const CAREERS_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
+  const CAREERS_SUBMIT_URL = 'REPLACE_WITH_SUBMIT_URL';
 
   document.querySelectorAll('[data-pill-group]').forEach(group=>{
     const sync = ()=>{
@@ -1518,7 +1520,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return;
     }
 
-    if(CAREERS_WEBHOOK_URL.startsWith('REPLACE_WITH')){
+    if(CAREERS_SUBMIT_URL.startsWith('REPLACE_WITH')){
       errorMsg.textContent = "Application submission isn't connected yet. Please email your details to info@shakambharigroup.in in the meantime.";
       errorMsg.style.display = 'block';
       return;
@@ -1527,7 +1529,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
-    fetch(CAREERS_WEBHOOK_URL, { method:'POST', body:new FormData(form) })
+    fetch(CAREERS_SUBMIT_URL, { method:'POST', body:new FormData(form) })
       .then(res=>{
         if(!res.ok) throw new Error('Request failed');
         form.style.display = 'none';

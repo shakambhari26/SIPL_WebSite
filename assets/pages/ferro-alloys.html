@@ -7,7 +7,7 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+})(window,document,'script','dataLayer','GTM-MGFFHZXQ');</script>
 <!-- End Google Tag Manager -->
 
 <meta charset="UTF-8">
@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGFFHZXQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
@@ -681,53 +681,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
   })();
 </script>
-<script>
-  /* ── CONTACT FORM ── */
-  (function () {
-    const form = document.getElementById('ferroContactForm');
-    const status = document.getElementById('ferroFormStatus');
-    const FERRO_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      status.classList.add('show');
-      status.className = 'ferro-form-status show';
-
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-
-      if (FERRO_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-        status.textContent = "This form isn't connected yet, please call 033 6625 5252 or email ferroalloys@shakambharigroup.in and our team will help you directly.";
-        status.classList.add('error');
-        return;
-      }
-
-      const submitBtn = form.querySelector('.ferro-form-submit');
-      const originalLabel = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-
-      fetch(FERRO_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-      })
-        .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
-        .then(function () {
-          status.textContent = "Thanks, we've received your inquiry and will be in touch shortly.";
-          status.classList.add('success');
-          form.reset();
-        })
-        .catch(function () {
-          status.textContent = 'Something went wrong. Please try again or email ferroalloys@shakambharigroup.in.';
-          status.classList.add('error');
-        })
-        .finally(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
-        });
-    });
-  })();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/supabase-client.js"></script>
 <script src="../js/wa-float.js"></script>
 </body>
 </html>

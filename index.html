@@ -8,7 +8,7 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+})(window,document,'script','dataLayer','GTM-MGFFHZXQ');</script>
 <!-- End Google Tag Manager -->
 
   <meta charset="UTF-8">
@@ -65,7 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGFFHZXQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
@@ -4555,58 +4555,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (e.key === 'Escape') closeCertModal();
     });
   </script>
-  <script>
-    (function () {
-      const form = document.getElementById('newsletterForm');
-      if (!form) return;
-      const status = form.querySelector('.newsletter-status');
-
-      // TODO: replace with the Production URL of your n8n Webhook node (Method: POST, application/json)
-      const NEWSLETTER_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        status.hidden = false;
-        status.className = 'newsletter-status';
-
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-
-        if (NEWSLETTER_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-          status.textContent = "This form isn't connected yet, please email info@shakambharigroup.in and our team will add you directly.";
-          status.classList.add('error');
-          return;
-        }
-
-        const submitBtn = form.querySelector('.newsletter-submit');
-        const originalLabel = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-
-        fetch(NEWSLETTER_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
-        })
-          .then(function (res) { if (!res.ok) throw new Error('Request failed'); })
-          .then(function () {
-            status.textContent = "Thanks for subscribing, you'll hear from us soon.";
-            status.classList.add('success');
-            form.reset();
-          })
-          .catch(function () {
-            status.textContent = 'Something went wrong. Please try again or email info@shakambharigroup.in.';
-            status.classList.add('error');
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalLabel;
-          });
-      });
-    })();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-client.js"></script>
   <!-- GSAP powers the Beyond Steel slider, Market Presence panel, Trusted By
        showcase and Awards gallery; each falls back to plain CSS transitions
        if this CDN request ever fails. -->

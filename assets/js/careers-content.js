@@ -336,42 +336,7 @@
     });
   })();
 
-  // ════════════════════ NEWSLETTER ════════════════════
-  (function initNewsletter() {
-    const form = document.getElementById('newsletterForm');
-    if (!form) return;
-    const successEl = form.querySelector('.cnl-success');
-    const errorEl = form.querySelector('.cnl-error');
-    const btn = form.querySelector('button[type=submit]');
-
-    // TODO: replace with the Production URL of your n8n Webhook node for newsletter sign-ups.
-    const NEWSLETTER_WEBHOOK_URL = 'REPLACE_WITH_N8N_WEBHOOK_URL';
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      errorEl.classList.remove('show');
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-
-      if (NEWSLETTER_WEBHOOK_URL.startsWith('REPLACE_WITH')) {
-        errorEl.textContent = "Newsletter sign-up isn't connected yet. Please try again later.";
-        errorEl.classList.add('show');
-        return;
-      }
-
-      btn.disabled = true;
-      fetch(NEWSLETTER_WEBHOOK_URL, { method: 'POST', body: new FormData(form) })
-        .then((res) => {
-          if (!res.ok) throw new Error('Request failed');
-          form.reset();
-          successEl.classList.add('show');
-        })
-        .catch(() => {
-          errorEl.textContent = 'Something went wrong. Please try again.';
-          errorEl.classList.add('show');
-        })
-        .finally(() => { btn.disabled = false; });
-    });
-  })();
+  // Newsletter form submission is handled by /js/supabase-client.js.
 
   // ════════════════════ FINAL CTA — PARTICLES ════════════════════
   (function initFinalCta() {
