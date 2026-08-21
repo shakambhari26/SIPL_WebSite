@@ -535,3 +535,17 @@
 .awh-feature-m .awh-feature-icon svg { width: 18px; height: 18px; }
 .awh-feature-m .awh-feature-title { font-size: .76rem; }
 .awh-feature-m .awh-feature-sub { display: block; font-size: .72rem; }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .awh-grid { animation: none !important; }
+}
+
+/* ══ LOW-POWER MODE: same grid-drift simplification as the mobile
+   breakpoint above, keyed off device capability (.low-power-mode)
+   instead of viewport width ══ */
+.low-power-mode .awh-grid { animation: none !important; }

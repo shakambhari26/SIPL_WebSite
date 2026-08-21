@@ -38,6 +38,11 @@
   const autoplayDelay = parseInt(root.dataset.autoplayDelay, 10) || 4500;
   let isPaused = false;
   let isDragging = false;
+  // stage videos only start loading/playing once the carousel has actually
+  // scrolled into view (see IntersectionObserver below) — avoids fetching
+  // and autoplaying the first slide's clip on every page load regardless
+  // of scroll position, since this carousel sits below the fold.
+  let carouselVisible = false;
 
   // ── pagination dots (count derives from the slides that exist, not a hardcoded number) ──
   const dots = slides.map((_, i) => {
@@ -96,7 +101,7 @@
       // ── stage video: only the centered slide's clip plays; every side slide pauses ──
       const video = slide.querySelector('.pcc-video');
       if (video) {
-        if (delta === 0) {
+        if (delta === 0 && carouselVisible) {
           if (!video.src && video.dataset.src) video.src = video.dataset.src;
           if (!reduceMotion) video.play().catch(() => {});
         } else {
@@ -260,6 +265,8 @@
         if (!entry.isIntersecting) return;
         obs.unobserve(root);
         root.classList.add('is-visible');
+        carouselVisible = true;
+        render();
       });
     }, { threshold: .2 });
     obs.observe(root);

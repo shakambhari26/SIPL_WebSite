@@ -486,3 +486,17 @@
     transition: none !important;
   }
 }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .ph-sweep { animation: none !important; }
+}
+
+/* ══ LOW-POWER MODE: same sweep simplification as the mobile breakpoint
+   above, keyed off device capability (.low-power-mode) instead of
+   viewport width ══ */
+.low-power-mode .ph-sweep { animation: none !important; }

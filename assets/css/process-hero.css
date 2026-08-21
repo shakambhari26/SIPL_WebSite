@@ -407,3 +407,17 @@
 .op-mobile-step .op-step-num { color: var(--accent-hot); }
 .op-mobile-step .op-step-title { font-size: .78rem; }
 .op-mobile-step .op-step-sub { font-size: .72rem; max-width: none; }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .op-hero-grid { animation: none !important; }
+}
+
+/* ══ LOW-POWER MODE: same grid-drift simplification as the mobile
+   breakpoint above, keyed off device capability (.low-power-mode)
+   instead of viewport width ══ */
+.low-power-mode .op-hero-grid { animation: none !important; }

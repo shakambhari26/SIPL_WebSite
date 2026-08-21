@@ -87,7 +87,11 @@
       heroHeight = rect.height;
     };
     measure();
-    window.addEventListener('resize', measure);
+    let resizeRaf = null;
+    window.addEventListener('resize', () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(measure);
+    });
 
     let raf = null;
     function onScroll() {

@@ -17,7 +17,7 @@
 .pcc {
   position: relative;
   margin-top: 3rem;
-  padding: 2.5rem 0 1rem;
+  padding: 2.5rem 0 2.25rem;
   border-radius: 2rem;
   isolation: isolate;
 }
@@ -29,8 +29,13 @@
   transition: opacity .7s cubic-bezier(.16, .84, .44, 1), transform .7s cubic-bezier(.16, .84, .44, 1);
 }
 
-/* ── ambient background (same recipe family as .cbc-mesh/.cbc-glow) ── */
-.pcc-bg { position: absolute; inset: -6% -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+/* ── ambient background (same recipe family as .cbc-mesh/.cbc-glow).
+   Fixed-px bleed, not %: a percentage inset scales with .pcc's own
+   height, which grows with the carousel/CTA content — that pushed the
+   bottom edge down enough to intersect the market-presence section's
+   own bled panel right below it. A fixed offset stays a constant
+   card-edge overhang no matter how tall the content gets. ── */
+.pcc-bg { position: absolute; top: -32px; right: -3%; bottom: -32px; left: -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
 
 .pcc-mesh {
   position: absolute;
@@ -137,7 +142,10 @@
   opacity: 0;
   transition: opacity .4s ease;
 }
-.pcc-card:hover::before, .pcc-card:focus-visible::before { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .pcc-card:hover::before { opacity: 1; }
+}
+.pcc-card:focus-visible::before { opacity: 1; }
 .pcc-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .pcc-slide.is-center .pcc-card .pillar-img-wrap.icon-wrap { animation: pccIconPulse 3.2s ease-in-out infinite; }
@@ -167,7 +175,15 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
 }
 .pcc-nav svg { width: 20px; height: 20px; }
-.pcc-nav:hover, .pcc-nav:focus-visible {
+@media (hover: hover) and (pointer: fine) {
+  .pcc-nav:hover {
+    transform: scale(1.08);
+    border-color: var(--accent);
+    box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
+    outline: none;
+  }
+}
+.pcc-nav:focus-visible {
   transform: scale(1.08);
   border-color: var(--accent);
   box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
@@ -177,6 +193,15 @@
 
 /* ── bottom controls: prev arrow · dots · next arrow ── */
 .pcc-controls { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-top: .5rem; }
+
+/* ── CTA: lives inside .pcc so it shares the carousel's own rounded
+   panel/background instead of floating as a separate block beneath it ── */
+.pcc-cta {
+  text-align: center;
+  margin: 1.75rem 1.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
 
 /* ── pagination ── */
 .pcc-dots { display: flex; align-items: center; justify-content: center; gap: .55rem; }
@@ -192,7 +217,9 @@
   cursor: pointer;
   transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
 }
-.pcc-dot:hover { background: var(--accent-hot); }
+@media (hover: hover) and (pointer: fine) {
+  .pcc-dot:hover { background: var(--accent-hot); }
+}
 .pcc-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .pcc-dot.is-active { width: 50px; background: linear-gradient(90deg, var(--accent-hot), var(--accent)); }
 
@@ -200,6 +227,17 @@
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── .pcc-bg bleed vs. the section gap below it: .section's own
+   padding (styles.css) shrinks at these same two breakpoints (760px,
+   480px), so the fixed bleed has to shrink in step or it eats back
+   into the market-presence panel below. ── */
+@media (max-width: 760px) {
+  .pcc-bg { top: -16px; bottom: -16px; }
+}
+@media (max-width: 480px) {
+  .pcc-bg { top: -12px; bottom: -12px; }
 }
 
 /* ── responsive step/scale tuning is computed in JS from measured card
@@ -210,15 +248,33 @@
 }
 @media (max-width: 640px) {
   .pcc-slide { width: min(300px, 82vw); margin-left: calc(min(300px, 82vw) / -2); }
-  .pcc-track { height: 500px; }
-  .pcc-viewport { padding: 1.75rem 0 2.5rem; gap: .25rem; }
+  .pcc-track { height: 430px; }
+  .pcc-viewport { padding: 1.75rem 0 2rem; gap: .25rem; }
   .pcc-nav { width: 38px; height: 38px; }
   .pcc-nav svg { width: 17px; height: 17px; }
+  .pcc-cta { margin: 1.25rem 1rem 0; padding-top: 1.25rem; }
 }
 @media (max-width: 420px) {
-  .pcc-slide { width: min(250px, 56vw); margin-left: calc(min(250px, 56vw) / -2); }
-  .pcc-track { height: 520px; }
+  /* same gentler step-down as quality-carousel.css's .qcc-slide — a flat
+     250px cap left the card looking thin against an 18:9 phone's width */
+  .pcc-slide { width: min(288px, 88vw); margin-left: calc(min(288px, 88vw) / -2); }
+  .pcc-track { height: 415px; }
 }
+
+/* ── low-end mobile: trim the always-on blur+animation background
+   layers behind the coverflow — see the matching note in
+   quality-carousel.css ── */
+@media (max-width: 640px) {
+  .pcc-glow { filter: blur(24px); animation: none; opacity: .8; }
+  .pcc-shape { display: none; }
+  .pcc-nav { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+}
+
+/* ══ LOW-POWER MODE: same background-layer trim as the mobile breakpoint
+   above (skip .pcc-nav — pure backdrop-filter, already killed sitewide),
+   keyed off device capability (.low-power-mode) instead of viewport width ══ */
+.low-power-mode .pcc-glow { filter: blur(24px); animation: none; opacity: .8; }
+.low-power-mode .pcc-shape { display: none; }
 
 /* ══ DARK MODE — same recipe as career-benefits-carousel.css's
    html[data-theme="dark"] overrides ══ */

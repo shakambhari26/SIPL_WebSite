@@ -85,7 +85,7 @@
   // with randomized CSS custom properties, then animated entirely by the
   // shared CSS keyframe (no per-frame JS) ──
   if (particleHost && !reduceMotion) {
-    const COUNT = 18;
+    const COUNT = window.innerWidth < 640 ? 7 : 18;
     const hues = ['#FFC24B', '#FF6A1F'];
     const frag = document.createDocumentFragment();
     for (let i = 0; i < COUNT; i++) {

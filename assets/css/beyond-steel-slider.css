@@ -11,7 +11,7 @@
 .bs3d {
   position: relative;
   width: 100%;
-  padding: 2.5rem 0 1rem;
+  padding: 2.5rem 0 2.25rem;
   border-radius: 2rem;
   isolation: isolate;
 }
@@ -19,8 +19,20 @@
 /* ── ambient background: same opaque, clipped "floating panel" recipe as
    the Quality / Our Process / Why Join Us carousels' .qcc-bg / .pcc-bg /
    .cbc-bg, so this card-view reads as one continuous carousel system with
-   the rest of the site instead of a blended, boundary-less tint. ── */
-.bs3d-bg { position: absolute; inset: -6% -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+   the rest of the site instead of a blended, boundary-less tint.
+   Fixed-px top/bottom bleed, not %: a percentage inset scales with
+   .bs3d's own height, which grows with the CTA content — see
+   process-carousel.css's .pcc-bg for the section-boundary overlap that
+   caused (same fix applied here, and to .qcc-bg, for consistency across
+   all three carousels). ── */
+.bs3d-bg { position: absolute; top: -32px; right: -3%; bottom: -32px; left: -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+
+@media (max-width: 760px) {
+  .bs3d-bg { top: -16px; bottom: -16px; }
+}
+@media (max-width: 480px) {
+  .bs3d-bg { top: -12px; bottom: -12px; }
+}
 
 .bs3d-mesh {
   position: absolute;
@@ -314,6 +326,11 @@
   .bs3d-controls {
     gap: 1.1rem;
   }
+
+  .bs3d-cta {
+    margin: 1.25rem 1rem 0;
+    padding-top: 1.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -367,4 +384,15 @@ html[data-theme="dark"] .bs3d-texture {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ── CTA: lives inside .bs3d so it shares the slider's own rounded
+   panel/background instead of floating as a separate block beneath it ── */
+.bs3d-cta {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin: 1.75rem 1.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
 }

@@ -12,15 +12,31 @@
 .tby {
   position: relative;
   max-width: 1400px;
-  margin: 0 auto;
+  /* top margin: .tby butts directly against Market Presence above with no
+     divider/section padding between the two boxes (raw gap ~0), so even
+     the small -8px/-8px bleed on each panel needs a little real space to
+     sit inside or the two still touch. */
+  margin: 2rem auto 0;
   padding: 5rem 1.75rem;
 }
 
 /* soft white-to-grey mesh + faint blueprint grid, confined to the section
-   with a slight bleed past its own edges (matches .pillars-section-wrap) */
+   with a slight bleed past its own edges (matches .pillars-section-wrap).
+   Fixed-px bleed, not %: a percentage inset (the old -4%) bled far enough
+   past this section's edges to overlap its neighbours. top/bottom are a
+   flat -8px rather than the usual -32px, because .tby sits directly
+   against Market Presence above and Awards below with no divider or
+   `.section` padding buffer between the boxes — unlike carousels such as
+   .pcc/.qcc that live inside a generic `.section` wrapper with real
+   padding to spare, there's almost no gap here for a bigger bleed to
+   sit in before it overlaps the neighbouring panel (see .mp-mesh's
+   comment for the fuller explanation). */
 .tby-mesh {
   position: absolute;
-  inset: -4% -2%;
+  top: -8px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   border-radius: 2rem;
@@ -33,7 +49,10 @@
 
 .tby-dots {
   position: absolute;
-  inset: -4% -2%;
+  top: -8px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   background-image: radial-gradient(rgba(15, 23, 42, .06) 1px, transparent 1px);
@@ -44,7 +63,10 @@
 
 .tby-blueprint {
   position: absolute;
-  inset: -4% -2%;
+  top: -8px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   background-image:
@@ -70,7 +92,10 @@
 
 .tby-noise {
   position: absolute;
-  inset: -4% -2%;
+  top: -8px;
+  right: -2%;
+  bottom: -8px;
+  left: -2%;
   z-index: 0;
   pointer-events: none;
   opacity: .025;

@@ -397,8 +397,10 @@
   transition: transform .35s cubic-bezier(.16, .84, .44, 1);
 }
 
-.hero-btn-primary:hover .hero-btn-arrow {
-  transform: translateX(5px);
+@media (hover: hover) and (pointer: fine) {
+  .hero-btn-primary:hover .hero-btn-arrow {
+    transform: translateX(5px);
+  }
 }
 
 .hero-btn-secondary {
@@ -411,18 +413,20 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), border-color .3s ease, box-shadow .3s ease, background .3s ease;
 }
 
-.hero-btn-secondary:hover {
-  border-color: rgba(255, 106, 31, .55) !important;
-  box-shadow: 0 0 24px rgba(255, 106, 31, .18);
-  background: rgba(255, 106, 31, .07) !important;
-}
-
 .hero-btn-secondary .hero-btn-arrow {
   transform: translateX(0) rotate(-45deg);
 }
 
-.hero-btn-secondary:hover .hero-btn-arrow {
-  transform: translateX(3px) rotate(-45deg);
+@media (hover: hover) and (pointer: fine) {
+  .hero-btn-secondary:hover {
+    border-color: rgba(255, 106, 31, .55) !important;
+    box-shadow: 0 0 24px rgba(255, 106, 31, .18);
+    background: rgba(255, 106, 31, .07) !important;
+  }
+
+  .hero-btn-secondary:hover .hero-btn-arrow {
+    transform: translateX(3px) rotate(-45deg);
+  }
 }
 
 .hero-ripple {
@@ -443,50 +447,70 @@
 }
 
 /* ══ OUR BRANDS MINI SHOWCASE ══
-   One glass-framed strip anchored under the hero CTAs, matching the
-   .hero-btn-secondary glass recipe (rgba white fill + rgba white
-   border + backdrop-blur, orange on hover). The three source logos
-   have wildly different native aspect ratios (Elegant Steel is a
-   solid square, Thermocon/India Foils are wide letterboxed
-   rectangles), so each gets a full-width, fixed-height slot inside
-   one shared frame rather than a fixed square — that keeps every
-   logo readably sized instead of swimming in mismatched whitespace. */
+   Each brand is its own standalone card rather than logos crammed
+   into a shared strip: Elegant Steel and Thermocon TMT sit side by
+   side on the first line, India Foils gets its own full-width line
+   below. The card itself carries only a hairline border for shape —
+   no fill/blur behind it — so the busy hero photo shows through
+   cleanly instead of reading as a smeared dark panel. The white logo
+   plate is the only opaque surface, sized generously (and per-brand,
+   since the three source logos have wildly different native aspect
+   ratios — Elegant Steel is a solid square, Thermocon/India Foils are
+   wide letterboxed rectangles) so every logo renders at a legible
+   size with room to breathe, never touching the plate's edges. */
 .hero-brands {
   margin-top: 2.2rem;
   padding-top: 1.75rem;
   border-top: 1px solid rgba(255, 255, 255, .09);
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
 }
 
 .hero-brands-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
-  gap: .4rem;
+  gap: .65rem;
   width: 100%;
-  padding: .5rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, .05);
-  border: 1.5px solid rgba(255, 255, 255, .18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .4);
 }
 
+.hero-brands-row--solo .hero-brand-card {
+  flex: 1 1 100%;
+  justify-content: center;
+}
+
+/* Each brand is its own standalone card. */
 .hero-brand-card {
-  flex: 1 1 0;
+  flex: 1 1 150px;
   min-width: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: .3rem;
-  border-radius: 14px;
+  padding: .5rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .03);
+  border: 1.5px solid rgba(255, 255, 255, .16);
   text-decoration: none;
-  transition: transform .3s cubic-bezier(.16, .84, .44, 1), background .3s ease;
+  transition: transform .3s cubic-bezier(.16, .84, .44, 1), background .3s ease, border-color .3s ease;
 }
 
-.hero-brand-card:hover,
 .hero-brand-card:focus-visible {
   transform: translateY(-2px);
-  background: rgba(255, 106, 31, .1);
+  background: rgba(255, 106, 31, .08);
+  border-color: rgba(255, 106, 31, .32);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-brand-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 106, 31, .08);
+    border-color: rgba(255, 106, 31, .32);
+  }
+}
+
+.hero-brand-card:active {
+  background: rgba(255, 106, 31, .08);
+  border-color: rgba(255, 106, 31, .32);
 }
 
 .hero-brand-card:focus-visible {
@@ -496,40 +520,47 @@
 
 .hero-brand-logo-wrap {
   width: 100%;
-  height: 52px;
+  height: 92px;
   border-radius: 10px;
   overflow: hidden;
   background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 9px;
+  padding: 12px 16px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
 }
 
 @media (min-width: 640px) {
   .hero-brand-logo-wrap {
-    height: 64px;
+    height: 120px;
     border-radius: 12px;
-    padding: 9px 12px;
+    padding: 16px 20px;
   }
 }
 
-.hero-brand-logo {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+@media (min-width: 960px) {
+  .hero-brand-logo-wrap {
+    height: 140px;
+    padding: 18px 24px;
+  }
 }
 
-.hero-brand-card:hover .hero-brand-logo,
-.hero-brand-card:focus-visible .hero-brand-logo {
-  transform: scale(1.08);
+.hero-brand-logo-wrap picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-brand-card,
-  .hero-brand-logo {
+  .hero-brand-card {
     transition: none !important;
   }
 }
@@ -545,9 +576,11 @@
   transition: border-color .3s ease;
 }
 
-.scroll-cue:hover .scroll-cue-icon {
-  border-color: var(--accent-hot);
-  box-shadow: 0 0 12px rgba(255, 194, 75, .3);
+@media (hover: hover) and (pointer: fine) {
+  .scroll-cue:hover .scroll-cue-icon {
+    border-color: var(--accent-hot);
+    box-shadow: 0 0 12px rgba(255, 194, 75, .3);
+  }
 }
 
 .scroll-cue-line {
@@ -656,6 +689,29 @@
   opacity: 1;
   transform: none;
   transition-delay: .82s;
+}
+
+/* ── low-end mobile: the gradient headline runs two simultaneous infinite
+   animations (a background-position shift plus a filter:drop-shadow pulse
+   — drop-shadow is themselves a blur recompute every frame), stacked on
+   top of 18 floating particle spans and the ember/fog blur layers. Trim
+   the costliest ones below tablet width. ── */
+@media (max-width: 640px) {
+  .hero h1 .grad {
+    animation: emberShift 6s ease-in-out infinite;
+  }
+
+  .hero-btn-secondary {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+/* ══ LOW-POWER MODE: same gradient-headline simplification as the mobile
+   breakpoint above, keyed off device capability (.low-power-mode)
+   instead of viewport width ══ */
+.low-power-mode .hero h1 .grad {
+  animation: emberShift 6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -17,7 +17,7 @@
 .qcc {
   position: relative;
   margin-top: 3rem;
-  padding: 2.5rem 0 1rem;
+  padding: 2.5rem 0 2.25rem;
   border-radius: 2rem;
   isolation: isolate;
 }
@@ -29,8 +29,14 @@
   transition: opacity .7s cubic-bezier(.16, .84, .44, 1), transform .7s cubic-bezier(.16, .84, .44, 1);
 }
 
-/* ── ambient background (same recipe family as .pcc-mesh/.pcc-glow) ── */
-.qcc-bg { position: absolute; inset: -6% -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
+/* ── ambient background (same recipe family as .pcc-mesh/.pcc-glow).
+   Fixed-px top/bottom bleed, not %: a percentage inset scales with
+   .qcc's own height, which grows with the carousel/CTA content — see
+   process-carousel.css's .pcc-bg for the overlap that caused (it bled
+   into the section below). Same fix here, pre-emptively, since .qcc
+   is the same component pattern sitting right above the Group
+   showcase section. ── */
+.qcc-bg { position: absolute; top: -32px; right: -3%; bottom: -32px; left: -3%; z-index: -1; pointer-events: none; border-radius: 2rem; overflow: hidden; }
 
 .qcc-mesh {
   position: absolute;
@@ -134,7 +140,10 @@
   opacity: 0;
   transition: opacity .4s ease;
 }
-.qcc-card:hover::before, .qcc-card:focus-visible::before { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .qcc-card:hover::before { opacity: 1; }
+}
+.qcc-card:focus-visible::before { opacity: 1; }
 .qcc-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .qcc-slide.is-center .qcc-card .pillar-img-wrap.icon-wrap { animation: qccIconPulse 3.2s ease-in-out infinite; }
@@ -173,7 +182,15 @@
   transition: transform .3s cubic-bezier(.16, .84, .44, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease;
 }
 .qcc-nav svg { width: 20px; height: 20px; }
-.qcc-nav:hover, .qcc-nav:focus-visible {
+@media (hover: hover) and (pointer: fine) {
+  .qcc-nav:hover {
+    transform: scale(1.08);
+    border-color: var(--accent);
+    box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
+    outline: none;
+  }
+}
+.qcc-nav:focus-visible {
   transform: scale(1.08);
   border-color: var(--accent);
   box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
@@ -195,7 +212,9 @@
   cursor: pointer;
   transition: width .35s cubic-bezier(.16, .84, .44, 1), background .3s ease;
 }
-.qcc-dot:hover { background: var(--accent-hot); }
+@media (hover: hover) and (pointer: fine) {
+  .qcc-dot:hover { background: var(--accent-hot); }
+}
 .qcc-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .qcc-dot.is-active { width: 50px; background: linear-gradient(90deg, var(--accent-hot), var(--accent)); }
 
@@ -203,6 +222,26 @@
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── CTA: lives inside .qcc so it shares the carousel's own rounded
+   panel/background instead of floating as a separate block beneath it ── */
+.qcc-cta {
+  text-align: center;
+  margin: 1.75rem 1.5rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── .qcc-bg bleed vs. the section gap below it: .section's own padding
+   (styles.css) shrinks at these same two breakpoints (760px, 480px), so
+   the fixed bleed has to shrink in step or it eats into the Group
+   showcase panel below (see process-carousel.css's matching fix). ── */
+@media (max-width: 760px) {
+  .qcc-bg { top: -16px; bottom: -16px; }
+}
+@media (max-width: 480px) {
+  .qcc-bg { top: -12px; bottom: -12px; }
 }
 
 /* ── responsive step/scale tuning is computed in JS from measured card
@@ -213,16 +252,56 @@
 }
 @media (max-width: 640px) {
   .qcc-slide { width: min(300px, 82vw); margin-left: calc(min(300px, 82vw) / -2); }
-  .qcc-track { height: 500px; }
+  .qcc-track { height: 430px; }
   .qcc-viewport { padding: 1.75rem 0 1rem; }
-  .qcc-controls { gap: .8rem; }
-  .qcc-nav { width: 38px; height: 38px; }
+  .qcc-controls { gap: .5rem; }
+  .qcc-nav { width: 38px; height: 38px; flex-shrink: 0; }
   .qcc-nav svg { width: 17px; height: 17px; }
+  .qcc-cta { margin: 1.25rem 1rem 0; padding-top: 1.25rem; }
+
+  /* 8 pagination dots at full size ran wider than an 18:9 phone screen,
+     so the centered row overflowed and pushed the prev/next arrows
+     almost entirely off-screen instead of wrapping. Shrink the dots and
+     let the dot row itself scroll as a fallback, so the arrows — the
+     controls users actually need to see — always stay fully visible. */
+  .qcc-dots {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: .4rem;
+    padding: 0 2px;
+  }
+  .qcc-dots::-webkit-scrollbar { display: none; }
+  .qcc-dot { flex-shrink: 0; width: 26px; height: 26px; padding: 9px; }
+  .qcc-dot.is-active { width: 40px; }
 }
 @media (max-width: 420px) {
-  .qcc-slide { width: min(250px, 56vw); margin-left: calc(min(250px, 56vw) / -2); }
-  .qcc-track { height: 520px; }
+  /* was capped at a flat 250px here — on an 18:9 phone (360-430px wide)
+     that left the card looking thin and adrift in a lot of empty side
+     margin instead of filling the screen the way the 640px tier's
+     wider cap does. Step down more gently. */
+  .qcc-slide { width: min(288px, 88vw); margin-left: calc(min(288px, 88vw) / -2); }
+  .qcc-track { height: 415px; }
 }
+
+/* ── low-end mobile: this section stacks a blurred breathing glow +
+   three blurred floating blobs behind every card; on 18:9 phones that's
+   4 always-on blur+animation layers repainting under a coverflow that's
+   already transform-animating on drag, so trim the cost instead of
+   just resizing it. ── */
+@media (max-width: 640px) {
+  .qcc-glow { filter: blur(24px); animation: none; opacity: .8; }
+  .qcc-shape { display: none; }
+  .qcc-nav { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+}
+
+/* ══ LOW-POWER MODE: same background-layer trim as the mobile breakpoint
+   above (skip .qcc-nav — pure backdrop-filter, already killed sitewide),
+   keyed off device capability (.low-power-mode) instead of viewport width ══ */
+.low-power-mode .qcc-glow { filter: blur(24px); animation: none; opacity: .8; }
+.low-power-mode .qcc-shape { display: none; }
 
 /* ══ DARK MODE — same recipe as process-carousel.css's
    html[data-theme="dark"] overrides ══ */

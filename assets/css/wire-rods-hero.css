@@ -230,6 +230,10 @@
 .wr-trust-text {
   font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .05em;
   text-transform: uppercase; line-height: 1.3; color: var(--wr-silver);
+  /* prevent .wr-hero's mobile text-align:center from centering this line
+     and the bolder strong line separately, which drifts them out of
+     alignment with each other since they differ in natural width */
+  text-align: left;
 }
 .wr-trust-text strong { display: block; color: var(--wr-white); font-size: .72rem; }
 
@@ -321,3 +325,17 @@
   .wr-bg, .wr-visual-frame, .wr-content { transition: none !important; }
   .wr-feature:hover, .wr-feature:hover .wr-feature-icon { transform: none !important; }
 }
+
+/* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a
+   repaint every frame and (where paired) costs extra compositing via
+   mix-blend-mode; simplify it away below the tablet breakpoint regardless
+   of the user's reduced-motion preference, since most low-end-phone users
+   won't have that OS setting enabled ══ */
+@media (max-width: 760px) {
+  .wr-sweep { animation: none !important; mix-blend-mode: normal; }
+}
+
+/* ══ LOW-POWER MODE: same sweep simplification as the mobile breakpoint
+   above, keyed off device capability (.low-power-mode) instead of
+   viewport width ══ */
+.low-power-mode .wr-sweep { animation: none !important; mix-blend-mode: normal; }

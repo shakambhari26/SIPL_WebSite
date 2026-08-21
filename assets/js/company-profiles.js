@@ -65,10 +65,14 @@
 
   // Re-measure the indicator for the currently open profile on resize
   // (tab widths reflow between the mobile and desktop tab-bar layouts).
+  let resizeRaf = null;
   window.addEventListener('resize', () => {
-    const activeProfile = overlay.querySelector('.cp-profile.active');
-    if (!activeProfile || !overlay.classList.contains('open')) return;
-    const activeTab = activeProfile.querySelector('.cp-tab.active');
-    if (activeTab) selectTab(activeProfile, activeTab);
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      const activeProfile = overlay.querySelector('.cp-profile.active');
+      if (!activeProfile || !overlay.classList.contains('open')) return;
+      const activeTab = activeProfile.querySelector('.cp-tab.active');
+      if (activeTab) selectTab(activeProfile, activeTab);
+    });
   });
 })();
