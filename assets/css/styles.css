@@ -666,17 +666,6 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 .footer-social{ display:flex; gap:.9rem; }
 .footer-social a{ display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; border:1px solid var(--border); color:var(--ink); text-decoration:none; transition:all .25s ease; }
 .footer-social a:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
-/* injected by site.js — same 34px circular treatment as the social icons above */
-.lite-mode-toggle{
-  display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%;
-  border:1px solid var(--border); background:none; color:var(--ink); cursor:pointer; transition:all .25s ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .lite-mode-toggle:hover{ border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px); }
-}
-.lite-mode-toggle[aria-pressed="true"]{
-  border-color:transparent; color:#fff; background:linear-gradient(135deg,var(--accent-hot),var(--accent));
-}
 
 /* ══ HOME PAGE: dark royal blue headings, starting at "One Core. Five
    Strengths." and continuing through every section after it. Scoped via

@@ -752,9 +752,14 @@
 }
 
 @media (max-width: 420px) {
+  /* width derived from actual available space (section padding + both
+     arrows + viewport gaps at this breakpoint: 56px + 68px + 8px = 132px),
+     not a flat vw guess — the old min(58vw, 300px) undershot badly on
+     common phone widths (375-414px), leaving the card needlessly thin
+     while .awx-track's height stayed fixed at 420px. */
   .awx-slot {
-    width: min(58vw, 300px);
-    margin-left: calc(min(58vw, 300px) / -2);
+    width: min(calc(100vw - 132px), 300px);
+    margin-left: calc(min(calc(100vw - 132px), 300px) / -2);
   }
 
   .awx-arrow {

@@ -8,12 +8,20 @@
    its own file so the blocking script is just this device check, not
    the loading-bar UI logic too.
 
+   Mobile viewports (≤640px, matching the "mobile" breakpoint used by the
+   site's own carousel/particle scripts) default to Lite Mode too, on the
+   assumption that phones benefit from the lighter experience regardless
+   of what their CPU/RAM report — it's just one more signal alongside the
+   CPU/RAM/motion/Data-Saver checks below.
+
    A `?lowPowerTest=1` / `?lowPowerTest=0` query param forces that mode
    for this page load only (never written to localStorage) — a private,
    unlisted way to test either experience on any machine regardless of
-   its real specs. A user's explicit Lite Mode choice (toggle lives in
-   the footer, see site.js) is the next-highest priority and skips
-   auto-detection entirely. Otherwise this only looks at static,
+   its real specs. There's no UI to set it, but a stored
+   localStorage['lite-mode'] preference (e.g. set manually, or a holdover
+   from before the footer toggle was removed) is the next-highest
+   priority and skips auto-detection entirely. Otherwise this only looks
+   at static,
    synchronous signals (CPU cores, RAM, prefers-reduced-motion, Data
    Saver). site.js separately runs an actual frame-rate sample once the
    page is interactive — that can still *upgrade* a device that passes
@@ -49,6 +57,7 @@
   } else {
     var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     var lowEnd =
+      window.innerWidth <= 640 ||
       (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4) ||
       (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4) ||
       (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
