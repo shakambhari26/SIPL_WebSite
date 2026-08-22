@@ -727,9 +727,53 @@
 
   .awx-slot {
     width: min(72vw, 300px);
-    height: 420px;
-    margin-top: -210px;
+    height: 432px;
+    margin-top: -216px;
     margin-left: calc(min(72vw, 300px) / -2);
+  }
+
+  /* card content trimmed down a notch so the longest real award copy
+     (title + issuer + description + button) fits the slot height above
+     without .awx-card's overflow:hidden clipping the button — verified
+     against every award card's actual rendered height, not eyeballed. */
+  .awx-card {
+    padding: 1.25rem 1.25rem 1.4rem;
+  }
+
+  .awx-frame {
+    height: 160px;
+    margin-bottom: 1rem;
+  }
+
+  .awx-category {
+    font-size: .6rem;
+    margin-bottom: .45rem;
+  }
+
+  .awx-title {
+    font-size: 1.02rem;
+    line-height: 1.24;
+    margin-bottom: .32rem;
+  }
+
+  .awx-issuer {
+    font-size: .75rem;
+    margin-bottom: .12rem;
+  }
+
+  .awx-year {
+    font-size: .64rem;
+    margin-bottom: .55rem;
+  }
+
+  .awx-desc {
+    font-size: .76rem;
+    line-height: 1.46;
+    margin-bottom: .8rem;
+  }
+
+  .awx-details-btn {
+    font-size: .7rem;
   }
 
   .awx-timeline {
@@ -760,6 +804,15 @@
   .awx-slot {
     width: min(calc(100vw - 132px), 300px);
     margin-left: calc(min(calc(100vw - 132px), 300px) / -2);
+    /* narrower card here wraps text onto more lines than the 768px
+       breakpoint budgets for (worst case measured at a real 320px-wide
+       screen), so the slot needs extra height on top of the 768px rule's */
+    height: 504px;
+    margin-top: -252px;
+  }
+
+  .awx-track {
+    height: 520px;
   }
 
   .awx-arrow {
