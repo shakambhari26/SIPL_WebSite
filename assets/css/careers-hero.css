@@ -63,7 +63,7 @@
   opacity: 0;
   will-change: transform, opacity;
   backface-visibility: hidden;
-  animation: cahIdleFloat 6.5s ease-in-out 1.8s infinite;
+  animation: cahIdleFloat 22s ease-in-out 1.8s infinite;
 }
 
 @media (max-width: 1100px) {
@@ -163,15 +163,15 @@
   height: clamp(220px, 26vw, 440px);
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(24px);
+  filter: blur(26px);
   mix-blend-mode: screen;
-  background: radial-gradient(circle, rgba(255, 197, 90, .34) 0%, rgba(255, 107, 0, .14) 55%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 197, 90, .26) 0%, rgba(255, 107, 0, .1) 55%, transparent 75%);
   animation: cahSunBreathe 7s ease-in-out infinite;
 }
 
 @keyframes cahSunBreathe {
-  0%, 100% { opacity: .65; }
-  50% { opacity: .8; }
+  0%, 100% { opacity: .55; }
+  50% { opacity: .68; }
 }
 
 @media (max-width: 1100px) {
@@ -234,32 +234,33 @@
 .cah-badge {
   display: inline-flex;
   align-items: center;
-  gap: .6rem;
+  gap: .55rem;
   font-family: var(--font-mono);
-  font-size: .78rem;
-  font-weight: 700;
-  letter-spacing: .24em;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--ink-dim);
   opacity: 0;
 }
 
-.cah-badge-icon { display: flex; flex-shrink: 0; color: var(--accent); }
-.cah-badge-icon svg { width: 17px; height: 17px; }
+.cah-badge-icon { display: flex; align-items: center; flex-shrink: 0; color: var(--accent); }
+.cah-badge-icon svg { width: 15px; height: 15px; display: block; }
 
-.cah-badge-line { width: 34px; height: 1.5px; background: linear-gradient(90deg, var(--accent), rgba(255, 107, 0, 0)); }
+.cah-badge-line { width: 30px; height: 1.5px; background: linear-gradient(90deg, var(--accent), rgba(255, 107, 0, 0)); }
 
 .cah-heading {
-  margin-top: .9rem;
+  margin-top: 1.1rem;
   font-family: var(--font-display);
   text-transform: none;
   font-size: clamp(2.4rem, 4.6vw + 1vh, 4.7rem);
   font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -.01em;
+  line-height: 1.12;
+  letter-spacing: -.015em;
 }
 
-.cah-heading .line { display: block; opacity: 0; }
+.cah-heading .cah-line { display: block; opacity: 0; }
+.cah-heading .cah-line + .cah-line { margin-top: .08em; }
 .cah-heading .ink { color: #fff; }
 .cah-heading .accent {
   color: var(--accent);
@@ -267,23 +268,23 @@
 }
 
 .cah-desc {
-  margin-top: 1.3rem;
+  margin-top: 1.4rem;
   max-width: 44ch;
   font-size: 1.04rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--ink-dim);
-  padding: .95rem 1.3rem;
-  background: linear-gradient(165deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, .14);
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(165deg, rgba(8, 38, 92, .38), rgba(2, 8, 20, .28));
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 1rem;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .12);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .08);
   opacity: 0;
 }
 
 /* ── CTA: orange pill, white text, arrow badge ── */
-.cah-cta-row { margin-top: 1.9rem; opacity: 0; }
+.cah-cta-row { margin-top: 1.9rem; opacity: 0; display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; }
 
 .cah-cta-primary {
   position: relative;
@@ -338,6 +339,66 @@
   transform: translateX(5px);
 }
 
+.cah-cta-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  color: var(--accent-hot);
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: linear-gradient(155deg, rgba(255, 194, 75, .12), rgba(8, 38, 92, .3));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 194, 75, .55);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease, border-color .3s ease, background .3s ease, color .3s ease;
+}
+
+.cah-cta-secondary:hover,
+.cah-cta-secondary:focus-visible {
+  transform: translateY(-2px);
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 107, 0, .4);
+}
+
+.cah-cta-secondary:focus-visible {
+  outline: 2px solid var(--accent-hot);
+  outline-offset: 3px;
+}
+
+.cah-cta-secondary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 194, 75, .14);
+  border: 1.5px solid rgba(255, 194, 75, .55);
+  color: var(--accent-hot);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease, border-color .3s ease, color .3s ease;
+}
+
+.cah-cta-secondary-icon svg { width: 16px; height: 16px; }
+
+.cah-cta-secondary:hover .cah-cta-secondary-icon,
+.cah-cta-secondary:focus-visible .cah-cta-secondary-icon {
+  transform: translateX(5px);
+  background: #fff;
+  border-color: #fff;
+  color: var(--accent);
+}
+
 /* ══ five career-value features spanning the full-width lower band ══ */
 .cah-features {
   position: relative;
@@ -345,7 +406,8 @@
   width: 100%;
   max-width: 1420px;
   margin: 0 auto;
-  padding: 0 1.75rem clamp(2.4rem, 5.5vw, 4rem);
+  padding: clamp(1.6rem, 3vw, 2.2rem) 1.75rem clamp(2.6rem, 5.5vw, 4rem);
+  border-top: 1px solid rgba(255, 255, 255, .08);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0;
@@ -354,9 +416,9 @@
 .cah-feature {
   display: flex;
   align-items: flex-start;
-  gap: .65rem;
-  padding: 0 1rem;
-  border-left: 1px solid rgba(255, 255, 255, .14);
+  gap: .8rem;
+  padding: 0 1.3rem;
+  border-left: 1px solid rgba(255, 255, 255, .09);
   outline: none;
   opacity: 0;
   transform: translateY(15px);
@@ -367,8 +429,8 @@
 
 .cah-feature-icon {
   position: relative;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
   border-radius: 50%;
   display: flex;
@@ -382,7 +444,7 @@
   transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, box-shadow .28s ease, color .28s ease;
 }
 
-.cah-feature-icon svg { width: 18px; height: 18px; }
+.cah-feature-icon svg { width: 20px; height: 20px; }
 
 /* ── idle "flex" pulse: a soft ring breathing outward behind each icon ── */
 .cah-feature-icon::after {
@@ -406,22 +468,22 @@
   100% { transform: scale(1.7); opacity: 0; }
 }
 
-.cah-feature-body { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.cah-feature-body { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
 
 .cah-feature-title {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: .74rem;
+  font-size: .8rem;
   font-weight: 700;
-  letter-spacing: .03em;
+  letter-spacing: .04em;
   color: var(--ink);
   text-shadow: 0 1px 8px rgba(2, 8, 20, .7);
   transition: color .28s ease;
 }
 
 .cah-feature-sub {
-  font-size: .74rem;
-  line-height: 1.4;
+  font-size: .72rem;
+  line-height: 1.45;
   color: var(--ink-dim);
   text-shadow: 0 1px 8px rgba(2, 8, 20, .7);
 }
@@ -469,7 +531,7 @@
 
   .cah-desc { margin-left: auto; margin-right: auto; }
 
-  .cah-cta-row { display: flex; justify-content: center; }
+  .cah-cta-row { justify-content: center; }
 
   .cah-visual-img { object-position: 68% 32%; animation: none; }
 
@@ -493,9 +555,12 @@
   .cah-feature-body { align-items: center; }
 }
 
+/* Extremely slow cinematic drift — ~1.5% scale breathing plus a faint
+   horizontal pan, cycled over 22s so no single frame reads as motion. */
 @keyframes cahIdleFloat {
-  0%, 100% { transform: scale(1.05) translateY(0); }
-  50% { transform: scale(1.05) translateY(-5px); }
+  0% { transform: scale(1.05) translate3d(0, 0, 0); }
+  50% { transform: scale(1.065) translate3d(-.6%, 0, 0); }
+  100% { transform: scale(1.05) translate3d(0, 0, 0); }
 }
 
 /* ══ LOW-END MOBILE: decorative background-position sweep/drift forces a

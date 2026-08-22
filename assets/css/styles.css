@@ -258,7 +258,7 @@ a{ color:inherit; }
   display:inline-flex; align-items:center; gap:.4rem;
   transition:transform .25s ease, box-shadow .25s ease;
 }
-.nav-cta:hover{ box-shadow:0 10px 26px rgba(255,106,31,.5); }
+.nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(255,106,31,.5); }
 .nav-cta::after{ content:'\2192'; display:inline-block; transition:transform .25s ease; }
 .nav-cta:hover::after{ transform:translateX(3px); }
 
@@ -280,6 +280,16 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 .nav-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
 .nav-toggle.open span:nth-child(2){ opacity:0; }
 .nav-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* Just above the hamburger cutoff, the full desktop nav (logo + 9 links +
+   CTA + theme toggle) starts to feel cramped before it actually overflows —
+   tighten link spacing/size a step rather than letting it fight for room. */
+@media(max-width:1400px) and (min-width:1181px){
+  .site-nav{ padding:0 1.4rem; }
+  .nav-links{ gap:.85rem; }
+  .nav-links a, .nav-links .dropdown-label{ font-size:.64rem; }
+  .nav-cta{ padding:.5rem .95rem; }
+}
 
 @media(max-width:1180px){
   .site-nav{ gap:.6rem; }
@@ -739,7 +749,8 @@ html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h3, html[data-t
    SITE-WIDE FLOATING WHATSAPP BUTTON (injected by site.js on every page)
    ══════════════════════════════════════════════════════════════════ */
 .wa-float{
-  position:fixed; right:1.6rem; bottom:1.6rem; z-index:3000;
+  position:fixed; right:1.6rem; z-index:3000;
+  bottom:calc(1.6rem + env(safe-area-inset-bottom, 0px));
   width:60px; height:60px; border-radius:50%;
   background:#25D366; display:flex; align-items:center; justify-content:center;
   box-shadow:0 6px 20px rgba(37,211,102,.42), 0 2px 8px rgba(15,23,42,.18);
@@ -754,7 +765,7 @@ html[data-theme="dark"] .pillars-section-wrap ~ #market-presence h3, html[data-t
 }
 @keyframes waPulse{ 0%{ transform:scale(1); opacity:.55; } 100%{ transform:scale(1.7); opacity:0; } }
 @media(prefers-reduced-motion: reduce){ .wa-float-pulse{ animation:none; } }
-@media(max-width:640px){ .wa-float{ right:1.1rem; bottom:1.1rem; width:52px; height:52px; } .wa-float svg{ width:27px; height:27px; } }
+@media(max-width:640px){ .wa-float{ right:1.1rem; bottom:calc(1.1rem + env(safe-area-inset-bottom, 0px)); width:52px; height:52px; } .wa-float svg{ width:27px; height:27px; } }
 
 /* ══════════════════════════════════════════════════════════════════
    QUICK-CONTACT BAR — WhatsApp / Call / Email / Book a Meeting
