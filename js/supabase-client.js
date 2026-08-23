@@ -78,24 +78,47 @@
         return;
       }
 
+      var token = getTurnstileToken(form);
+      if (!token) {
+        showResult(form, false, 'Please complete the verification challenge before submitting.');
+        return;
+      }
+
       var payload = buildPayload(new FormData(form));
       setLoading(form, true, loadingLabel);
       clearResult(form);
 
-      sb.from(table).insert([payload])
+      // Inserts go through the submit-form Edge Function, which verifies the
+      // Turnstile token server-side before writing to the table — a client-side
+      // check alone can't stop a script that calls the Supabase API directly.
+      sb.functions.invoke('submit-form', { body: { table: table, payload: payload, token: token } })
         .then(function (res) {
           if (res.error) throw res.error;
+          if (res.data && res.data.error) throw new Error(res.data.error);
           showResult(form, true, SUCCESS_MESSAGE);
           form.reset();
         })
         .catch(function (err) {
-          console.error('[supabase-client] insert into "' + table + '" failed:', err);
+          console.error('[supabase-client] submit to "' + table + '" failed:', err);
           showResult(form, false, ERROR_MESSAGE);
         })
         .finally(function () {
           setLoading(form, false);
+          resetTurnstile(form);
         });
     });
+  }
+
+  // Turnstile auto-renders a hidden input named "cf-turnstile-response" inside
+  // the .cf-turnstile container once solved.
+  function getTurnstileToken(form) {
+    var input = form.querySelector('input[name="cf-turnstile-response"]');
+    return input && input.value ? input.value : null;
+  }
+
+  function resetTurnstile(form) {
+    var widget = form.querySelector('.cf-turnstile');
+    if (widget && window.turnstile) window.turnstile.reset(widget);
   }
 
   // Two inline-status UX patterns exist across the site:
