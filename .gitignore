@@ -431,3 +431,6 @@ FodyWeavers.xsd
 # Project-specific
 .DS_Store
 .claude/
+
+# Private credentials reference — never commit actual keys/secrets
+CREDENTIALS-PRIVATE-DO-NOT-COMMIT.md
