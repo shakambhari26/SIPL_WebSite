@@ -171,7 +171,7 @@ a{ color:inherit; }
 @media(prefers-reduced-motion: reduce){ .site-nav{ transition:background .3s ease, box-shadow .3s ease; } }
 .nav-brand{ display:flex; align-items:center; text-decoration:none; }
 .nav-brand svg{ width:52px; height:52px; flex-shrink:0; }
-.nav-brand-logo{ height:52px; width:auto; flex-shrink:0; }
+.nav-brand-logo{ height:60px; width:auto; flex-shrink:0; }
 .nav-links{ display:flex; align-items:center; gap:1.3rem; list-style:none; }
 .nav-links > li{ position:relative; }
 .nav-links a, .nav-links .dropdown-label{
@@ -351,7 +351,7 @@ html[data-theme="dark"] .theme-toggle-icon--moon{ display:block; }
 @media(max-width:380px){
   .site-nav{ padding:0 1rem; gap:.4rem; }
   .nav-brand svg{ width:46px; height:46px; }
-  .nav-brand-logo{ height:42px; }
+  .nav-brand-logo{ height:48px; }
 }
 
 /* page content sits below the fixed nav */

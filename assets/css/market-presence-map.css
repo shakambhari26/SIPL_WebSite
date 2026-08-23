@@ -255,9 +255,15 @@
 .world-country-chips {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem .75rem;
+}
+
+@media (max-width: 480px) {
+  .world-country-chips {
+    grid-template-columns: 1fr;
+  }
 }
 
 
