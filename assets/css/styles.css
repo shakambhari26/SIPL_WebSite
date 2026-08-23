@@ -616,6 +616,10 @@ html[data-theme="dark"] .chip.cool{ background:rgba(62,159,216,.12); }
 .site-footer{
   position:relative; z-index:1; overflow:hidden; border-top:1px solid var(--border);
   padding:4rem 1.75rem 2rem; margin-top:2rem;
+  background-color:#002366;
+  /* dark royal blue bg needs light-on-dark text/border tokens, scoped to
+     the footer subtree only — same navy in both themes for consistency. */
+  --ink:#F2F4F7; --ink-soft:#B7BEC9; --accent-ink:#FFA25C; --border:rgba(255,255,255,.18);
 }
 @media(max-width:760px){
   .site-footer{ padding:2.5rem 1.25rem 1.5rem; margin-top:0; }
