@@ -99,6 +99,20 @@ html[data-theme="dark"] .car-card {
   border-color: rgba(255, 255, 255, .1);
 }
 
+/* career-benefits-carousel.css's mobile card proportions (230-280px wide
+   inside a 420px-tall track) were tuned for "Why Join Us" copy and read
+   as a thin, stretched sliver for this section's shorter process text —
+   widen the card and cut the track down to what the content actually
+   needs, scoped to this page's carousel instance only. */
+@media (max-width: 640px) {
+  #cbcCarousel .cbc-slide { width: min(300px, 84vw); margin-left: calc(min(300px, 84vw) / -2); }
+  #cbcCarousel .cbc-track { height: 350px; }
+}
+@media (max-width: 420px) {
+  #cbcCarousel .cbc-slide { width: min(260px, 86vw); margin-left: calc(min(260px, 86vw) / -2); }
+  #cbcCarousel .cbc-track { height: 380px; }
+}
+
 /* ══ QUALITY FEATURE CARDS ══ */
 .qa-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-bottom:2.2rem; }
 @media(max-width:760px){ .qa-grid{ grid-template-columns:1fr; } }
