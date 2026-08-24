@@ -123,6 +123,11 @@ html[data-theme="dark"] .contact-info-footer svg{ color:#8CE0A0; }
 .ferro-form-status.success{ color:#1E8449; }
 html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 
+/* ══ KPI BAND (5 stats on this page) ══ */
+.stat-band{ grid-template-columns:repeat(5,1fr); }
+@media(max-width:1000px){ .stat-band{ grid-template-columns:repeat(3,1fr); } }
+@media(max-width:640px){ .stat-band{ grid-template-columns:repeat(2,1fr); } }
+
 /* Extracted inline styles */
 .ferro-alloys-il-1 { transition-delay:.05s }
 .ferro-alloys-il-2 { transition-delay:.15s }
@@ -133,3 +138,4 @@ html[data-theme="dark"] .ferro-form-status.success{ color:#8CE0A0; }
 .ferro-alloys-il-7 { margin-bottom:1.4rem; }
 .ferro-alloys-il-8 { padding:2rem; }
 .ferro-alloys-il-9 { max-width:26ch; }
+.ferro-alloys-il-10 { transition-delay:.45s }
