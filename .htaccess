@@ -7,6 +7,44 @@
   RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^www\.shakambharigroup\.in [NC]
   RewriteRule ^(.*)$ https://shakambharigroup.in/$1 [L,R=301]
+
+  # --- Clean URLs for SEO canonicals ---
+  # Internal rewrites only (no redirect): the old /assets/pages/*.html paths
+  # keep working unchanged, since every internal <a href> on the site still
+  # points to them. These just give search engines a second, cleaner path
+  # that resolves to the same content, matching each page's canonical tag.
+  RewriteRule ^products/?$ /assets/pages/products.html [L]
+  RewriteRule ^ferro-alloys/?$ /assets/pages/ferro-alloys.html [L]
+  RewriteRule ^aluminium-foil/?$ /assets/pages/aluminium-foil.html [L]
+  RewriteRule ^journey/?$ /assets/pages/journey.html [L]
+  RewriteRule ^companies/?$ /assets/pages/companies.html [L]
+  RewriteRule ^csr/?$ /assets/pages/csr.html [L]
+  RewriteRule ^sustainability/?$ /assets/pages/sustainability.html [L]
+  RewriteRule ^contact/?$ /assets/pages/contact.html [L]
+  RewriteRule ^vision/?$ /assets/pages/vision.html [L]
+  RewriteRule ^leadership/?$ /assets/pages/leadership.html [L]
+  RewriteRule ^quality/?$ /assets/pages/quality.html [L]
+  RewriteRule ^process/?$ /assets/pages/process.html [L]
+  RewriteRule ^careers/?$ /assets/pages/careers.html [L]
+  RewriteRule ^clientele/?$ /assets/pages/clientele.html [L]
+  RewriteRule ^awards/?$ /assets/pages/awards.html [L]
+
+  RewriteRule ^insights/?$ /assets/pages/insights.html [L]
+  RewriteRule ^insights/tempcore-tmt-bars/?$ /assets/pages/insight-tempcore-tmt-bars.html [L]
+  RewriteRule ^insights/sponge-iron-india/?$ /assets/pages/insight-sponge-iron-india.html [L]
+  RewriteRule ^insights/silicomanganese/?$ /assets/pages/insight-silicomanganese.html [L]
+  RewriteRule ^insights/steel-policy-2030/?$ /assets/pages/insight-steel-policy-2030.html [L]
+  RewriteRule ^insights/green-steel-taxonomy/?$ /assets/pages/insight-green-steel-taxonomy.html [L]
+  RewriteRule ^insights/aluminium-foil-pharma/?$ /assets/pages/insight-aluminium-foil-pharma.html [L]
+
+  RewriteRule ^steel/?$ /assets/pages/steel/ [L]
+  RewriteRule ^steel/concrete-reinforcement/?$ /assets/pages/steel/concrete-reinforcement/ [L]
+  RewriteRule ^steel/heavy-structural/?$ /assets/pages/steel/heavy-structural/ [L]
+  RewriteRule ^steel/espl-tubes/?$ /assets/pages/steel/espl-tubes/ [L]
+  RewriteRule ^steel/precision-strips/?$ /assets/pages/steel/precision-strips/ [L]
+  RewriteRule ^steel/wire-rods-and-wires/?$ /assets/pages/steel/wire-rods-and-wires/ [L]
+  RewriteRule ^steel/fasteners/?$ /assets/pages/steel/fasteners/ [L]
+  RewriteRule ^steel/upstream-intermediate/?$ /assets/pages/steel/upstream-intermediate/ [L]
 </IfModule>
 
 # GZIP compression
