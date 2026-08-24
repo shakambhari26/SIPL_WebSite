@@ -104,20 +104,26 @@
   }
 
   // ── scroll effect: background lags behind content, blueprint grid fades ──
-  let ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const rect = hero.getBoundingClientRect();
-      const heroHeight = rect.height || 1;
-      const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
+  // Purely decorative (nothing here is a one-time reveal or functional
+  // state), so on low-power devices it's skipped entirely rather than
+  // throttled — no listener attached means no getBoundingClientRect()
+  // read on every scroll frame for those visitors.
+  if (!document.documentElement.classList.contains('low-power-mode')) {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        const heroHeight = rect.height || 1;
+        const progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
 
-      if (bg) bg.style.transform = `translateY(${progress * 40}px)`;
-      hero.style.setProperty('--blueprint-fade', String(1 - progress * .85));
+        if (bg) bg.style.transform = `translateY(${progress * 40}px)`;
+        hero.style.setProperty('--blueprint-fade', String(1 - progress * .85));
 
-      ticking = false;
-    });
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
 })();

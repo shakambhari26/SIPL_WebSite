@@ -7,8 +7,9 @@
    photo (Hero/Heavy_Structural.png: towering structural steel frame,
    tower crane, orange sunset diagonal light, foreground H-beam stack)
    bleeds edge-to-edge on desktop behind a single scrim, weighted right
-   so the left text column reads clean; on mobile it becomes a
-   contained card that flows in after the panel.
+   so the left text column reads clean; on mobile it stays a full-bleed
+   background behind the stacked text, matching the homepage /
+   aluminium-foil / ferro-alloys / steel hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .hst-hero {

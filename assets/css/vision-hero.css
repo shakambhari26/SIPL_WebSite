@@ -38,27 +38,33 @@
 }
 
 /* cursor-following spotlight — fixed-size glow translated via transform
-   (GPU compositor only) so it never repaints on pointermove. */
-.mvv-hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 760px;
-  height: 760px;
-  margin: -380px 0 0 -380px;
-  z-index: 4;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 194, 75, .08), transparent 70%);
-  opacity: 0;
-  transform: translate3d(var(--mx, 50%), var(--my, 40%), 0);
-  transition: opacity .6s ease;
-  pointer-events: none;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-}
+   (GPU compositor only) so it never repaints on pointermove. Desktop-only:
+   on touch devices :hover can stick after a tap, which would otherwise
+   leave this large glow stranded on screen — hover:hover + pointer:fine
+   keeps it out of the DOM entirely on touch (also skips the will-change
+   compositor layer there). */
+@media (hover: hover) and (pointer: fine) {
+  .mvv-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 760px;
+    height: 760px;
+    margin: -380px 0 0 -380px;
+    z-index: 4;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 194, 75, .08), transparent 70%);
+    opacity: 0;
+    transform: translate3d(var(--mx, 50%), var(--my, 40%), 0);
+    transition: opacity .6s ease;
+    pointer-events: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
 
-.mvv-hero:hover::after { opacity: 1; }
+  .mvv-hero:hover::after { opacity: 1; }
+}
 
 .mvv-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 

@@ -531,11 +531,19 @@
   })();
 
   // ════════════════════ STICKY QUICK ACTIONS ════════════════════
-  // Hides while scrolling down, shows while scrolling up — scroll position
-  // is read at most once per animation frame via the passive listener below.
+  // Stays out of the way until the career hero has scrolled past (it used
+  // to render on top of the hero copy at page-load), then hides while
+  // scrolling down and shows while scrolling up. Scroll position is read
+  // at most once per animation frame via the passive listener below.
   (function initStickyRail() {
     const rail = document.querySelector('.csa-rail');
     if (!rail) return;
+    const hero = document.querySelector('.cah');
+    let revealY = hero ? hero.offsetHeight - 120 : 320;
+    window.addEventListener('resize', () => {
+      revealY = hero ? hero.offsetHeight - 120 : 320;
+    }, { passive: true });
+
     let lastY = window.scrollY;
     let ticking = false;
 
@@ -544,8 +552,14 @@
       ticking = true;
       requestAnimationFrame(() => {
         const y = window.scrollY;
+        const pastHero = y > revealY;
         const goingDown = y > lastY && y > 200;
-        rail.classList.toggle('is-hidden', goingDown);
+        const scrollHidden = pastHero && goingDown;
+        // mutually exclusive: never both classes at once, or CSS cascade
+        // order (is-visible declared after is-hidden) lets opacity:1 win
+        // over the slide-out state on a single big scroll jump.
+        rail.classList.toggle('is-visible', pastHero && !scrollHidden);
+        rail.classList.toggle('is-hidden', scrollHidden);
         lastY = y;
         ticking = false;
       });

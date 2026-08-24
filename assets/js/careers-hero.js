@@ -19,7 +19,7 @@
   const glowWrap = hero.querySelector('.cah-glow-wrap');
   const networkLayer = hero.querySelector('.cah-network');
   const badge = hero.querySelector('.cah-badge');
-  const headingLines = hero.querySelectorAll('.cah-heading .line');
+  const headingLines = hero.querySelectorAll('.cah-heading .cah-line');
   const desc = hero.querySelector('.cah-desc');
   const ctaRow = hero.querySelector('.cah-cta-row');
   const featureItems = hero.querySelectorAll('.cah-feature');
@@ -105,7 +105,7 @@
     const tl = gsap.timeline({ defaults: { ease: EASE } });
     if (photo) tl.fromTo(photo, { opacity: 0, scale: 1.09, y: 15 }, { opacity: 1, scale: 1.05, y: 0, duration: 1.7, ease: 'sine.out' }, 0);
     if (badge) tl.fromTo(badge, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .55 }, .1);
-    if (headingLines.length) tl.fromTo(headingLines, { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: .75, stagger: .1 }, .2);
+    if (headingLines.length) tl.fromTo(headingLines, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .5, stagger: .12 }, .2);
     if (desc) tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .65 }, .4);
     if (ctaRow) tl.fromTo(ctaRow, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: .55 }, .55);
 

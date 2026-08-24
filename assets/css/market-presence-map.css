@@ -210,7 +210,7 @@
 
 .market-dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 440px;
+  grid-template-columns: minmax(0,1fr) minmax(280px,440px);
   gap: 1.5rem;
   align-items: start;
 }
@@ -255,9 +255,15 @@
 .world-country-chips {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem .75rem;
+}
+
+@media (max-width: 480px) {
+  .world-country-chips {
+    grid-template-columns: 1fr;
+  }
 }
 
 

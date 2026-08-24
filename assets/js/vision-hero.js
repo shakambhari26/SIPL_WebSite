@@ -72,7 +72,7 @@
 
   if (reduceMotion || !gsapReady) return;
 
-  if (window.matchMedia('(hover: hover)').matches) {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     // Cache the bounding rect instead of reading it on every pointermove —
     // getBoundingClientRect() forces a synchronous layout read, and on a
     // high-poll-rate mouse that fired hundreds of times a second.

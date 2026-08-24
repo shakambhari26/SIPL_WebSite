@@ -6,29 +6,22 @@
   const themeToggle = document.querySelector('.theme-toggle');
   const canHover = window.matchMedia('(hover: hover)').matches;
 
-  // ── LOW-POWER MODE: frame-rate upgrade + manual "Lite Mode" toggle ──
-  // Static signals (CPU cores, RAM, reduced-motion, Data Saver) already
-  // ran synchronously in loading-bar.js, before this file even loaded, so
-  // .low-power-mode may already be on <html>. window.__spLowPower records
-  // which path set it: 'override' means the visitor explicitly chose a
-  // mode via the footer toggle below (skip auto-detection entirely),
-  // 'auto' means only the static checks ran. When it's 'auto' and still
-  // false, sample real frame rate for a second — this can *upgrade* a
-  // device that passed every static check but is still janky in practice
-  // (thermal throttling, background load, a weak iGPU on decent-looking
-  // specs); it never downgrades what's already flagged.
+  // ── LOW-POWER MODE: frame-rate upgrade ──
+  // Static signals (CPU cores, RAM, reduced-motion, Data Saver, mobile
+  // viewport) already ran synchronously in low-power-detect.js, before
+  // this file even loaded, so .low-power-mode may already be on <html>.
+  // window.__spLowPower records which path set it: 'override' means a
+  // ?lowPowerTest= param or a previously-stored lite-mode preference
+  // (skip auto-detection entirely), 'auto' means only the static checks
+  // ran. When it's 'auto' and still false, sample real frame rate for a
+  // second — this can *upgrade* a device that passed every static check
+  // but is still janky in practice (thermal throttling, background load,
+  // a weak iGPU on decent-looking specs); it never downgrades what's
+  // already flagged. There's no footer toggle UI — a visitor can still
+  // force either mode via localStorage['lite-mode'] or ?lowPowerTest=.
   (function(){
     const htmlEl = document.documentElement;
-    let state = window.__spLowPower || { source:'auto', value: htmlEl.classList.contains('low-power-mode') };
-    const btn = document.createElement('button');
-
-    function syncToggle(){
-      const on = htmlEl.classList.contains('low-power-mode');
-      btn.setAttribute('aria-pressed', String(on));
-      const label = on ? 'Lite Mode is on — click to turn off' : 'Turn on Lite Mode for smoother scrolling on older devices';
-      btn.setAttribute('aria-label', label);
-      btn.title = label;
-    }
+    const state = window.__spLowPower || { source:'auto', value: htmlEl.classList.contains('low-power-mode') };
 
     if(state.source === 'auto' && !state.value){
       let frames = 0, startTs = null;
@@ -40,25 +33,8 @@
         if((frames / (elapsed / 1000)) < 45){
           htmlEl.classList.add('low-power-mode');
           state.value = true;
-          syncToggle();
         }
       });
-    }
-
-    const footerSocial = document.querySelector('.footer-social');
-    if(footerSocial){
-      btn.type = 'button';
-      btn.className = 'lite-mode-toggle';
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"></path></svg>';
-      syncToggle();
-      btn.addEventListener('click', ()=>{
-        const next = !htmlEl.classList.contains('low-power-mode');
-        htmlEl.classList.toggle('low-power-mode', next);
-        try{ localStorage.setItem('lite-mode', next ? 'on' : 'off'); }catch(e){}
-        window.__spLowPower = state = { source:'override', value: next };
-        syncToggle();
-      });
-      footerSocial.appendChild(btn);
     }
   })();
 

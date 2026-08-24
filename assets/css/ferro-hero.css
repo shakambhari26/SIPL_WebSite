@@ -5,8 +5,9 @@
    real photo (Hero/Ferro_Alloys.jpg: pouring ladle, furnace glow,
    digital world map and a single glass bowl of ferro-alloy lumps)
    bleeds edge-to-edge on desktop behind a single scrim, weighted right
-   so the left text column reads clean; on mobile it becomes a
-   contained card that flows in after the CTA panel.
+   so the left text column reads clean; on mobile it stays a full-bleed
+   background behind the stacked text, matching the homepage /
+   aluminium-foil / steel hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .fh-hero {
@@ -365,8 +366,13 @@
   .fh-feature-icon { width: 36px; height: 36px; }
 
   .fh-panel { margin-top: 1.5rem; }
-  .fh-panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
-  .fh-panel-row-2 .fh-panel-btn { width: 100%; }
+  /* minmax(0,1fr): plain 1fr tracks won't shrink below a nowrap button's
+     content width (e.g. "Book a Meeting"), so at ~320-360px the track —
+     and with it the whole panel — gets pushed wider than the hero, which
+     clips against .fh-hero's overflow:hidden. Letting the label wrap
+     keeps the button inside its track instead. */
+  .fh-panel-row-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .5rem; }
+  .fh-panel-row-2 .fh-panel-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
 
   .fh-visual-frame img { object-position: 70% 26%; }
 }

@@ -5,8 +5,9 @@
    technique — one real photo (Hero/Steel.jpeg: steel coils, rebar,
    hollow sections, beams, blue wire coils, industrial bay) bleeds
    edge-to-edge on desktop behind a single scrim, weighted right so the
-   left text column reads clean; on mobile it becomes a contained card
-   that flows in after the CTA panel.
+   left text column reads clean; on mobile it stays a full-bleed
+   background behind the stacked text, matching the homepage /
+   ferro-alloys / aluminium hero.
    ════════════════════════════════════════════════════════════════════ */
 
 .sh-hero {
@@ -216,6 +217,7 @@
 
 /* ══ HERO VISUAL: full-bleed photo + single scrim ══ */
 .sh-visual { position: relative; overflow: hidden; margin: 0; }
+.sh-visual { position: absolute; inset: 0; z-index: 0; }
 .sh-visual-frame { position: absolute; inset: 0; transition: transform .4s ease-out; }
 .sh-visual-frame img {
   display: block; width: 100%; height: 100%; object-fit: cover; object-position: 66% 42%;
@@ -234,8 +236,6 @@
   animation: shSweep 8s ease-in-out infinite; mix-blend-mode: screen;
 }
 @keyframes shSweep { 0%, 100% { background-position: 120% 0%; } 50% { background-position: -20% 100%; } }
-
-@media (min-width: 960px) { .sh-visual { position: absolute; inset: 0; z-index: 0; } }
 
 /* ══ DECORATIVE CURVES ══ */
 .sh-curve-under {
@@ -271,21 +271,23 @@
 
 .sh-bg, .sh-visual-frame, .sh-curve { transition: transform .4s ease-out; will-change: transform; }
 
-/* ══ TABLET / MOBILE: .sh-visual flows in normal document order after
-   .sh-inner once it drops out of absolute full-bleed mode ══ */
+/* ══ TABLET / MOBILE: text and features stack centered over the same
+   full-bleed photo, no separate boxed card — matches the homepage /
+   ferro-alloys / aluminium hero ══ */
 @media (max-width: 959px) {
-  .sh-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 3.25rem; min-height: auto; }
+  .sh-hero { display: block; padding: calc(var(--nav-h) + 2rem) 1.5rem 3.25rem; min-height: auto; text-align: center; }
   .sh-content { max-width: none; }
 
-  .sh-visual {
-    max-width: 640px; margin: 2.2rem auto 0; aspect-ratio: 1 / 1; min-height: 360px;
-    border-radius: 1.25rem; box-shadow: 0 18px 44px rgba(2, 3, 6, .45);
-  }
-  .sh-visual-frame img { object-position: 72% 44%; }
+  .sh-label { justify-content: center; }
+  .sh-desc { margin-left: auto; margin-right: auto; }
+  .sh-cta { margin-left: auto; margin-right: auto; }
+  .sh-features { justify-content: center; }
+
+  .sh-visual-frame img { object-position: 72% 30%; }
   .sh-visual-scrim {
     background:
-      linear-gradient(100deg, rgba(5, 7, 12, .5) 0%, transparent 26%),
-      linear-gradient(180deg, rgba(5, 7, 12, .4) 0%, transparent 16%, transparent 74%, rgba(5, 7, 12, .5) 100%);
+      linear-gradient(180deg, rgba(5, 7, 12, .74) 0%, rgba(5, 7, 12, .38) 20%, rgba(14, 18, 28, .3) 38%, rgba(14, 18, 28, .6) 60%, rgba(5, 7, 12, .92) 78%, var(--sh-navy-deep) 96%),
+      linear-gradient(90deg, rgba(5, 7, 12, .46) 0%, transparent 45%, transparent 60%, rgba(5, 7, 12, .3) 100%);
   }
 
   .sh-features { gap: .6rem; }
@@ -310,8 +312,7 @@
   .sh-panel-row-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .5rem; }
   .sh-panel-row-2 .sh-panel-btn { width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
 
-  .sh-visual { aspect-ratio: .95 / 1; min-height: 300px; margin-top: 2rem; }
-  .sh-visual-frame img { object-position: 78% 50%; }
+  .sh-visual-frame img { object-position: 76% 26%; }
 }
 
 /* ══ ACCESSIBILITY: reduced motion ══ */

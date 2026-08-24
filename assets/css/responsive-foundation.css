@@ -1,0 +1,35 @@
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE FOUNDATION — small, load-bearing tokens shared
+   across pages that previously duplicated the same values
+   independently. Loads immediately after styles.css on every
+   page. Every token here has a real consumer — see the CSS
+   files that reference it before adding more.
+   ══════════════════════════════════════════════════════════ */
+
+/* Form-field font-size floor: iOS Safari force-zooms the viewport
+   whenever a focused input/select/textarea computes under 16px, and
+   doesn't un-zoom on blur. Every form control on the site sits just
+   under that floor (.92-.94rem = ~14.7-15px). 768px covers phones and
+   iPad portrait, matching an existing breakpoint already used site-wide. */
+:root { --field-font-size: .94rem; }
+@media (max-width: 768px) { :root { --field-font-size: 16px; } }
+
+/* Coverflow-carousel slot sizing: beyond-steel-slider.css and
+   group-showcase.css both center a slot with left:50% + a negative
+   margin-left of half the width, so width and offset must stay in
+   lockstep — previously six hardcoded number pairs across two files
+   (their own comments already call this "the same slot sizing
+   recipe"). NOT for career-benefits-carousel.css / process-carousel.css
+   / quality-carousel.css / awards-gallery.css — those have independent
+   nav-button geometry and must not be coupled to this. */
+:root { --coverflow-card-w: 320px; }
+@media (max-width: 1022px) { :root { --coverflow-card-w: 260px; } }
+@media (max-width: 640px)  { :root { --coverflow-card-w: min(300px, 84vw); } }
+
+/* Sitewide media sizing floor. Element-level selector (specificity
+   0,0,1) so every existing class-scoped component rule still wins —
+   this is a floor, not an override. height:auto deliberately omitted:
+   several heroes rely on width:100%;height:100%;object-fit:cover inside
+   an inset:0 frame (e.g. aluminium-hero.css:269-272) and height:auto
+   would break that. */
+img, svg, video, canvas { max-width: 100%; }

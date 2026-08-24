@@ -992,41 +992,61 @@ html[data-theme="dark"] .ccj-panel-list { color: rgba(238, 234, 225, .75); }
 }
 .cha-quick-btn:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
 
-/* ══════════════════ STICKY QUICK ACTIONS ══════════════════ */
+/* ══════════════════ STICKY QUICK ACTIONS ══════════════════
+   Dark frosted-glass rail (deliberately theme-independent, like the
+   navbar) so it reads the same whether it's floating over the dark
+   career hero photo or a light section further down the page — a
+   bright opaque panel here used to sit squarely on top of hero copy. */
 .csa-rail {
   position: fixed;
-  left: 1.4rem;
+  left: 1.25rem;
   top: 50%;
   transform: translateY(-50%) translateX(0);
   z-index: 850;
   display: flex;
   flex-direction: column;
-  gap: .6rem;
-  padding: .7rem;
-  border-radius: 1.4rem;
-  background: rgba(255, 255, 255, .85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  box-shadow: 0 14px 32px rgba(20, 22, 28, .12);
+  gap: .4rem;
+  padding: .55rem;
+  border-radius: 1.1rem;
+  background: rgba(8, 12, 22, .62);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .28);
+  opacity: 0;
   transition: transform .4s cubic-bezier(.16, .84, .44, 1), opacity .4s ease;
 }
 .csa-rail.is-hidden { transform: translateY(-50%) translateX(-90px); opacity: 0; pointer-events: none; }
+.csa-rail.is-visible { opacity: 1; }
 @media (max-width: 1180px) { .csa-rail { display: none; } }
 .csa-link {
-  width: 44px;
-  height: 44px;
-  border-radius: 1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: .75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
+  color: rgba(255, 255, 255, .72);
   text-decoration: none;
   position: relative;
   transition: background .25s ease, color .25s ease, transform .25s ease;
 }
-.csa-link:hover { background: rgba(255, 106, 31, .1); color: var(--accent-ink); transform: translateX(3px); }
-.csa-link svg { width: 19px; height: 19px; }
+.csa-link::before {
+  /* subtle active/hover indicator bar on the leading edge */
+  content: '';
+  position: absolute;
+  left: -.55rem;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  border-radius: 2px;
+  background: var(--accent-hot);
+  transform: translateY(-50%);
+  transition: height .25s ease;
+}
+.csa-link:hover, .csa-link:focus-visible { background: rgba(255, 106, 31, .16); color: var(--accent-hot); transform: translateX(2px); }
+.csa-link:hover::before, .csa-link:focus-visible::before { height: 60%; }
+.csa-link svg { width: 17px; height: 17px; }
 .csa-link .csa-tooltip {
   position: absolute;
   left: calc(100% + .8rem);
@@ -1045,7 +1065,10 @@ html[data-theme="dark"] .ccj-panel-list { color: rgba(238, 234, 225, .75); }
   pointer-events: none;
   transition: opacity .25s ease, transform .25s ease;
 }
-.csa-link:hover .csa-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+.csa-link:hover .csa-tooltip, .csa-link:focus-visible .csa-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+@media (prefers-reduced-motion: reduce) {
+  .csa-rail, .csa-link, .csa-link::before, .csa-link .csa-tooltip { transition: opacity .2s ease !important; }
+}
 
 /* ══ DARK MODE ══ */
 /* "Why Join Us" / Values / Benefits premium card — was a bright white
@@ -1068,9 +1091,4 @@ html[data-theme="dark"] .cop-card {
 /* Newsletter band */
 html[data-theme="dark"] .cnl-band {
   background: linear-gradient(155deg, rgba(27, 31, 38, .8), rgba(18, 21, 26, .45));
-}
-
-/* Sticky quick-actions rail — floating frosted-glass pill nav */
-html[data-theme="dark"] .csa-rail {
-  background: rgba(27, 31, 38, .85);
 }

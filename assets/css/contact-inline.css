@@ -120,7 +120,7 @@ a.division-contact-line:hover{ color:var(--accent-ink); }
 .reach-field{ margin-bottom:1rem; }
 .reach-field input, .reach-field textarea{
   width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
-  color:#fff; padding:.9rem 1.3rem; border-radius:2rem; font-size:.92rem; font-family:inherit;
+  color:#fff; padding:.9rem 1.3rem; border-radius:2rem; font-size:var(--field-font-size); font-family:inherit;
   outline:none; transition:border-color .2s ease, background .2s ease;
 }
 .reach-field textarea{ border-radius:1rem; resize:vertical; }
