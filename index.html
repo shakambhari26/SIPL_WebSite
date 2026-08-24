@@ -1662,12 +1662,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="mpp-header">
               <div class="mpp-state" id="idpTitle"><span aria-hidden="true">📍</span> West Bengal</div>
-              <div class="mpp-company" id="idpSubtitle">State Head</div>
+              <div class="mpp-company" id="idpSubtitle"></div>
             </div>
 
             <!-- STATE HEAD INFO CARD, updates whenever a state is selected on the map -->
             <div class="state-head-card is-empty" id="stateHeadCard">
-              <p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>
+              <p class="mpp-empty-hint">Click a covered state on the map to view its Point of Contact.</p>
             </div>
 
             <!-- ALL COVERED STATES, list view — click any name to jump straight to it -->
@@ -3869,6 +3869,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const indiaStatesFlat = buildIndiaStatesFlat();
       function findState(slug) { return indiaStatesFlat.find((s) => s.slug === slug) || null; }
 
+      // Every state except West Bengal (HQ) shows a generic "POINT OF
+      // CONTACT" label instead of the actual staff member's name — real
+      // names stay visible only for West Bengal.
+      function headDisplayName(state, head) {
+        return state.slug === 'west-bengal' ? head.empName : 'POINT OF CONTACT';
+      }
+
       // blank/"-" contact fields should simply not render a dead tel:/mailto:
       // button, rather than link to nothing
       function telHref(num) { return num && num.trim() ? `tel:${num.replace(/\s+/g, '')}` : null; }
@@ -3894,7 +3901,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (!stateHeadCard) return;
         if (!state || !state.stateHead) {
           stateHeadCard.classList.add('is-empty');
-          stateHeadCard.innerHTML = `<p class="mpp-empty-hint">Click a covered state on the map to view its State Head.</p>`;
+          stateHeadCard.innerHTML = `<p class="mpp-empty-hint">Click a covered state on the map to view its Point of Contact.</p>`;
           return;
         }
         stateHeadCard.classList.remove('is-empty');
@@ -3908,8 +3915,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="shc-row">
             <span class="shc-avatar" aria-hidden="true">⭐</span>
             <div class="shc-id">
-              <div class="shc-name">${head.empName}</div>
-              <div class="shc-role">${head.designation || 'State Head'}</div>
+              <div class="shc-name">${headDisplayName(state, head)}</div>
             </div>
           </div>
           <button type="button" class="shc-location-card"${hasDistricts ? '' : ' disabled'}>
@@ -3981,7 +3987,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       // list makes every state reachable in one click already ──
       const indiaDrillPanel = document.getElementById('indiaDrillPanel');
       const idpTitle = document.getElementById('idpTitle');
-      const idpSubtitle = document.getElementById('idpSubtitle');
       const idpStateList = document.getElementById('idpStateList');
 
       // Default landing state: West Bengal (HQ) state-head details, instead
@@ -4013,7 +4018,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       function renderStatePanel(stateSlug) {
         const state = findState(stateSlug);
         if (idpTitle) idpTitle.innerHTML = `<span aria-hidden="true">📍</span> ${state ? state.name : 'Select a State'}`;
-        if (idpSubtitle) idpSubtitle.textContent = state && state.stateHead ? 'State Head' : '';
         renderStateHeadCard(state);
         setStateHighlight(stateSlug);
         syncStateListActive(stateSlug);
@@ -4098,7 +4102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="pop-badge-type">${state.districtPersonnel.length} Personnel</span>
               </div>
               <div class="pop-vendor">${state.name} Regional Team</div>
-              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text"><strong>State Head:</strong> ${head.empName}${head.designation ? ` (${head.designation})` : ''}</span></div>
+              <div class="pop-detail-line"><span class="pop-detail-icon">👤</span><span class="pop-detail-text">${headDisplayName(state, head)}</span></div>
               ${callHref ? `<div class="pop-detail-line"><span class="pop-detail-icon">📞</span><span class="pop-detail-text"><strong>Phone:</strong> <a class="pop-link" href="${callHref}">${callNum}</a></span></div>` : ''}
               ${mailHrefVal ? `<div class="pop-detail-line"><span class="pop-detail-icon">✉️</span><span class="pop-detail-text"><strong>Email:</strong> <a class="pop-link" href="${mailHrefVal}">${mailAddr}</a></span></div>` : ''}
               <div class="pop-cta">Click to view details →</div>
