@@ -3,9 +3,10 @@
    reveal (single .ss-loaded class flip, CSS does the animating), a
    drifting ember-particle field biased toward the text side, and a
    very subtle mouse parallax across the background gradient, the
-   reference photo and the text column. Particles and parallax are
-   desktop/no-reduced-motion only. Mirrors concrete-reinforcement-
-   hero.js / nails-hardware-hero.js.
+   reference photo, the text column, the faint network layer and the
+   scattered orange pulses. Particles and parallax are desktop/no-
+   reduced-motion only. Mirrors concrete-reinforcement-hero.js /
+   nails-hardware-hero.js.
    ════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -17,6 +18,8 @@
   const frame = hero.querySelector('.ss-visual-frame');
   const content = hero.querySelector('.ss-content');
   const particleHost = hero.querySelector('#ssParticles');
+  const network = hero.querySelector('.ss-network');
+  const pulses = hero.querySelector('.ss-pulses');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover)').matches;
@@ -32,7 +35,7 @@
   // atmosphere behind the text instead of a duplicate spark layer ──
   if (particleHost && !reduceMotion) {
     const COUNT = 14;
-    const hues = ['#FF6A1F', '#FFA23D'];
+    const hues = ['#FF6A00', '#FF8A1F'];
     const frag = document.createDocumentFragment();
     for (let i = 0; i < COUNT; i++) {
       const span = document.createElement('span');
@@ -65,6 +68,8 @@
         if (bg) bg.style.transform = `translate3d(${px * 3}px, ${py * 3}px, 0)`;
         if (frame) frame.style.transform = `translate3d(${px * -5}px, ${py * -5}px, 0)`;
         if (content) content.style.transform = `translate3d(${px * 1.5}px, ${py * 1.5}px, 0)`;
+        if (network) network.style.transform = `translate3d(${px * -2.5}px, ${py * -2.5}px, 0)`;
+        if (pulses) pulses.style.transform = `translate3d(${px * 3}px, ${py * 3}px, 0)`;
 
         raf = null;
       });
@@ -74,6 +79,8 @@
       if (bg) bg.style.transform = '';
       if (frame) frame.style.transform = '';
       if (content) content.style.transform = '';
+      if (network) network.style.transform = '';
+      if (pulses) pulses.style.transform = '';
     });
   }
 })();

@@ -138,6 +138,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STEEL STRIP HERO -->
 <header class="ss-hero">
   <div class="ss-bg" aria-hidden="true">
+    <div class="ss-network">
+      <svg class="ss-network-lines" viewBox="0 0 800 500" preserveAspectRatio="none">
+        <g>
+          <line x1="60" y1="120" x2="220" y2="60"/>
+          <line x1="220" y1="60" x2="380" y2="140"/>
+          <line x1="80" y1="300" x2="220" y2="60"/>
+          <line x1="80" y1="300" x2="240" y2="360"/>
+          <line x1="240" y1="360" x2="420" y2="300"/>
+          <line x1="380" y1="140" x2="420" y2="300"/>
+        </g>
+        <g>
+          <circle cx="60" cy="120" r="3"/>
+          <circle class="ss-node-pulse" cx="220" cy="60" r="3"/>
+          <circle cx="380" cy="140" r="3"/>
+          <circle cx="80" cy="300" r="3"/>
+          <circle class="ss-node-pulse ss-node-pulse-b" cx="240" cy="360" r="3"/>
+          <circle cx="420" cy="300" r="3"/>
+        </g>
+      </svg>
+    </div>
+    <div class="ss-pulses">
+      <span class="ss-pulse ss-pulse-1"></span>
+      <span class="ss-pulse ss-pulse-2"></span>
+      <span class="ss-pulse ss-pulse-3"></span>
+      <span class="ss-pulse ss-pulse-4"></span>
+      <span class="ss-pulse ss-pulse-5"></span>
+      <span class="ss-pulse ss-pulse-6"></span>
+      <span class="ss-pulse ss-pulse-7"></span>
+      <span class="ss-pulse ss-pulse-8"></span>
+    </div>
     <div class="ss-particles" id="ssParticles"></div>
   </div>
 
@@ -192,13 +222,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <figure class="ss-visual">
     <div class="ss-visual-frame">
-      <picture><source type="image/avif" srcset="/assets/image/hero/Steel_Strip.avif"><source type="image/webp" srcset="/assets/image/hero/Steel_Strip.webp"><img height="1536" width="2752" src="/assets/image/hero/Steel_Strip.jpg" alt="Rotary slitting machine cutting steel ribbons off a master coil, with sparks at the cutter head, stacked steel coils and an orange diagonal light accent" loading="eager" fetchpriority="high" decoding="async"></picture>
+      <picture><source type="image/avif" srcset="/assets/image/hero/Steel_Strip.avif"><source type="image/webp" srcset="/assets/image/hero/Steel_Strip.webp"><img height="1536" width="2752" src="/assets/image/hero/Steel_Strip.jpg" alt="Rows of slit steel strip coils stacked in a factory aisle, with two loose strip rolls in the foreground and overhead crane rails lit in warm orange light" loading="eager" fetchpriority="high" decoding="async"></picture>
     </div>
     <div class="ss-visual-scrim"></div>
+    <div class="ss-visual-tint"></div>
+    <div class="ss-visual-glow"></div>
     <div class="ss-sweep"></div>
   </figure>
 
   <div class="ss-trust">
+    <svg class="ss-bottom-curve" viewBox="0 0 1440 24" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="ssCurveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#FF6A00" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#FF8A1F"/>
+          <stop offset="100%" stop-color="#FF6A00" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,16 C360,2 1080,22 1440,8"/>
+    </svg>
     <div class="ss-trust-item">
       <svg class="ss-trust-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V10l4.5 3V10l4.5 3V8l5 3.5V5h2v16"/><path d="M4 21h17"/></svg>
       <span class="ss-trust-text">Advanced<strong>Manufacturing</strong></span>
