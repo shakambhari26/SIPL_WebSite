@@ -22,6 +22,27 @@ const ALLOWED_TABLES: Record<string, string[]> = {
   detailed_enquiries: ['name', 'email', 'specification'],
 };
 
+// Per-column length caps, applied after stripping HTML — keeps anything
+// that later gets rendered somewhere (an admin view, a notification email)
+// from being able to carry markup/script content, and keeps junk payloads
+// from writing huge rows.
+const FIELD_LIMITS: Record<string, number> = {
+  email: 320,
+  name: 200,
+  phone: 30,
+  specification: 5000,
+};
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function sanitizeText(value: unknown, maxLength: number): string {
+  const str = typeof value === 'string' ? value : '';
+  return str
+    .replace(/<[^>]*>/g, '') // strip HTML tags so nothing stored can render as markup later
+    .trim()
+    .slice(0, maxLength);
+}
+
 // Cloudflare reports the hostname a Turnstile token was actually solved on
 // as part of its own verification — the caller can't spoof this the way a
 // plain Origin/Referer header could be, so it's the authoritative check that
@@ -124,13 +145,18 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ error: 'Verification failed. Please try again.' }, 403);
   }
 
-  // Only copy allowlisted columns onto the row — the client payload is
-  // untrusted, and this keeps it from writing arbitrary columns.
+  // Only copy allowlisted columns onto the row, and sanitize each value —
+  // the client payload is untrusted, so this keeps it from writing
+  // arbitrary columns, oversized values, or HTML/script content.
   const row: Record<string, unknown> = {};
   for (const col of allowedColumns) {
     if (payload && typeof payload === 'object' && col in payload) {
-      row[col] = payload[col];
+      row[col] = sanitizeText(payload[col], FIELD_LIMITS[col] || 1000);
     }
+  }
+
+  if (typeof row.email === 'string' && row.email && !EMAIL_PATTERN.test(row.email)) {
+    return jsonResponse({ error: 'Please provide a valid email address.' }, 400);
   }
 
   const supabase = createClient(
