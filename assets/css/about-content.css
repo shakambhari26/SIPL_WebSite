@@ -1,0 +1,147 @@
+/* ════════════════════════════════════════════════════════════════════
+   ABOUT US — Content Sections
+   Isolated component (see about-content.js for the stat counters and
+   value-node stagger). Everything here is specific to the About Us
+   hub layout: the story split, the mission/vision/values teaser grid,
+   the leadership mini-cards, and the group-companies logo strip. The
+   hero (au-hero), the stat band, the "what we do" grid and the
+   closing CTA reuse the site's shared classes from styles.css as-is.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ══ OUR STORY: text + framed photo split ══ */
+.au-story-split {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .au-story-split { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+.au-story-text p { color: var(--ink-soft); font-size: 1.02rem; line-height: 1.78; }
+.au-story-text p + p { margin-top: 1rem; }
+
+.au-story-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1.6rem 0 1.8rem;
+}
+
+.au-story-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .5rem;
+  padding: .55rem 1rem;
+  border-radius: .8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: .84rem;
+}
+
+.au-story-chip b {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-ink);
+  letter-spacing: .02em;
+}
+
+.au-story-visual {
+  position: relative;
+  border-radius: 1.4rem;
+  overflow: hidden;
+  aspect-ratio: 4 / 3.05;
+  box-shadow: 0 1px 2px rgba(20, 22, 28, .06), 0 24px 50px rgba(20, 22, 28, .14);
+}
+
+.au-story-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.au-story-visual-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 20% 100%, rgba(255, 106, 31, .28), transparent 55%);
+  mix-blend-mode: overlay;
+}
+
+.au-story-visual-badge {
+  position: absolute;
+  left: 1.3rem;
+  bottom: 1.3rem;
+  padding: .7rem 1.1rem;
+  border-radius: .9rem;
+  background: rgba(11, 13, 17, .72);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  color: #F5F7FB;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* ══ MISSION · VISION · VALUES teaser grid ══ */
+.au-mvv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 860px) { .au-mvv-grid { grid-template-columns: 1fr; } }
+
+.au-mvv-card { display: flex; flex-direction: column; padding: 2.2rem 1.9rem; }
+@media (max-width: 640px) { .au-mvv-card { padding: 1.7rem 1.4rem; } }
+
+.au-mvv-card .icon-wrap {
+  width: 58px; height: 58px; border-radius: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 30% 20%, var(--surface-2), var(--surface));
+  border: 1px solid var(--border);
+  margin-bottom: 1.3rem;
+  transition: border-color .4s ease, background .4s ease;
+}
+.au-mvv-card .icon-wrap svg { width: 28px; height: 28px; color: var(--accent-ink); }
+.au-mvv-card:hover .icon-wrap { border-color: var(--accent); background: linear-gradient(135deg, rgba(255, 106, 31, .16), rgba(255, 194, 75, .08)); }
+.au-mvv-card h3 { font-size: 1.14rem; margin-bottom: .6rem; }
+.au-mvv-card p { color: var(--ink-soft); font-size: .93rem; line-height: 1.66; margin: 0; }
+
+/* ══ LEADERSHIP mini-cards ══ */
+.au-leaders-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; max-width: 780px; margin: 0 auto; }
+@media (max-width: 700px) { .au-leaders-grid { grid-template-columns: 1fr; } }
+
+.au-leader-card { display: flex; align-items: center; gap: 1.2rem; padding: 1.7rem; }
+
+.au-leader-avatar {
+  flex-shrink: 0;
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+}
+.au-leader-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.au-leader-name { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; }
+.au-leader-role { font-family: var(--font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-ink); margin-top: .3rem; }
+.au-leader-quote { color: var(--ink-soft); font-size: .88rem; line-height: 1.6; margin-top: .5rem; }
+
+/* ══ GROUP COMPANIES logo strip ══ */
+.au-brands-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.4rem;
+}
+
+.au-brand-card {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform .3s cubic-bezier(.16,.84,.44,1), border-color .3s ease, box-shadow .3s ease;
+}
+.au-brand-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 16px 34px rgba(20,22,28,.1), 0 0 28px rgba(255,106,31,.12); }
+
+.au-brand-logo { width: 42px; height: 42px; border-radius: .6rem; object-fit: cover; flex-shrink: 0; }
+.au-brand-name { font-family: var(--font-display); font-weight: 700; font-size: .92rem; }
+.au-brand-tag { display: block; font-family: var(--font-mono); font-size: .66rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-top: .15rem; }

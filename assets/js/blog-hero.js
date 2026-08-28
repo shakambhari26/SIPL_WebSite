@@ -73,7 +73,7 @@
 
   // ── extremely subtle scroll parallax on the background photo only
   // (≈14px total travel, well inside the resting scale(1.055) buffer
-  // set in insight-hero.css so the overflow:hidden wrapper never
+  // set in blog-hero.css so the overflow:hidden wrapper never
   // reveals an edge), text and features never move ──
   if (reduceMotion || !photo || window.matchMedia('(max-width: 900px)').matches) return;
 

@@ -2,10 +2,10 @@
   --bg:#0A0B0E; --surface:#14161C; --border:#262A34; --ink:#EEEAE1; --ink-dim:#9C9A90;
   --accent:#FF6A1F; --accent-hot:#FFC24B; --accent-deep:#E23B1F;
   position:relative; padding:calc(var(--nav-h) + 3.5rem) 1.75rem 3.5rem; text-align:center; overflow:hidden;
-  background:radial-gradient(ellipse at 50% 130%, rgba(62,159,216,.28), transparent 55%), var(--bg);
+  background:radial-gradient(ellipse at 50% 130%, rgba(255,106,31,.3), transparent 55%), var(--bg);
 }
-.page-header .kicker{ justify-content:center; color:var(--brand-blue-ink); }
-.page-header .kicker::before{ background:var(--brand-blue); }
+.page-header .kicker{ justify-content:center; color:var(--accent-hot); }
+.page-header .kicker::before{ background:var(--accent); }
 .page-header h1{ color:var(--ink); font-size:clamp(1.9rem,4.4vw,2.9rem); max-width:26ch; margin:0 auto; }
 .article-meta{ display:flex; gap:1rem; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:1.3rem; font-family:var(--font-mono); font-size:.76rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-dim); }
 .article-meta .dot{ width:3px; height:3px; border-radius:50%; background:var(--ink-dim); }
@@ -17,21 +17,14 @@
 .article-body .lede{ font-size:1.18rem; color:var(--ink); line-height:1.7; margin-bottom:1.8rem; font-weight:500; }
 .article-body h2{ font-size:1.5rem; margin:2.6rem 0 1rem; text-transform:none; font-family:var(--font-body); font-weight:700; }
 .article-body h2:first-of-type{ margin-top:0; }
-.article-body h3{ font-size:1.12rem; margin:1.8rem 0 .7rem; text-transform:none; font-family:var(--font-body); font-weight:700; color:var(--brand-blue-ink); }
+.article-body h3{ font-size:1.12rem; margin:1.8rem 0 .7rem; text-transform:none; font-family:var(--font-body); font-weight:700; color:var(--accent-ink); }
 .article-body p{ font-size:1rem; color:var(--ink-soft); line-height:1.78; margin-bottom:1.3rem; }
 .article-body ul, .article-body ol{ margin:0 0 1.3rem 1.3rem; color:var(--ink-soft); line-height:1.75; }
 .article-body li{ margin-bottom:.5rem; }
 .article-body strong{ color:var(--ink); }
 
-.star-table-wrap{ overflow-x:auto; border-radius:1rem; border:1px solid var(--border); margin:2rem 0; }
-.star-table{ width:100%; min-width:420px; border-collapse:collapse; }
-.star-table th{ background:linear-gradient(135deg,var(--brand-blue-light),var(--brand-blue)); color:#fff; font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:.8rem 1rem; text-align:left; }
-.star-table td{ padding:.8rem 1rem; border-top:1px solid var(--border); font-size:.9rem; color:var(--ink-soft); }
-.star-table tr:nth-child(even) td{ background:var(--surface-2); }
-.star-table td:first-child{ font-weight:700; color:var(--ink); white-space:nowrap; }
-
-.article-callout{ display:flex; gap:1.3rem; padding:1.6rem 1.8rem; border-radius:1rem; background:var(--surface-2); border-left:4px solid var(--brand-blue); margin:2.2rem 0; align-items:flex-start; }
-.article-callout .num{ font-family:var(--font-mono); font-weight:800; font-size:1.5rem; color:var(--brand-blue-ink); flex-shrink:0; line-height:1; }
+.article-callout{ display:flex; gap:1.3rem; padding:1.6rem 1.8rem; border-radius:1rem; background:var(--surface-2); border-left:4px solid var(--accent); margin:2.2rem 0; align-items:flex-start; }
+.article-callout .num{ font-family:var(--font-mono); font-weight:800; font-size:1.7rem; color:var(--accent-ink); flex-shrink:0; line-height:1; }
 .article-callout p{ margin:0; font-size:.94rem; color:var(--ink-soft); }
 .article-callout strong{ display:block; color:var(--ink); font-size:.98rem; margin-bottom:.2rem; }
 
@@ -53,6 +46,7 @@
 .back-link{ display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:2rem; }
 .back-link:hover{ color:var(--accent-ink); }
 
+/* ══ CTA BAND ══ */
 .cta-band{ position:relative; z-index:1; margin:0 auto; max-width:1180px; padding:0 1.75rem 6rem; }
 .cta-inner{
   border-radius:1.6rem; padding:4rem 2.5rem; text-align:center; overflow:hidden; position:relative;
@@ -64,6 +58,6 @@
 .cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
 /* Extracted inline styles */
-.insight-green-steel-taxonomy-il-1 { max-width:26ch; }
+.blog-tempcore-tmt-bars-il-1 { max-width:26ch; }
 
 .accent-text { color:var(--accent-ink); font-weight:700; }

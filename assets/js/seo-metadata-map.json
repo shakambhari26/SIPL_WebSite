@@ -7,32 +7,32 @@
   "pages": {
     "index.html": {
       "url": "https://shakambharigroup.in/",
-      "title": "Integrated Steel Plant, Thermocon TMT & Elegant Steel QST Bars | Shakambhari",
+      "title": "Integrated Steel, Ferro Alloys & Aluminium Foil Manufacturer | Shakambhari",
       "description": "Shakambhari Group produces Thermocon TMT bars, Elegant Steel QST bars, sponge iron & MS billets in Eastern India."
     },
     "assets/pages/products.html": {
       "url": "https://shakambharigroup.in/products/",
-      "title": "Thermocon TMT & Elegant Steel QST Bars, Billets & Alloys | Shakambhari",
+      "title": "Steel, Ferro Alloys & Aluminium Foil Product Catalog | Shakambhari",
       "description": "Explore Shakambhari Group's product range: Thermocon TMT bars, Elegant Steel QST bars, structural steel, and alloys."
     },
     "assets/pages/steel/index.html": {
       "url": "https://shakambharigroup.in/steel/",
-      "title": "Construction & Structural Steel Manufacturer in India | Shakambhari",
+      "title": "Structural Steel & Construction Rebar Manufacturer | Shakambhari",
       "description": "Source high-grade structural steel, rebar, hollow sections, steel strips, and fasteners directly from Shakambhari Group's integrated mills in West Bengal."
     },
     "assets/pages/steel/concrete-reinforcement/index.html": {
       "url": "https://shakambharigroup.in/steel/concrete-reinforcement/",
-      "title": "Fe 550D & 500D Thermocon TMT & Elegant Steel QST Bars | Shakambhari",
+      "title": "Fe 550D TMT Bars Manufacturer & Supply | Shakambhari",
       "description": "Buy high-ductility, earthquake-resistant Thermocon 500D TMT and Elegant Steel 550D QST bars certified to IS 1786:2008."
     },
     "assets/pages/steel/heavy-structural/index.html": {
       "url": "https://shakambharigroup.in/steel/heavy-structural/",
-      "title": "Heavy Structural Steel Angles (50-130mm) Manufacturer | Shakambhari",
+      "title": "Heavy Structural Steel Angles (50-130mm) | Shakambhari",
       "description": "IS-certified heavy structural steel angles (50mm–130mm) for transmission towers, warehouses, and industrial frames. Request bulk supply pricing."
     },
     "assets/pages/steel/espl-tubes/index.html": {
       "url": "https://shakambharigroup.in/steel/espl-tubes/",
-      "title": "ERW Structural Pipes, SHS, RHS & Scaffolding Tubes | Shakambhari",
+      "title": "ERW Structural Steel Pipes & SHS RHS Hollow Sections | Shakambhari",
       "description": "Manufacturer of ERW round steel tubes, square & rectangular hollow sections (SHS/RHS), and scaffolding pipes with full technical spec sheets."
     },
     "assets/pages/steel/precision-strips/index.html": {
@@ -42,17 +42,17 @@
     },
     "assets/pages/steel/wire-rods-and-wires/index.html": {
       "url": "https://shakambharigroup.in/steel/wire-rods-and-wires/",
-      "title": "Wire Rods, HB Wire & Binding Wire Manufacturer | Shakambhari",
+      "title": "Low Carbon Wire Rods & Binding Wire Manufacturer | Shakambhari",
       "description": "Primary wire rods, Torkari commercial wire, HB wire, and annealed binding wire produced at Shakambhari's Durgapur mill. Bulk order supply across India."
     },
     "assets/pages/steel/fasteners/index.html": {
       "url": "https://shakambharigroup.in/steel/fasteners/",
-      "title": "Wire Nails & Rebar Stirrup Rings Manufacturer | Shakambhari",
+      "title": "Construction Wire Nails & Rebar Stirrups Supplier | Shakambhari",
       "description": "Industrial-grade wire nails and pre-formed rebar stirrup rings for construction. Direct manufacturer supply for infrastructure and building sites."
     },
     "assets/pages/steel/upstream-intermediate/index.html": {
       "url": "https://shakambharigroup.in/steel/upstream-intermediate/",
-      "title": "DRI Sponge Iron, IS 2830 MS Billets & Iron Pellets | Shakambhari",
+      "title": "DRI Sponge Iron & IS 2830 MS Billets Supplier | Shakambhari",
       "description": "Bulk supplier of DRI sponge iron, BIS-certified IS 2830 MS billets, and iron pellets manufactured at integrated plants in West Bengal, India."
     },
     "assets/pages/ferro-alloys.html": {
@@ -65,99 +65,109 @@
       "title": "Pharma & Packaging Aluminium Foil Manufacturer (9-60µ) | Shakambhari",
       "description": "Manufacturer of pharma, food, and industrial aluminium foil (9–60 microns). Supplying bare, blister, laminate, and lidding foils from Hooghly, India."
     },
+    "assets/pages/about.html": {
+      "url": "https://shakambharigroup.in/about/",
+      "title": "About Shakambhari Group | Integrated Steel & Alloys Manufacturer",
+      "description": "Shakambhari Group is an integrated steel, ferro alloys, aluminium foil, captive power and agrotech conglomerate with 8 establishments across West Bengal. Our story, leadership and companies."
+    },
     "assets/pages/journey.html": {
       "url": "https://shakambharigroup.in/journey/",
-      "title": "History & Growth Story of Shakambhari Group | Steel Manufacturing",
+      "title": "History & Growth Story of Shakambhari Group | Steel & Alloys",
       "description": "Explore Shakambhari Group's journey from inception to becoming a major integrated steel producer with plants in Durgapur, Madandih, Rukni & Purulia."
     },
     "assets/pages/companies.html": {
       "url": "https://shakambharigroup.in/companies/",
-      "title": "Integrated Steel Manufacturing Facilities & Plants | Shakambhari",
+      "title": "Steel, Alloy & Foil Manufacturing Plants | Shakambhari Group",
       "description": "Overview of Shakambhari Group's integrated production facilities in West Bengal, spanning TMT bars, ferro alloys, structural steel, and aluminium foil."
     },
     "assets/pages/csr.html": {
       "url": "https://shakambharigroup.in/csr/",
-      "title": "Corporate Social Responsibility & Community Work | Shakambhari",
+      "title": "Corporate Social Responsibility Initiatives | Shakambhari Group",
       "description": "Discover Shakambhari Group's CSR initiatives focused on healthcare, education, and community development across plant regions in West Bengal."
     },
     "assets/pages/sustainability.html": {
       "url": "https://shakambharigroup.in/sustainability/",
-      "title": "Green Pro & ISO Certified Sustainable Steel Manufacturing | Shakambhari",
+      "title": "GreenPro Certified Sustainable Steel & Alloy Making | Shakambhari",
       "description": "Shakambhari Group's green steel initiatives: GreenPro certified manufacturing, ISO environmental standards, and sustainable steel production practices."
     },
     "assets/pages/contact.html": {
       "url": "https://shakambharigroup.in/contact/",
-      "title": "Contact Shakambhari Group | Kolkata HQ & Plant Sales Enquiries",
+      "title": "Contact Shakambhari Group | Steel, Alloy & Foil Sales",
       "description": "Get in touch with Shakambhari Group's Kolkata head office or plant teams in Durgapur, Purulia, and Madandih for steel procurement and sales."
     },
     "assets/pages/vision.html": {
       "url": "https://shakambharigroup.in/vision/",
-      "title": "Mission, Vision & Core Values | Shakambhari Group",
+      "title": "Corporate Vision, Mission & Values | Shakambhari Group",
       "description": "The core mission, vision, and operational values driving Shakambhari Group's position as a premier Indian integrated steel and alloy manufacturer."
     },
     "assets/pages/leadership.html": {
       "url": "https://shakambharigroup.in/leadership/",
-      "title": "Board of Directors & Management Team | Shakambhari Group",
+      "title": "Executive Leadership & Management Team | Shakambhari Group",
       "description": "Meet the executive leadership team steering growth and operational excellence across Shakambhari Group's steel, alloy, and packaging divisions."
     },
     "assets/pages/quality.html": {
       "url": "https://shakambharigroup.in/quality/",
-      "title": "8-Stage Steel Quality Control Process & Testing | Shakambhari",
+      "title": "8-Stage Steel & Alloy Quality Assurance Testing | Shakambhari",
       "description": "Inside Shakambhari's 8-stage steel quality assurance process. How we test every billet and TMT bar to guarantee IS and BIS standards compliance."
     },
     "assets/pages/process.html": {
       "url": "https://shakambharigroup.in/process/",
-      "title": "Integrated Steel Manufacturing & Tempcore Process | Shakambhari",
+      "title": "DRI Reduction, Tempcore & Ferro Alloy Smelting Process | Shakambhari",
       "description": "Learn how Shakambhari turns raw iron ore into finished TMT bars and billets using advanced DRI reduction and Tempcore quenching technology."
     },
     "assets/pages/careers.html": {
       "url": "https://shakambharigroup.in/careers/",
-      "title": "Careers & Job Opportunities in Steel Manufacturing | Shakambhari",
+      "title": "Careers in Steel, Alloy & Packaging Manufacturing | Shakambhari",
       "description": "Build your career with Shakambhari Group. Explore job openings in engineering, operations, and management across our West Bengal manufacturing units."
     },
     "assets/pages/clientele.html": {
       "url": "https://shakambharigroup.in/clientele/",
-      "title": "Infra & Government EPC Project Clientele | Shakambhari Group",
+      "title": "Infrastructure, EPC & Export Clientele | Shakambhari Group",
       "description": "Trusted by major infrastructure developers, EPC contractors, and government projects across India for high-strength TMT bars and structural steel."
     },
     "assets/pages/awards.html": {
       "url": "https://shakambharigroup.in/awards/",
-      "title": "Industry Awards & BIS Quality Accreditations | Shakambhari",
+      "title": "Industry Accreditations, BIS & GreenPro Awards | Shakambhari",
       "description": "View the industry awards, GreenPro recognitions, and official BIS certifications earned by Shakambhari Group's steel and alloy manufacturing plants."
     },
-    "assets/pages/insights.html": {
-      "url": "https://shakambharigroup.in/insights/",
-      "title": "Steel Industry Insights, Tech & Market Analysis | Shakambhari",
+    "assets/pages/gallery.html": {
+      "url": "https://shakambharigroup.in/gallery/",
+      "title": "Photo Gallery — Plants, Products & CSR | Shakambhari",
+      "description": "Browse photos of Shakambhari Group's integrated steel & alloy plants, products, CSR initiatives and leadership across Durgapur, Madandih, Rukni and Purulia."
+    },
+    "assets/pages/blogs.html": {
+      "url": "https://shakambharigroup.in/blogs/",
+      "title": "Steel, Ferro Alloy & Packaging Blogs & News | Shakambhari",
       "description": "In-depth technical guides and market explainers on TMT manufacturing, ferro alloys, green steel standards, and metallurgical innovations."
     },
-    "assets/pages/insight-tempcore-tmt-bars.html": {
-      "url": "https://shakambharigroup.in/insights/tempcore-tmt-bars/",
-      "title": "TEMPCORE Quenching for Thermocon TMT & Elegant Steel QST Bars",
+    "assets/pages/blog-tempcore-tmt-bars.html": {
+      "url": "https://shakambharigroup.in/blogs/tempcore-tmt-bars/",
+      "title": "TEMPCORE Quenching & IS 1786 Standards Breakdown",
       "description": "How the TEMPCORE process gives Thermocon TMT and Elegant Steel QST bars their hard outer rim and ductile core."
     },
-    "assets/pages/insight-sponge-iron-india.html": {
-      "url": "https://shakambharigroup.in/insights/sponge-iron-india/",
-      "title": "Why India Dominates Global Coal-Based DRI Sponge Iron Production",
+    "assets/pages/blog-sponge-iron-india.html": {
+      "url": "https://shakambharigroup.in/blogs/sponge-iron-india/",
+      "title": "India’s Global Leadership in DRI Sponge Iron Output",
       "description": "An analysis of India's leadership in DRI sponge iron production since 2003, detailing manufacturing economics and coal-based DRI routes."
     },
-    "assets/pages/insight-silicomanganese.html": {
-      "url": "https://shakambharigroup.in/insights/silicomanganese/",
-      "title": "Role of Silicomanganese in Steelmaking & Submerged Arc Smelting",
+    "assets/pages/blog-silicomanganese.html": {
+      "url": "https://shakambharigroup.in/blogs/silicomanganese/",
+      "title": "Role of Silicomanganese in Steelmaking & Smelting",
       "description": "Discover why steelmakers utilize silicomanganese over pure manganese or silicon, including submerged arc furnace smelting mechanics."
     },
-    "assets/pages/insight-steel-policy-2030.html": {
-      "url": "https://shakambharigroup.in/insights/steel-policy-2030/",
-      "title": "National Steel Policy 2017: Tracking India’s 300 MT Goal",
+    "assets/pages/blog-steel-policy-2030.html": {
+      "url": "https://shakambharigroup.in/blogs/steel-policy-2030/",
+      "title": "National Steel Policy 2017 Progress & 300 MT Goal",
       "description": "Progress analysis on India’s National Steel Policy 2017 target of 300 MT capacity by 2030, covering current output and capacity expansion gaps."
     },
-    "assets/pages/insight-green-steel-taxonomy.html": {
-      "url": "https://shakambharigroup.in/insights/green-steel-taxonomy/",
-      "title": "India's Green Steel Taxonomy: Star Ratings & Emission Limits",
+    "assets/pages/blog-green-steel-taxonomy.html": {
+      "url": "https://shakambharigroup.in/blogs/green-steel-taxonomy/",
+      "title": "India's Green Steel Taxonomy & Emission Benchmarks",
       "description": "Understanding India’s December 2024 Green Steel Taxonomy framework, star-rating standards, and decarbonization benchmarks for manufacturers."
     },
-    "assets/pages/insight-aluminium-foil-pharma.html": {
-      "url": "https://shakambharigroup.in/insights/aluminium-foil-pharma/",
-      "title": "Why Aluminium Foil Dominates Pharmaceutical Blister Packaging",
+    "assets/pages/blog-aluminium-foil-pharma.html": {
+      "url": "https://shakambharigroup.in/blogs/aluminium-foil-pharma/",
+      "title": "Technical Superiority of Pharma Aluminium Blister Foil",
       "description": "Technical properties that make barrier-grade aluminium foil irreplaceable in pharma blister packaging, plus Indian market growth trends."
     }
   }

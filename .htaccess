@@ -8,6 +8,17 @@
   RewriteCond %{HTTP_HOST} ^www\.shakambharigroup\.in [NC]
   RewriteRule ^(.*)$ https://shakambharigroup.in/$1 [L,R=301]
 
+  # --- Legacy WordPress URLs -> current site (301, preserves link equity) ---
+  RewriteRule ^business/?$ https://shakambharigroup.in/products/ [R=301,L]
+  RewriteRule ^about-us/?$ https://shakambharigroup.in/about/ [R=301,L]
+  RewriteRule ^company/?$ https://shakambharigroup.in/companies/ [R=301,L]
+  RewriteRule ^media/?$ https://shakambharigroup.in/csr/ [R=301,L]
+  RewriteRule ^quality-sustainability/?$ https://shakambharigroup.in/sustainability/ [R=301,L]
+  RewriteRule ^contact-us/?$ https://shakambharigroup.in/contact/ [R=301,L]
+  RewriteRule ^corporate/?$ https://shakambharigroup.in/clientele/ [R=301,L]
+  RewriteRule ^investors/?$ https://shakambharigroup.in/clientele/ [R=301,L]
+  RewriteRule ^insights/?(.*)$ https://shakambharigroup.in/blogs/$1 [R=301,L]
+
   # --- Clean URLs for SEO canonicals ---
   # Internal rewrites only (no redirect): the old /assets/pages/*.html paths
   # keep working unchanged, since every internal <a href> on the site still
@@ -16,6 +27,7 @@
   RewriteRule ^products/?$ /assets/pages/products.html [L]
   RewriteRule ^ferro-alloys/?$ /assets/pages/ferro-alloys.html [L]
   RewriteRule ^aluminium-foil/?$ /assets/pages/aluminium-foil.html [L]
+  RewriteRule ^about/?$ /assets/pages/about.html [L]
   RewriteRule ^journey/?$ /assets/pages/journey.html [L]
   RewriteRule ^companies/?$ /assets/pages/companies.html [L]
   RewriteRule ^csr/?$ /assets/pages/csr.html [L]
@@ -28,14 +40,15 @@
   RewriteRule ^careers/?$ /assets/pages/careers.html [L]
   RewriteRule ^clientele/?$ /assets/pages/clientele.html [L]
   RewriteRule ^awards/?$ /assets/pages/awards.html [L]
+  RewriteRule ^gallery/?$ /assets/pages/gallery.html [L]
 
-  RewriteRule ^insights/?$ /assets/pages/insights.html [L]
-  RewriteRule ^insights/tempcore-tmt-bars/?$ /assets/pages/insight-tempcore-tmt-bars.html [L]
-  RewriteRule ^insights/sponge-iron-india/?$ /assets/pages/insight-sponge-iron-india.html [L]
-  RewriteRule ^insights/silicomanganese/?$ /assets/pages/insight-silicomanganese.html [L]
-  RewriteRule ^insights/steel-policy-2030/?$ /assets/pages/insight-steel-policy-2030.html [L]
-  RewriteRule ^insights/green-steel-taxonomy/?$ /assets/pages/insight-green-steel-taxonomy.html [L]
-  RewriteRule ^insights/aluminium-foil-pharma/?$ /assets/pages/insight-aluminium-foil-pharma.html [L]
+  RewriteRule ^blogs/?$ /assets/pages/blogs.html [L]
+  RewriteRule ^blogs/tempcore-tmt-bars/?$ /assets/pages/blog-tempcore-tmt-bars.html [L]
+  RewriteRule ^blogs/sponge-iron-india/?$ /assets/pages/blog-sponge-iron-india.html [L]
+  RewriteRule ^blogs/silicomanganese/?$ /assets/pages/blog-silicomanganese.html [L]
+  RewriteRule ^blogs/steel-policy-2030/?$ /assets/pages/blog-steel-policy-2030.html [L]
+  RewriteRule ^blogs/green-steel-taxonomy/?$ /assets/pages/blog-green-steel-taxonomy.html [L]
+  RewriteRule ^blogs/aluminium-foil-pharma/?$ /assets/pages/blog-aluminium-foil-pharma.html [L]
 
   RewriteRule ^steel/?$ /assets/pages/steel/ [L]
   RewriteRule ^steel/concrete-reinforcement/?$ /assets/pages/steel/concrete-reinforcement/ [L]

@@ -230,7 +230,15 @@
   padding: .2rem 0;
   flex: 1;
   min-width: 0;
+  color: inherit;
+  text-decoration: none;
   transition: transform .3s cubic-bezier(.16, .84, .44, 1);
+}
+
+.ph-cat:focus-visible {
+  outline: 2px solid var(--ph-orange);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .ph-sep {

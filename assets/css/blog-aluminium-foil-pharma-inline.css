@@ -58,6 +58,6 @@
 .cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
 /* Extracted inline styles */
-.insight-aluminium-foil-pharma-il-1 { max-width:26ch; }
+.blog-aluminium-foil-pharma-il-1 { max-width:26ch; }
 
 .accent-text { color:var(--accent-ink); font-weight:700; }

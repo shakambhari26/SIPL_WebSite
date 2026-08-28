@@ -1,0 +1,370 @@
+/* ════════════════════════════════════════════════════════════════════
+   ABOUT US — Steel & Ember Hero
+   Isolated component (see about-hero.js). Full-bleed photographic
+   hero for the About Us hub page: a dark brushed-steel scrim carrying
+   the headline, an ember glow drifting behind it, and a jump-pillar
+   nav (Our Story / What We Do / Leadership / Companies) that gives a
+   hub page its most useful job, getting the visitor to the right
+   section fast. Matches the site's established hero convention (see
+   .oj-hero in journey-hero.css, .mvv-hero in vision-hero.css).
+
+   Motion contract: only transform / opacity are animated on anything
+   that runs continuously. Width, height, margin, left and top are
+   never transitioned.
+   ════════════════════════════════════════════════════════════════════ */
+
+.au-hero {
+  --steel-dark: #14171C;
+  --steel-mid: #1E222A;
+  --steel-deep: #0B0D11;
+  --ink: #F5F7FB;
+  --ink-dim: #C3C8D2;
+  --accent: #FF6A1F;
+  --accent-2: #FF7518;
+  --accent-hot: #FFC24B;
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  min-height: 720px;
+  max-height: 1180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--steel-dark);
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .au-hero { height: auto; min-height: 100svh; max-height: none; padding-bottom: 2.5rem; }
+}
+
+.au-hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ══ full-bleed photo ══ */
+.au-hero-visual { position: absolute; inset: 0; overflow: hidden; }
+
+.au-hero-visual picture,
+.au-hero-visual-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.au-hero-visual-img {
+  object-fit: cover;
+  object-position: 62% 38%;
+  transform: scale(1.06);
+  opacity: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* dark steel scrim on the left carries the headline, fading into the
+   photo on the right; faint top/bottom vignette blends into the nav
+   above and the wave below */
+.au-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, var(--steel-deep) 0%, rgba(11, 13, 17, .95) 32%, rgba(11, 13, 17, .58) 56%, rgba(11, 13, 17, .16) 76%, transparent 94%),
+    linear-gradient(180deg, rgba(11, 13, 17, .4) 0%, transparent 18%, transparent 78%, rgba(11, 13, 17, .58) 100%);
+}
+
+@media (max-width: 900px) {
+  .au-hero-scrim {
+    background:
+      linear-gradient(180deg, rgba(11, 13, 17, .8) 0%, rgba(11, 13, 17, .42) 24%, rgba(11, 13, 17, .32) 44%, rgba(11, 13, 17, .6) 66%, rgba(11, 13, 17, .96) 100%),
+      linear-gradient(90deg, rgba(11, 13, 17, .5) 0%, transparent 45%, transparent 60%, rgba(11, 13, 17, .35) 100%);
+  }
+}
+
+/* ── ember glow drifting behind the headline ── */
+.au-hero-glow {
+  position: absolute;
+  left: 4%;
+  top: 12%;
+  width: min(38vw, 460px);
+  height: min(38vw, 460px);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 194, 75, .32), rgba(255, 117, 24, .12) 45%, transparent 72%);
+  filter: blur(10px);
+  opacity: .75;
+  animation: auGlowPulse 6.4s ease-in-out infinite;
+}
+
+@keyframes auGlowPulse {
+  0%, 100% { opacity: .6; }
+  50% { opacity: .85; }
+}
+
+@media (max-width: 900px) {
+  .au-hero-glow { left: 50%; top: 6%; transform: translateX(-50%); width: 70vw; height: 70vw; }
+}
+
+/* ══ content ══ */
+.au-hero-inner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 1.75rem 4rem;
+}
+
+.au-hero-content { max-width: 720px; }
+
+.au-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  opacity: 0;
+}
+
+.au-hero-eyebrow-line {
+  width: 30px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hot));
+}
+
+.au-hero-heading {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: clamp(2.5rem, 4.2vw + 1vh, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+
+.au-hero-heading .line { display: block; opacity: 0; }
+.au-hero-heading .ink { color: var(--ink); }
+.au-hero-heading .accent {
+  color: var(--accent);
+  filter: drop-shadow(0 0 26px rgba(255, 106, 31, .32));
+}
+
+.au-hero-desc {
+  margin-top: 1.1rem;
+  max-width: 50ch;
+  font-size: 1.04rem;
+  line-height: 1.72;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+/* ── CTA: orange pill, white text, arrow badge ── */
+.au-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: 1.9rem;
+  padding: .5rem .5rem .5rem 1.55rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 10px 26px rgba(255, 106, 31, .28);
+  opacity: 0;
+  transition: box-shadow .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), background .3s ease;
+}
+
+.au-hero-cta:hover,
+.au-hero-cta:focus-visible {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #E85D00, var(--accent));
+  box-shadow: 0 16px 34px rgba(255, 106, 31, .4);
+}
+
+.au-hero-cta:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 3px; }
+
+.au-hero-cta-label {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.au-hero-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.au-hero-cta-arrow svg { width: 16px; height: 16px; }
+
+.au-hero-cta:hover .au-hero-cta-arrow,
+.au-hero-cta:focus-visible .au-hero-cta-arrow { transform: translateX(5px); }
+
+/* ── jump-pillar nav: About Us being a hub page, the most useful
+   thing its hero can do is get the visitor to the right section ── */
+.au-hero-pillars {
+  display: flex;
+  align-items: stretch;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  opacity: 0;
+  flex-wrap: wrap;
+}
+
+.au-hero-pillar {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.au-hero-pillar-icon {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 117, 24, .4);
+  color: var(--accent-hot);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+.au-hero-pillar-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.au-hero-pillar-text { display: flex; flex-direction: column; gap: .16rem; transition: transform .28s cubic-bezier(.22, 1, .36, 1); }
+
+.au-hero-pillar-label {
+  font-family: var(--font-display);
+  font-size: .96rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.au-hero-pillar-sub {
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.au-hero-pillar:hover .au-hero-pillar-icon,
+.au-hero-pillar:focus-visible .au-hero-pillar-icon {
+  transform: scale(1.08);
+  color: #fff;
+  border-color: var(--accent-hot);
+  box-shadow: 0 0 0 5px rgba(255, 117, 24, .14), 0 0 16px rgba(255, 194, 75, .35);
+}
+
+.au-hero-pillar:hover .au-hero-pillar-text,
+.au-hero-pillar:focus-visible .au-hero-pillar-text { transform: translateY(-2px); }
+
+.au-hero-pillar:focus-visible { outline: 2px solid var(--accent-hot); outline-offset: 4px; border-radius: .6rem; }
+
+.au-hero-pillar-div { width: 1px; align-self: stretch; background: rgba(255, 255, 255, .14); }
+
+@media (max-width: 560px) {
+  .au-hero-pillars { justify-content: center; }
+  .au-hero-pillar-div { display: none; }
+}
+
+/* ── bottom curved transition: steel-dark fill + thin orange accent line ── */
+.au-hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 3;
+  height: clamp(56px, 8vw, 100px);
+  pointer-events: none;
+}
+
+.au-hero-wave svg { display: block; width: 100%; height: 100%; }
+
+.au-hero-wave-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.au-hero-wave-fill { fill: var(--surface, #fff); }
+
+@media (max-width: 900px) {
+  .au-hero-wave { display: none; }
+}
+
+/* ══ tablet ══ */
+@media (max-width: 1100px) {
+  .au-hero-content { max-width: 540px; }
+  .au-hero-pillars { gap: 1.2rem; margin-top: 2.2rem; }
+}
+
+/* ══ mobile: text stacks centered over the same full-bleed photo ══ */
+@media (max-width: 900px) {
+  .au-hero-inner { padding: calc(var(--nav-h) + 1.6rem) 1.25rem 2.5rem; }
+  .au-hero-content { max-width: none; text-align: center; }
+  .au-hero-eyebrow { justify-content: center; }
+  .au-hero-desc { margin-left: auto; margin-right: auto; }
+  .au-hero-cta { margin-left: auto; margin-right: auto; }
+  .au-hero-pillars { justify-content: center; margin-left: auto; margin-right: auto; width: fit-content; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-hero-glow { animation: none !important; }
+}
+
+/* ── drifting glow-dot particles (mirrors .oj-hero-particles on the
+   journey page): plain spans injected once by about-hero.js with
+   randomized CSS custom properties, animated purely by the keyframe
+   below ── */
+.au-hero-particles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+
+.au-hero-particle {
+  position: absolute;
+  bottom: -5%;
+  left: var(--x, 50%);
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--hue, var(--accent-2));
+  box-shadow: 0 0 6px 1px var(--hue, rgba(255, 117, 24, .6));
+  opacity: 0;
+  animation: auHeroParticleFloat var(--dur, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes auHeroParticleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: .7; }
+  85% { opacity: .35; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .au-hero-particle { animation: none !important; }
+}

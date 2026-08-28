@@ -23,11 +23,10 @@
 .article-body li{ margin-bottom:.5rem; }
 .article-body strong{ color:var(--ink); }
 
-.article-progress{ margin:2.2rem 0; }
-.article-progress-track{ height:14px; border-radius:7px; background:var(--surface-2); overflow:hidden; position:relative; }
-.article-progress-fill{ height:100%; width:78.3%; background:linear-gradient(90deg,var(--accent-hot),var(--accent)); border-radius:7px; }
-.article-progress-labels{ display:flex; justify-content:space-between; margin-top:.6rem; font-family:var(--font-mono); font-size:.78rem; color:var(--ink-soft); }
-.article-progress-labels strong{ color:var(--ink); }
+.article-callout{ display:flex; gap:1.3rem; padding:1.6rem 1.8rem; border-radius:1rem; background:var(--surface-2); border-left:4px solid var(--brand-blue); margin:2.2rem 0; align-items:flex-start; }
+.article-callout .num{ font-family:var(--font-mono); font-weight:800; font-size:1.7rem; color:var(--brand-blue-ink); flex-shrink:0; line-height:1; }
+.article-callout p{ margin:0; font-size:.94rem; color:var(--ink-soft); }
+.article-callout strong{ display:block; color:var(--ink); font-size:.98rem; margin-bottom:.2rem; }
 
 .article-refs{ max-width:720px; margin:3rem auto 0; background:var(--surface-2); border-radius:1.2rem; padding:2.2rem 2.2rem 2.4rem; }
 .article-refs h3{ font-size:.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:1.2rem; font-family:var(--font-mono); }
@@ -58,6 +57,6 @@
 .cta-btn-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
 /* Extracted inline styles */
-.insight-steel-policy-2030-il-1 { max-width:26ch; }
+.blog-silicomanganese-il-1 { max-width:26ch; }
 
 .accent-text { color:var(--accent-ink); font-weight:700; }

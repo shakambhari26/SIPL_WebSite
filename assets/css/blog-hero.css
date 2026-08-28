@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════════════════════════════
    INSIGHT — Cinematic Hero
-   Isolated component (see insight-hero.js). Replaces the previous
-   .page-header banner on insights.html only. Full-bleed photographic
+   Isolated component (see blog-hero.js). Replaces the previous
+   .page-header banner on blogs.html only. Full-bleed photographic
    composition (Hero/insight.*) of the analyst-with-binoculars / data-city
    visual, with a single left-to-right scrim carrying the headline — one
    full-inset photo + one scrim, matching the site's established hero
@@ -221,7 +221,7 @@
 /* ── drifting glow-dot particles (mirrors .hero-particles on the
    homepage / .ph-particles on the products page) — a separate rising
    float layer, distinct from the stationary .ins-pulse-dot signal
-   points above. Plain spans injected once by insight-hero.js with
+   points above. Plain spans injected once by blog-hero.js with
    randomized CSS custom properties, animated purely by the keyframe
    below. ── */
 .ins-hero-particles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }

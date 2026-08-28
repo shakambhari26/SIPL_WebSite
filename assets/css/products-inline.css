@@ -26,6 +26,59 @@
 .category-card-body p{ color:var(--ink-soft); font-size:.92rem; line-height:1.68; margin-bottom:1.6rem; flex:1; }
 .category-card-body .btn{ align-self:flex-start; }
 
+/* ══ STEEL HUB CARDS ══ */
+.steel-hub-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem; }
+@media(max-width:860px){ .steel-hub-grid{ grid-template-columns:1fr; } }
+
+.steel-hub-card{ display:flex; flex-direction:column; padding:0; overflow:hidden; text-decoration:none; border-radius:1.3rem; }
+
+.steel-hub-card-photo-wrap{ position:relative; aspect-ratio:16/9; overflow:hidden; flex-shrink:0; }
+.steel-hub-card-photo{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.16,.84,.44,1); }
+.steel-hub-card:hover .steel-hub-card-photo{ transform:scale(1.08); }
+.steel-hub-card-photo-wrap::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(10,11,14,0) 45%, rgba(10,11,14,.6) 100%);
+}
+.steel-hub-num{
+  position:absolute; top:1rem; left:1rem; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  width:2.5rem; height:2.5rem; border-radius:50%;
+  font-family:var(--font-mono); font-weight:800; font-size:.9rem; color:#fff;
+  background:linear-gradient(135deg, var(--accent-hot), var(--accent));
+  box-shadow:0 8px 18px rgba(255,106,31,.4), 0 0 0 3px rgba(10,11,14,.4);
+}
+
+.steel-hub-card-body{ padding:1.7rem 1.8rem 1.9rem; display:flex; flex-direction:column; flex:1; }
+.steel-hub-card-body h3{ font-size:1.22rem; margin-bottom:.6rem; }
+.steel-hub-card-body p{ color:var(--ink-soft); font-size:.92rem; line-height:1.62; margin-bottom:1.2rem; }
+
+.steel-hub-subs{ display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.4rem; }
+.steel-hub-sub{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700; color:var(--accent-ink);
+  background:var(--surface-2); border:1px solid var(--border); border-radius:2rem;
+  padding:.42rem .75rem .42rem .6rem;
+  transition:border-color .3s ease, background .3s ease;
+}
+.steel-hub-card:hover .steel-hub-sub{ border-color:var(--accent); background:rgba(255,106,31,.1); }
+.steel-hub-sub svg{ width:12px; height:12px; flex-shrink:0; }
+
+.steel-hub-link{
+  font-family:var(--font-mono); font-size:.82rem; font-weight:700; color:var(--accent-ink);
+  display:inline-flex; align-items:center; gap:.4rem; margin-top:auto;
+  transition:transform .3s cubic-bezier(.16,.84,.44,1), color .3s ease;
+}
+.steel-hub-card:hover .steel-hub-link{ transform:translateX(5px); color:var(--accent-hot); }
+
+/* closing card spans full width with a horizontal split, instead of sitting
+   alone beside empty space as the odd one out in the 2-col grid */
+@media(min-width:861px){
+  .steel-hub-card:last-child{ grid-column:1 / -1; flex-direction:row; }
+  .steel-hub-card:last-child .steel-hub-card-photo-wrap{ width:38%; aspect-ratio:auto; }
+  .steel-hub-card:last-child .steel-hub-card-body{ justify-content:center; }
+  .steel-hub-card:last-child .steel-hub-link{ margin-top:.4rem; }
+}
+
 /* Extracted inline styles */
 .products-il-1 { text-align:center; }
 .products-il-2 { max-width:26ch; }
